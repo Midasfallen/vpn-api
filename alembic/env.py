@@ -7,15 +7,13 @@ import os
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
-try:
-    from vpn_api import database
-    from vpn_api.database import Base
-    from vpn_api import models
-except Exception:
-    # Fallback: try relative imports for older setups
-    import database
-    from database import Base
-    import models
+
+# Import application metadata using package-qualified imports so static analyzers
+# (Pylance) can resolve symbols. Keep sys.path updated above to allow alembic
+# runtime to import the package when invoked from the repo root.
+from vpn_api import database
+from vpn_api.database import Base
+from vpn_api import models
 
 config = context.config
 fileConfig(config.config_file_name)
