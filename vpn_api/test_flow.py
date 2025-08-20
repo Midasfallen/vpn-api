@@ -1,32 +1,34 @@
-import requests
-import json
-base = 'http://127.0.0.1:8000'
+from fastapi.testclient import TestClient
+import os, sys
+# make sure project root is on sys.path so `vpn_api` package imports correctly during tests
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from vpn_api.main import app
 
-def pretty(r):
-    try:
-        return json.dumps(r.json(), ensure_ascii=False)
-    except Exception:
-        return r.text
 
-print('registering user...')
-r = requests.post(base+'/auth/register', json={'email':'test@example.com','password':'secret'})
-print('status', r.status_code, pretty(r))
+def test_basic_flow():
+    os.environ.setdefault("SECRET_KEY", "test-secret")
+    client = TestClient(app)
 
-print('logging in...')
-r = requests.post(base+'/auth/login', json={'email':'test@example.com','password':'secret'})
-print('status', r.status_code, pretty(r))
+    # register
+    r = client.post('/auth/register', json={'email': 'test@example.com', 'password': 'secretpass'})
+    assert r.status_code in (200, 201)
 
-if r.status_code==200:
+    # login
+    r = client.post('/auth/login', json={'email': 'test@example.com', 'password': 'secretpass'})
+    assert r.status_code == 200
     token = r.json().get('access_token')
+    assert token
+
     headers = {'Authorization': f'Bearer {token}'}
-    print('\ncreating tariff...')
-    r2 = requests.post(base+'/tariffs/', json={'id':1,'name':'basic','price':100}, headers=headers)
-    print('tariff create status', r2.status_code, pretty(r2))
-    print('\nassign tariff...')
-    r3 = requests.post(base+f'/auth/assign_tariff?user_id=1', json={'tariff_id':1}, headers=headers)
-    print('assign status', r3.status_code, pretty(r3))
-    print('\nget /auth/me')
-    r4 = requests.get(base+'/auth/me', headers=headers)
-    print('me status', r4.status_code, pretty(r4))
-else:
-    print('login failed, cannot continue')
+
+    # create tariff
+    r2 = client.post('/tariffs/', json={'name': 'basic', 'price': 100}, headers=headers)
+    assert r2.status_code in (200, 201)
+
+    # assign tariff (user is not admin) -> should be forbidden
+    r3 = client.post('/auth/assign_tariff?user_id=1', json={'tariff_id': 1}, headers=headers)
+    assert r3.status_code == 403
+
+    # me (user may still be inactive because only assigning a tariff as admin activates)
+    r4 = client.get('/auth/me', headers=headers)
+    assert r4.status_code in (200, 403)

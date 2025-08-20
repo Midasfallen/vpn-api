@@ -1,8 +1,8 @@
 from fastapi import FastAPI
-import models
-from database import engine
-from auth import router as auth_router
-from tariffs import router as tariffs_router
+from vpn_api import models
+from vpn_api.database import engine
+from vpn_api.auth import router as auth_router
+from vpn_api.tariffs import router as tariffs_router
 
 app = FastAPI(title="VPN Backend")
 

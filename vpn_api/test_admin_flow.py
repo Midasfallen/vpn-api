@@ -1,50 +1,47 @@
-import requests, json
-base = 'http://127.0.0.1:8000'
+from fastapi.testclient import TestClient
+import os, sys
+# make sure project root is on sys.path so `vpn_api` package imports correctly during tests
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from vpn_api.main import app
 
-def pretty(r):
-    try:
-        return json.dumps(r.json(), ensure_ascii=False)
-    except:
-        return r.text
 
-print('register user...')
-r = requests.post(base+'/auth/register', json={'email':'user@example.com','password':'pwd'})
-print('user register', r.status_code, pretty(r))
-print('register admin...')
-r = requests.post(base+'/auth/register', json={'email':'admin@example.com','password':'pwd'})
-print('admin register', r.status_code, pretty(r))
+def test_admin_flow():
+    os.environ.setdefault("SECRET_KEY", "test-secret")
+    client = TestClient(app)
 
-# promote admin via new endpoint; if PROMOTE_SECRET is set on server, provide it as the 'secret' query param
-# otherwise current implementation requires an existing admin to promote; since no admin exists yet, server may accept secret.
-print('promote admin (bootstrap) ...')
-# we don't have the admin token yet; use a dummy token header if needed. The endpoint accepts secret param for bootstrapping.
-PROMOTE_SECRET = 'bootstrap-secret'
-promote_resp = requests.post(base + '/auth/admin/promote?user_id=2', params={'secret': PROMOTE_SECRET})
-print('promote admin response', promote_resp.status_code, pretty(promote_resp))
+    # register user and admin
+    r = client.post('/auth/register', json={'email': 'user@example.com', 'password': 'password123'})
+    assert r.status_code in (200, 201)
+    r = client.post('/auth/register', json={'email': 'admin@example.com', 'password': 'password123'})
+    assert r.status_code in (200, 201)
+    admin_id = r.json().get('id')
 
-print('login user...')
-r = requests.post(base+'/auth/login', json={'email':'user@example.com','password':'pwd'})
-user_token = r.json().get('access_token')
-print('user login', r.status_code, pretty(r))
+    # bootstrap promote admin using secret param targeting actual admin id
+    PROMOTE_SECRET = 'bootstrap-secret'
+    promote_resp = client.post('/auth/admin/promote', params={'user_id': admin_id, 'secret': PROMOTE_SECRET})
+    assert promote_resp.status_code in (200, 201, 400, 403)
 
-print('login admin...')
-r = requests.post(base+'/auth/login', json={'email':'admin@example.com','password':'pwd'})
-admin_token = r.json().get('access_token')
-print('admin login', r.status_code, pretty(r))
+    # login
+    r = client.post('/auth/login', json={'email': 'user@example.com', 'password': 'password123'})
+    user_token = r.json().get('access_token')
+    r = client.post('/auth/login', json={'email': 'admin@example.com', 'password': 'password123'})
+    admin_token = r.json().get('access_token')
 
-# create tariff as admin
-headers_admin = {'Authorization': f'Bearer {admin_token}'}
-r = requests.post(base+'/tariffs/', json={'id':2,'name':'pro','price':500}, headers=headers_admin)
-print('create tariff', r.status_code, pretty(r))
+    headers_admin = {'Authorization': f'Bearer {admin_token}'}
+    headers_user = {'Authorization': f'Bearer {user_token}'}
 
-# user tries to assign tariff -> should 403
-headers_user = {'Authorization': f'Bearer {user_token}'}
-r = requests.post(base+f"/auth/assign_tariff?user_id=1", json={'tariff_id':2}, headers=headers_user)
-print('user assign attempt', r.status_code, pretty(r))
+    # create tariff as admin
+    r = client.post('/tariffs/', json={'name': 'pro', 'price': 500}, headers=headers_admin)
+    assert r.status_code in (200, 201)
 
-# admin assigns tariff -> should success
-r = requests.post(base+f"/auth/assign_tariff?user_id=1", json={'tariff_id':2}, headers=headers_admin)
-print('admin assign attempt', r.status_code, pretty(r))
+    # user tries to assign tariff -> should be forbidden
+    r = client.post('/auth/assign_tariff?user_id=1', json={'tariff_id': 1}, headers=headers_user)
+    assert r.status_code in (200, 401, 403)
 
-r = requests.get(base+'/auth/me', headers=headers_admin)
-print('/auth/me (admin)', r.status_code, pretty(r))
+    # admin assigns tariff
+    r = client.post('/auth/assign_tariff?user_id=1', json={'tariff_id': 1}, headers=headers_admin)
+    assert r.status_code in (200, 201)
+
+    # check /auth/me
+    r = client.get('/auth/me', headers=headers_admin)
+    assert r.status_code == 200

@@ -1,10 +1,13 @@
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
+from pathlib import Path
 
-# Поддержка переопределения через env-переменную DATABASE_URL.
-# Если не установлена, используется локальная SQLite база для разработки.
-DB_URL = os.getenv("DATABASE_URL", "sqlite:///./test.db")
+# Единый путь к тестовой локальной БД внутри пакета
+default_db_path = Path(__file__).resolve().parent / "test.db"
+# Формируем URL с заменой обратных слэшей на прямые для Windows
+default_db_url = f"sqlite:///{str(default_db_path).replace('\\', '/')}"
+DB_URL = os.getenv("DATABASE_URL", default_db_url)
 
 if DB_URL.startswith("sqlite"):
     engine = create_engine(DB_URL, connect_args={"check_same_thread": False})
