@@ -18,6 +18,7 @@ ALGORITHM = os.getenv("ALGORITHM", "HS256")
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "60"))
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
+PROMOTE_SECRET = os.getenv("PROMOTE_SECRET", "")
 
 
 def get_password_hash(password):
@@ -84,15 +85,14 @@ def me(current_user: models.User = Depends(get_current_user)):
 
 
 @router.post("/assign_tariff")
-def assign_tariff(user_id: int, assign: schemas.AssignTariff, db: Session = Depends(get_db)):
-    # простая логика привязки тарифа
-    from sqlalchemy.orm import Session as _Session
+def assign_tariff(user_id: int, assign: schemas.AssignTariff, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
+    # проверка прав: только админ может назначать тарифы
+    if not getattr(current_user, "is_admin", False):
+        raise HTTPException(status_code=403, detail="Admin privileges required")
+
     db_user = db.query(models.User).filter(models.User.id == user_id).first()
     if not db_user:
         raise HTTPException(status_code=404, detail="User not found")
-    # только админ может назначать тарифы
-    # ожидается, что текущий вызов выполняется от имени админа; для простоты проверки можно
-    # расширить функцию подписанием токена с is_admin или передавать текущего пользователя.
     db_tariff = db.query(models.Tariff).filter(models.Tariff.id == assign.tariff_id).first()
     if not db_tariff:
         raise HTTPException(status_code=404, detail="Tariff not found")
@@ -103,3 +103,25 @@ def assign_tariff(user_id: int, assign: schemas.AssignTariff, db: Session = Depe
     db.commit()
     db.refresh(user_tariff)
     return {"msg": "tariff assigned", "user_id": user_id, "tariff_id": assign.tariff_id}
+
+
+@router.post("/admin/promote")
+def promote_user(user_id: int, secret: str = None, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
+    """Promote a user to admin.
+
+    If PROMOTE_SECRET is set in env and matches provided secret, anyone with a valid token can promote (bootstrap).
+    Otherwise only existing admins can promote new admins.
+    """
+    # allow bootstrap via secret
+    if PROMOTE_SECRET and secret == PROMOTE_SECRET:
+        pass
+    else:
+        if not getattr(current_user, "is_admin", False):
+            raise HTTPException(status_code=403, detail="Admin privileges required to promote")
+
+    db_user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    db_user.is_admin = True
+    db.commit()
+    return {"msg": "user promoted", "user_id": user_id}
