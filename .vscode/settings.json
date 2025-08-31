@@ -1,0 +1,8 @@
+{
+  "python.analysis.extraPaths": [
+    "./vpn_api"
+  ],
+  "python.autoComplete.extraPaths": [
+    "./vpn_api"
+  ]
+}
