@@ -271,3 +271,5 @@ uvicorn vpn_api.main:app --reload
 - alembic/env.py и alembic.ini — корректный sqlalchemy.url
 - SECRET_KEY и PROMOTE_SECRET в окружении сервера
 - Скрипты для приёма webhook и добавления peer в WireGuard
+
+Продолжение следует
