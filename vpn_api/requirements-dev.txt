@@ -1,3 +1,5 @@
 pytest
 httpx
 coverage
+pytest-cov
+junit-xml
