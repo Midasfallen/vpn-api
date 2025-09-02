@@ -5,3 +5,4 @@ pydantic[email]
 passlib[bcrypt]
 python-jose[cryptography]
 alembic
+httpx
