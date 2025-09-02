@@ -36,3 +36,33 @@ jobs:
         with:
           name: test-reports
           path: reports
+      - name: Post coverage to PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const path = 'reports/coverage.xml';
+            if (!fs.existsSync(path)) {
+              core.info('coverage report not found');
+              return;
+            }
+            const xml = fs.readFileSync(path, 'utf8');
+            const m = xml.match(/line-rate="([\d.]+)"/);
+            const pct = m ? (parseFloat(m[1]) * 100).toFixed(1) : 'n/a';
+            const body = `**Coverage**: ${pct}%\n\nArtifacts: see workflow run artifacts.`;
+            const pr = context.payload.pull_request;
+            if (!pr) {
+              core.info('no pull_request payload');
+              return;
+            }
+            const issue_number = pr.number;
+            const marker = '<!-- coverage-comment -->';
+            const full = marker + '\n' + body;
+            const { data: comments } = await github.rest.issues.listComments({ owner: context.repo.owner, repo: context.repo.repo, issue_number });
+            const existing = comments.find(c => c.body && c.body.startsWith(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({ owner: context.repo.owner, repo: context.repo.repo, comment_id: existing.id, body: full });
+            } else {
+              await github.rest.issues.createComment({ owner: context.repo.owner, repo: context.repo.repo, issue_number, body: full });
+            }
