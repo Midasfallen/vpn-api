@@ -5,8 +5,8 @@ from pathlib import Path
 
 # Единый путь к тестовой локальной БД внутри пакета
 default_db_path = Path(__file__).resolve().parent / "test.db"
-# Формируем URL с заменой обратных слэшей на прямые для Windows
-default_db_url = f"sqlite:///{str(default_db_path).replace('\\', '/')}"
+# Формируем URL в POSIX-формате для кроссплатформенности
+default_db_url = f"sqlite:///{default_db_path.as_posix()}"
 DB_URL = os.getenv("DATABASE_URL", default_db_url)
 
 if DB_URL.startswith("sqlite"):
