@@ -30,7 +30,7 @@ jobs:
           pip install -r vpn_api/requirements-dev.txt
       - name: Run tests
         run: |
-          pytest -q --junitxml=reports/junit.xml --cov=vpn_api --cov-report=xml:reports/coverage.xml
+          pytest -q --junitxml=reports/junit.xml --cov=vpn_api --cov-report=xml:reports/coverage.xml --cov-fail-under=80
       - name: Upload test reports
         uses: actions/upload-artifact@v4
         with:
