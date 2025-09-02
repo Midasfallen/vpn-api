@@ -8,12 +8,21 @@ on:
 
 jobs:
   test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12']
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Debug runner environment
+        run: |
+          python --version
+          pip -V
+          python -m pip list --format=columns
       - name: Cache pip
         uses: actions/cache@v4
         with:
@@ -43,16 +52,16 @@ jobs:
             const fs = require('fs');
             const path = 'reports/coverage.xml';
             if (!fs.existsSync(path)) {
-              core.info('coverage report not found');
+              console.log('coverage report not found');
               return;
             }
             const xml = fs.readFileSync(path, 'utf8');
-            const m = xml.match(/line-rate="([\d.]+)"/);
+            const m = xml.match(/line-rate="([\\d.]+)"/);
             const pct = m ? (parseFloat(m[1]) * 100).toFixed(1) : 'n/a';
             const body = `**Coverage**: ${pct}%\n\nArtifacts: see workflow run artifacts.`;
             const pr = context.payload.pull_request;
             if (!pr) {
-              core.info('no pull_request payload');
+              console.log('no pull_request payload');
               return;
             }
             const issue_number = pr.number;
