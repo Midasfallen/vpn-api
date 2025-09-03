@@ -10,3 +10,9 @@ psycopg2-binary==2.9.7
 
 # Needed for PostgreSQL connections in CI (used by alembic / SQLAlchemy)
 psycopg2-binary==2.9.7
+
+# Explicit pins to mitigate vulnerabilities found by Trivy scan
+# - setuptools upgrade to receive security fixes
+# - starlette bumped to fix DoS vulnerabilities affecting Starlette/FastAPI
+setuptools>=78.1.1
+starlette>=0.40.0
