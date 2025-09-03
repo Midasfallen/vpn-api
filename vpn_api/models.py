@@ -1,9 +1,19 @@
-from sqlalchemy import (
-    Column, Integer, String, DateTime, ForeignKey, Boolean, Numeric, Enum, UniqueConstraint
-)
-from sqlalchemy.sql import func
-from sqlalchemy.orm import relationship
 import enum
+
+from sqlalchemy import (
+    Boolean,
+    Column,
+    DateTime,
+    Enum,
+    ForeignKey,
+    Integer,
+    Numeric,
+    String,
+    UniqueConstraint,
+)
+from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
+
 from vpn_api.database import Base
 
 
@@ -56,8 +66,12 @@ class UserTariff(Base):
     )
 
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
-    tariff_id = Column(Integer, ForeignKey("tariffs.id", ondelete="RESTRICT"), nullable=False, index=True)
+    user_id = Column(
+        Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True
+    )
+    tariff_id = Column(
+        Integer, ForeignKey("tariffs.id", ondelete="RESTRICT"), nullable=False, index=True
+    )
     started_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     ended_at = Column(DateTime(timezone=True), nullable=True)
     status = Column(String, nullable=False, default="active")
@@ -70,7 +84,9 @@ class VpnPeer(Base):
     __tablename__ = "vpn_peers"
 
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    user_id = Column(
+        Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True
+    )
     wg_private_key = Column(String, nullable=False)
     wg_public_key = Column(String, nullable=False, unique=True)
     wg_ip = Column(String, nullable=False, unique=True)
@@ -85,7 +101,9 @@ class Payment(Base):
     __tablename__ = "payments"
 
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id", ondelete="SET NULL"), nullable=True, index=True)
+    user_id = Column(
+        Integer, ForeignKey("users.id", ondelete="SET NULL"), nullable=True, index=True
+    )
     amount = Column(Numeric(10, 2), nullable=False)
     currency = Column(String(8), nullable=False, default="USD")
     status = Column(Enum(PaymentStatus), default=PaymentStatus.pending, nullable=False)

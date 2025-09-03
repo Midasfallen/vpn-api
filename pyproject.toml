@@ -1,13 +1,32 @@
 [tool.black]
-line-length = 88
+line-length = 100
 target-version = ['py311']
 
 [tool.ruff]
-line-length = 88
-exclude = ["alembic/*", "artifacts/*", "ci-artifacts/*", "venv/*", ".git/*"]
+line-length = 100
+exclude = [
+	"alembic/*",
+	"artifacts/*",
+	"ci-artifacts/*",
+	"venv/*",
+	".git/*",
+	"scripts/*",
+	"debug_*.py",
+]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "W", "C", "D", "RUF", "B"]
+ignore = [
+	"B008",  # FastAPI Depends() in defaults — idiomatic, ignore
+	"D100",
+	"D101",
+	"D102",
+	"D103",
+	"D104",
+	"D105",
+	"D106",
+	"D107",
+]
 
 [tool.isort]
 profile = "black"

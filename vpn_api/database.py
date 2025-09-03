@@ -1,7 +1,8 @@
 import os
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
 from pathlib import Path
+
+from sqlalchemy import create_engine
+from sqlalchemy.orm import declarative_base, sessionmaker
 
 # Единый путь к тестовой локальной БД внутри пакета
 default_db_path = Path(__file__).resolve().parent / "test.db"
@@ -25,4 +26,3 @@ def get_db():
         yield db
     finally:
         db.close()
-        

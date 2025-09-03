@@ -1,18 +1,25 @@
-from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.exc import IntegrityError
-from fastapi.security import OAuth2PasswordBearer
-from sqlalchemy.orm import Session
-from passlib.context import CryptContext
-from jose import jwt, JWTError
+"""Authentication and user management endpoints.
+
+Contains registration, login, user lookup and admin utilities. This module
+is exercised by unit and integration tests.
+"""
+
+import os
 from datetime import datetime, timedelta
+from typing import Optional
+
+from fastapi import APIRouter, Depends, HTTPException
+from fastapi.security import OAuth2PasswordBearer
+from jose import JWTError, jwt
+from passlib.context import CryptContext
+from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import Session
 
 from vpn_api import models, schemas
 from vpn_api.database import get_db
 
 router = APIRouter()
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-import os
 
 
 SECRET_KEY = os.getenv("SECRET_KEY")
@@ -27,14 +34,14 @@ oauth2_scheme_optional = OAuth2PasswordBearer(tokenUrl="/auth/login", auto_error
 PROMOTE_SECRET = os.getenv("PROMOTE_SECRET", "")
 
 
-
 def validate_password(password: str):
     if len(password) < 8:
         raise HTTPException(status_code=400, detail="Password must be at least 8 characters")
     # Можно добавить проверки на сложность
     return True
 
-def get_password_hash(password):
+
+def get_password_hash(password: str):
     validate_password(password)
     return pwd_context.hash(password)
 
@@ -43,7 +50,7 @@ def verify_password(plain, hashed):
     return pwd_context.verify(plain, hashed)
 
 
-def create_access_token(data: dict, expires_delta: timedelta = None):
+def create_access_token(data: dict, expires_delta: timedelta | None = None):
     to_encode = data.copy()
     expire = datetime.utcnow() + (expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
     to_encode.update({"exp": expire})
@@ -62,9 +69,9 @@ def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db.add(new_user)
     try:
         db.commit()
-    except IntegrityError:
+    except IntegrityError as err:
         db.rollback()
-        raise HTTPException(status_code=400, detail="User already exists or DB error")
+        raise HTTPException(status_code=400, detail="User already exists or DB error") from err
     db.refresh(new_user)
     return new_user
 
@@ -89,8 +96,8 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
         email: str = payload.get("sub")
         if email is None:
             raise credentials_exception
-    except JWTError:
-        raise credentials_exception
+    except JWTError as err:
+        raise credentials_exception from err
     user = get_user_by_email(db, email)
     if user is None:
         raise credentials_exception
@@ -104,7 +111,9 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     return user
 
 
-def get_current_user_optional(token: str | None = Depends(oauth2_scheme_optional), db: Session = Depends(get_db)):
+def get_current_user_optional(
+    token: str | None = Depends(oauth2_scheme_optional), db: Session = Depends(get_db)
+):
     """Return user if token provided and valid, otherwise return None."""
     if not token:
         return None
@@ -125,7 +134,12 @@ def me(current_user: models.User = Depends(get_current_user)):
 
 
 @router.post("/assign_tariff")
-def assign_tariff(user_id: int, assign: schemas.AssignTariff, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
+def assign_tariff(
+    user_id: int,
+    assign: schemas.AssignTariff,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user),
+):
     # проверка прав: только админ может назначать тарифы
     if not getattr(current_user, "is_admin", False):
         raise HTTPException(status_code=403, detail="Admin privileges required")
@@ -137,7 +151,9 @@ def assign_tariff(user_id: int, assign: schemas.AssignTariff, db: Session = Depe
     if not db_tariff:
         raise HTTPException(status_code=404, detail="Tariff not found")
     # Проверка: не назначен ли уже этот тариф
-    existing = db.query(models.UserTariff).filter_by(user_id=user_id, tariff_id=assign.tariff_id).first()
+    existing = (
+        db.query(models.UserTariff).filter_by(user_id=user_id, tariff_id=assign.tariff_id).first()
+    )
     if existing:
         raise HTTPException(status_code=400, detail="Tariff already assigned to user")
     user_tariff = models.UserTariff(user_id=user_id, tariff_id=assign.tariff_id)
@@ -150,11 +166,16 @@ def assign_tariff(user_id: int, assign: schemas.AssignTariff, db: Session = Depe
 
 
 @router.post("/admin/promote")
-def promote_user(user_id: int, secret: str = None, db: Session = Depends(get_db), current_user: models.User | None = Depends(get_current_user_optional)):
+def promote_user(
+    user_id: int,
+    secret: Optional[str] = None,
+    db: Session = Depends(get_db),
+    current_user: models.User | None = Depends(get_current_user_optional),
+):
     """Promote a user to admin.
 
-    Если PROMOTE_SECRET задан и совпадает с secret, разрешить только если пользователь не админ (bootstrap).
-    В остальных случаях — только админ может промоутить.
+    If PROMOTE_SECRET matches the provided secret, allow bootstrap promotion.
+    Otherwise only an existing admin may promote users.
     """
     if PROMOTE_SECRET and secret == PROMOTE_SECRET:
         # If the correct PROMOTE_SECRET is provided, allow promotion.

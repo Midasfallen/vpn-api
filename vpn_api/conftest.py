@@ -1,4 +1,5 @@
-import os, sys
+import os
+import sys
 import tempfile
 from pathlib import Path
 
@@ -8,7 +9,7 @@ os.environ.setdefault("SECRET_KEY", "test-secret")
 os.environ.setdefault("PROMOTE_SECRET", "bootstrap-secret")
 
 # Ensure project package is importable when pytest changes cwd
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 # Use an isolated temporary sqlite DB for tests to avoid conflicts with developer DB files.
 tmp_db = Path(tempfile.gettempdir()) / f"vpn_api_test_{os.getpid()}.db"
@@ -18,7 +19,7 @@ db_url = f"sqlite:///{tmp_db.as_posix()}"
 os.environ.setdefault("DATABASE_URL", db_url)
 # remove any stale DB file to start clean
 try:
-	if tmp_db.exists():
-		tmp_db.unlink()
+    if tmp_db.exists():
+        tmp_db.unlink()
 except Exception:
-	pass
+    pass

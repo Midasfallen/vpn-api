@@ -1,11 +1,12 @@
-
 import os
+
 os.environ["SECRET_KEY"] = "testsecretkey"
 import pytest
 from fastapi.testclient import TestClient
 from main import app
 
 client = TestClient(app)
+
 
 def test_register_and_login():
     email = "unituser@example.com"
@@ -18,6 +19,7 @@ def test_register_and_login():
     assert r.status_code == 200
     token = r.json()["access_token"]
     assert token
+
 
 def test_tariff_crud():
     # Логин админа (должен быть создан заранее)
