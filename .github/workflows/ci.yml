@@ -28,7 +28,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('vpn_api/requirements.txt','vpn_api/requirements-dev.txt') }}
+          key: ${{ runner.os }}-pip-${{ matrix.python.version }}-${{ hashFiles('vpn_api/requirements.txt','vpn_api/requirements-dev.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
 
@@ -58,7 +58,7 @@ jobs:
       - name: Upload test reports
         uses: actions/upload-artifact@v4
         with:
-          name: test-reports-${{ matrix.python-version }}
+          name: test-reports-${{ matrix.python.version }}
           path: reports
       - name: Post coverage to PR
         if: github.event_name == 'pull_request'
