@@ -48,23 +48,9 @@ def upgrade():
             "uix_user_tariff_start", ["user_id", "tariff_id", "started_at"]
         )
 
+    # Add google_id; other user columns (status, is_admin, created_at) were
+    # already created in the initial migration and must not be re-added here.
     op.add_column("users", sa.Column("google_id", sa.String(), nullable=True))
-    op.add_column(
-        "users", sa.Column("status", sa.String(), nullable=False, server_default="pending")
-    )
-    op.add_column(
-        "users",
-        sa.Column("is_admin", sa.Boolean(), nullable=False, server_default=sa.text("false")),
-    )
-    op.add_column(
-        "users",
-        sa.Column(
-            "created_at",
-            sa.DateTime(timezone=True),
-            server_default=sa.text("NOW()"),
-            nullable=False,
-        ),
-    )
 
     op.create_table(
         "vpn_peers",
