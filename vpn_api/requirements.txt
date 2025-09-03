@@ -6,3 +6,7 @@ passlib[bcrypt]==1.7.4
 python-jose[cryptography]==3.5.0
 alembic==1.16.5
 httpx==0.28.1
+psycopg2-binary==2.9.7
+
+# Needed for PostgreSQL connections in CI (used by alembic / SQLAlchemy)
+psycopg2-binary==2.9.7
