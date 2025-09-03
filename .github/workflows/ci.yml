@@ -8,6 +8,7 @@ on:
 
 jobs:
   test:
+    name: test (matrix)
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -74,7 +75,49 @@ jobs:
             } else {
               await github.rest.issues.createComment({ owner: context.repo.owner, repo: context.repo.repo, issue_number, body: full });
             }
-              await github.rest.issues.updateComment({ owner: context.repo.owner, repo: context.repo.repo, comment_id: existing.id, body: full });
-            } else {
-              await github.rest.issues.createComment({ owner: context.repo.owner, repo: context.repo.repo, issue_number, body: full });
-            }
+
+  integration:
+    name: integration (postgres)
+    needs: test
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: vpn
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wait for Postgres
+        run: |
+          for i in {1..30}; do
+            pg_isready -h localhost -p 5432 -U postgres && exit 0 || sleep 1;
+          done
+          echo "Postgres did not become available" && exit 1
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r vpn_api/requirements.txt
+          pip install -r vpn_api/requirements-dev.txt
+      - name: Apply migrations
+        env:
+          DATABASE_URL: postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/vpn
+        run: |
+          alembic upgrade head
+      - name: Run integration tests
+        env:
+          DATABASE_URL: postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/vpn
+        run: |
+          pytest -q vpn_api/test_flow.py::test_basic_flow vpn_api/test_payments.py::test_payments_crud_flow vpn_api/test_peers.py::test_peers_crud_flow vpn_api/test_admin_flow.py::test_admin_flow
