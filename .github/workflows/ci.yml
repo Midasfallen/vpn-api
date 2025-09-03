@@ -37,9 +37,24 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r vpn_api/requirements.txt
           pip install -r vpn_api/requirements-dev.txt
+      - name: Prepare reports dir
+        run: |
+          mkdir -p reports
+
       - name: Run tests
         run: |
           pytest -q --junitxml=reports/junit.xml --cov=vpn_api --cov-report=xml:reports/coverage.xml --cov-fail-under=80
+
+      - name: Print coverage percent
+        if: always()
+        run: |
+          if [ -f reports/coverage.xml ]; then
+            pct=$(grep -o 'line-rate="[0-9.]*"' reports/coverage.xml | sed -E 's/line-rate="([0-9.]+)"/\1/' | head -n1)
+            pctn=$(python -c "import sys; v=float(sys.argv[1]); print(f'{v*100:.2f}%')" "$pct")
+            echo "Coverage: $pctn"
+          else
+            echo "coverage report not found"
+          fi
       - name: Upload test reports
         uses: actions/upload-artifact@v4
         with:
@@ -98,7 +113,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: Wait for Postgres
         run: |
-          for i in {1..30}; do
+          # ensure pg_isready is available
+          sudo apt-get update && sudo apt-get install -y postgresql-client
+          for i in {1..60}; do
             pg_isready -h localhost -p 5432 -U postgres && exit 0 || sleep 1;
           done
           echo "Postgres did not become available" && exit 1
@@ -115,7 +132,7 @@ jobs:
         env:
           DATABASE_URL: postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/vpn
         run: |
-          alembic upgrade head
+          alembic -c alembic.ini upgrade head
       - name: Run integration tests
         env:
           DATABASE_URL: postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/vpn
