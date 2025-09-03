@@ -20,8 +20,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install ruff black isort pre-commit
       - name: Run ruff
-        run: ruff check .
+        run: |
+          ruff check .
       - name: Run black (check)
-        run: black --check .
+        run: |
+          black --check .
       - name: Run isort (check)
-        run: isort --check-only .
+        run: |
+          isort --check-only .
