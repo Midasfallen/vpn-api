@@ -26,11 +26,7 @@ jobs:
           push: false
           tags: vpn-api:local
 
-      - name: Scan image with Trivy
-        uses: aquasecurity/trivy-action@v2
-        with:
-          image-ref: vpn-api:local
-          format: table
-          exit-code: '1'
-          vuln-type: 'os,library'
-          ignore-unfixed: false
+      - name: Scan image with Trivy (docker run)
+        run: |
+          # pull the official trivy image and scan the locally built image
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasecurity/trivy:0.44.0 image --format table --exit-code 1 --vuln-type os,library vpn-api:local
