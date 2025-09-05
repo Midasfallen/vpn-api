@@ -1,4 +1,4 @@
-fastapi==0.111.1
+fastapi>=0.111.1
 uvicorn[standard]==0.29.0
 SQLAlchemy==2.0.43
 pydantic[email]==2.11.3
@@ -14,3 +14,5 @@ psycopg2-binary==2.9.7
 # Explicit pins to mitigate vulnerabilities found by Trivy scan
 # - setuptools upgrade to receive security fixes
 setuptools>=78.1.1
+# Allow Starlette to be upgraded (required to address CVE-2024-47874)
+starlette>=0.40.0
