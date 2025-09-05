@@ -48,9 +48,43 @@ jobs:
         run: |
           echo "Attempting backup using pg_dump -- will skip if DATABASE_URL is not postgres"
           case "$DATABASE_URL" in
-            postgresql://*|postgresql+psycopg2://*)
-              echo "Detected Postgres URI, creating backup..."
-              pg_dump --dbname="$DATABASE_URL" -F c -f backup.dump || (echo "pg_dump failed"; exit 1)
+            postgresql://*|postgresql+psycopg2://*|postgres://*)
+              echo "Detected Postgres URI, preparing connection info..."
+              # Normalize SQLAlchemy-style scheme (remove +psycopg2 if present)
+              DBURL_NORMALIZED=$(echo "$DATABASE_URL" | sed -E 's/\+psycopg2//')
+              export DBURL="$DBURL_NORMALIZED"
+
+              # Parse DB URL into libpq connection pieces using Python (safe: do not print password)
+              python - <<'PY' > dbinfo.env
+import os, urllib.parse
+u = os.environ.get('DBURL', '')
+if not u:
+    raise SystemExit(1)
+p = urllib.parse.urlparse(u)
+print(f'PGHOST={p.hostname or ""}')
+print(f'PGPORT={p.port or ""}')
+print(f'PGUSER={p.username or ""}')
+print(f'PGPASSWORD={p.password or ""}')
+print(f'PGDATABASE={(p.path[1:] if p.path else "")}')
+PY
+
+              # Load parsed env (source the file with exported vars)
+              set -a
+              . ./dbinfo.env
+              set +a
+
+              # Basic diagnostics (do not print password)
+              echo "Parsed DB host=$PGHOST port=${PGPORT:-5432} user=$PGUSER database=$PGDATABASE"
+
+              if [ -z "$PGHOST" ]; then
+                echo "Could not parse a host from DATABASE_URL, aborting backup"; exit 1
+              fi
+
+              # Run pg_dump over TCP using parsed fields (export password only for pg_dump)
+              export PGPASSWORD="$PGPASSWORD"
+              pg_dump --host="$PGHOST" --port="${PGPORT:-5432}" --username="$PGUSER" --dbname="$PGDATABASE" -F c -f backup.dump || (echo "pg_dump failed"; exit 1)
+              # unset sensitive env var
+              unset PGPASSWORD
               ;;
             *)
               echo "DATABASE_URL is not Postgres, skipping pg_dump"
@@ -76,3 +110,4 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: |
           alembic -c alembic.ini current
+          
