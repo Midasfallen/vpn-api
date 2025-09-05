@@ -1,0 +1,78 @@
+name: Run migrations
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type YES to confirm running migrations on the remote DB (required)'
+        required: true
+        default: 'NO'
+  push:
+    branches: [ main, master ]
+
+jobs:
+  migrate:
+    name: run alembic migrations
+    runs-on: ubuntu-latest
+  # For manual dispatch require confirm == YES, for push events run automatically
+  # We'll abort early in a step if manual dispatch without confirmation
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Abort if manual dispatch not confirmed
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          if [ "${{ github.event.inputs.confirm }}" != "YES" ]; then
+            echo "Manual dispatch not confirmed. Set 'confirm' to YES to proceed."; exit 1
+          fi
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install system deps (pg client)
+        run: |
+          sudo apt-get update && sudo apt-get install -y postgresql-client
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r vpn_api/requirements.txt
+          pip install -r vpn_api/requirements-dev.txt
+          pip install alembic
+
+      - name: Backup remote Postgres (if using postgres)
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          echo "Attempting backup using pg_dump -- will skip if DATABASE_URL is not postgres"
+          case "$DATABASE_URL" in
+            postgresql://*|postgresql+psycopg2://*)
+              echo "Detected Postgres URI, creating backup..."
+              pg_dump --dbname="$DATABASE_URL" -F c -f backup.dump || (echo "pg_dump failed"; exit 1)
+              ;;
+            *)
+              echo "DATABASE_URL is not Postgres, skipping pg_dump"
+              ;;
+          esac
+
+      - name: Upload DB backup
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: db-backup
+          path: backup.dump
+
+      - name: Run alembic upgrade head
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          echo "Running alembic upgrade head"
+          alembic -c alembic.ini upgrade head
+
+      - name: Show current alembic revision
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          alembic -c alembic.ini current
