@@ -1,0 +1,60 @@
+name: CI & Deploy
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r vpn_api/requirements.txt
+      - name: Run tests
+        run: pytest -q
+
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create DB backup (pg_dump)
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          echo "Installing pg_dump (postgresql-client)"
+          sudo apt-get update && sudo apt-get install -y postgresql-client
+          echo "Creating database backup before deploy"
+          # Use libpq connection string support in pg_dump
+          pg_dump --dbname="${DATABASE_URL}" -Fc -f backup.dump
+          echo "Backup written to backup.dump"
+      - name: Upload DB backup as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pre-deploy-backup
+          path: backup.dump
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.8.1
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+      - name: Rsync files to server
+        run: |
+          rsync -avz --delete --exclude '.git' --exclude 'venv' ./ ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}
+      - name: SSH run migrations on server
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "cd ${{ secrets.DEPLOY_PATH }} && docker compose run --rm -v $(pwd):/app web alembic -c /app/alembic.ini upgrade head || true"
+        env:
+          DOCKER_HOST: unix:///var/run/docker.sock
+      - name: SSH run remote deploy (docker compose)
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "cd ${{ secrets.DEPLOY_PATH }} && docker compose pull || true && docker compose up -d --build"
+        env:
+          DOCKER_HOST: unix:///var/run/docker.sock

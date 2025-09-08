@@ -9,8 +9,13 @@ from vpn_api.tariffs import router as tariffs_router
 
 app = FastAPI(title="VPN Backend")
 
-# Создание таблиц
-models.Base.metadata.create_all(bind=engine)
+# Примечание: не вызываем автоматически models.Base.metadata.create_all при запуске
+# в продакшене — таблицы создаются через Alembic-миграции. Если нужно локально
+# инициализировать sqlite/тестовую БД, установите переменную окружения
+# DEV_INIT_DB=1 перед запуском.
+import os
+if os.getenv("DEV_INIT_DB") == "1":
+    models.Base.metadata.create_all(bind=engine)
 
 # Подключение роутов
 app.include_router(auth_router, prefix="/auth", tags=["auth"])

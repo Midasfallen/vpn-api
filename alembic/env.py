@@ -12,18 +12,28 @@ if project_root not in sys.path:
 # Import application metadata using package-qualified imports so static analyzers
 # (Pylance) can resolve symbols. Keep sys.path updated above to allow alembic
 # runtime to import the package when invoked from the repo root.
-from vpn_api import database
 from vpn_api.database import Base
 from vpn_api import models
+import logging
 
 config = context.config
 fileConfig(config.config_file_name)
+logger = logging.getLogger(__name__)
 target_metadata = Base.metadata
-# If alembic.ini doesn't set sqlalchemy.url, prefer the application's DB_URL so
-# migrations run against the same database used by the app.
-app_db_url = getattr(database, "DB_URL", None)
-if app_db_url and not config.get_main_option("sqlalchemy.url"):
-    config.set_main_option("sqlalchemy.url", app_db_url)
+
+# Prefer an explicit DATABASE_URL environment variable or the value in
+# alembic.ini. Do NOT silently fall back to the application's local
+# test sqlite DB (e.g. vpn_api/test.db) because that can cause migrations
+# to run against a developer database unintentionally.
+env_db_url = os.getenv("DATABASE_URL")
+if env_db_url:
+    config.set_main_option("sqlalchemy.url", env_db_url)
+else:
+    if not config.get_main_option("sqlalchemy.url"):
+        logger.warning(
+            "No DATABASE_URL env var and alembic.ini has no sqlalchemy.url; "
+            "migrations will fail unless a DB URL is provided."
+        )
 
 
 def run_migrations_offline():
