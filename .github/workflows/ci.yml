@@ -43,7 +43,7 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest -q --junitxml=reports/junit.xml --cov=vpn_api --cov-report=xml:reports/coverage.xml --cov-fail-under=80
+          python -m pytest -q --junitxml=reports/junit.xml --cov=vpn_api --cov-report=xml:reports/coverage.xml --cov-fail-under=80
 
       - name: Print coverage percent
         if: always()
@@ -137,4 +137,4 @@ jobs:
         env:
           DATABASE_URL: postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/vpn
         run: |
-          pytest -q vpn_api/test_flow.py::test_basic_flow vpn_api/test_payments.py::test_payments_crud_flow vpn_api/test_peers.py::test_peers_crud_flow vpn_api/test_admin_flow.py::test_admin_flow
+          python -m pytest -q vpn_api/test_flow.py::test_basic_flow vpn_api/test_payments.py::test_payments_crud_flow vpn_api/test_peers.py::test_peers_crud_flow vpn_api/test_admin_flow.py::test_admin_flow
