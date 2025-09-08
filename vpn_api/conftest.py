@@ -17,6 +17,9 @@ tmp_db = Path(tempfile.gettempdir()) / f"vpn_api_test_{os.getpid()}.db"
 db_url = f"sqlite:///{tmp_db.as_posix()}"
 # override DATABASE_URL for the duration of the test session
 os.environ.setdefault("DATABASE_URL", db_url)
+# Ensure local test runs create the schema via models.Base.metadata.create_all()
+# so pytest tests using the app will have tables available without relying on Alembic.
+os.environ.setdefault("DEV_INIT_DB", "1")
 # remove any stale DB file to start clean
 try:
     if tmp_db.exists():

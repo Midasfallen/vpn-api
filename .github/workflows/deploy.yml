@@ -18,6 +18,22 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r vpn_api/requirements.txt
           if [ -f vpn_api/requirements-dev.txt ]; then pip install -r vpn_api/requirements-dev.txt; fi
+      - name: Debug test environment
+        run: |
+          echo "--- python and pytest info ---"
+          python -V || true
+          python -m pip show pytest || true
+          echo "--- env vars ---"
+          python - <<'PY'
+import os
+print('DEV_INIT_DB=', os.environ.get('DEV_INIT_DB'))
+print('DATABASE_URL=', os.environ.get('DATABASE_URL'))
+print('PWD=', os.getcwd())
+PY
+          echo "--- vpn_api dir listing ---"
+          ls -la vpn_api || true
+          echo "--- conftest.py preview ---"
+          sed -n '1,200p' vpn_api/conftest.py || true
       - name: Run tests
         run: pytest -q
 
