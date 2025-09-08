@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+import os
 
 from vpn_api import models
 from vpn_api.auth import router as auth_router
@@ -13,7 +14,6 @@ app = FastAPI(title="VPN Backend")
 # в продакшене — таблицы создаются через Alembic-миграции. Если нужно локально
 # инициализировать sqlite/тестовую БД, установите переменную окружения
 # DEV_INIT_DB=1 перед запуском.
-import os
 if os.getenv("DEV_INIT_DB") == "1":
     models.Base.metadata.create_all(bind=engine)
 
