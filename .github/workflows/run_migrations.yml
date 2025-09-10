@@ -72,9 +72,8 @@ jobs:
               echo "Detected Postgres URI, preparing connection info..."
               DBURL_NORMALIZED=$(echo "$DATABASE_URL" | sed -E 's/\+psycopg2//')
               export DBURL="$DBURL_NORMALIZED"
-              python -c "import os, urllib.parse, sys; u = os.environ.get('DBURL', '');
-if not u: sys.exit(1)
-import urllib.parse as _up; p = _up.urlparse(u); print('PGHOST=' + (p.hostname or '')); print('PGPORT=' + (str(p.port) if p.port else '')); print('PGUSER=' + (p.username or '')); print('PGPASSWORD=' + (p.password or '')); print('PGDATABASE=' + (p.path[1:] if p.path else ''))" > dbinfo.env
+              # Use bundled parser script to avoid YAML multiline issues
+              python parse_db.py > dbinfo.env
               set -a
               . ./dbinfo.env
               set +a
