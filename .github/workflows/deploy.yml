@@ -50,6 +50,18 @@ PY
           echo "Creating database backup before deploy (build job)"
           pg_dump --dbname="${DATABASE_URL}" -Fc -f backup.dump || echo "pg_dump failed"
 
+      - name: Inspect DB backup before upload - build job
+        if: ${{ secrets.DATABASE_URL != '' }}
+        run: |
+          echo "--- ls -la (workspace) ---"
+          ls -la || true
+          echo "--- ls -la (backup.dump) ---"
+          ls -la backup.dump || true
+          echo "--- file type ---"
+          file backup.dump || true
+          echo "--- head of backup.dump (first 256 bytes as hex) ---"
+          if [ -f backup.dump ]; then head -c 256 backup.dump | xxd -p | fold -w 2 | sed 's/.*/& /' | tr -d '\n'; echo; else echo 'backup.dump not found'; fi
+
       - name: Upload DB backup artifact - build job
         if: ${{ secrets.DATABASE_URL != '' }}
         uses: actions/upload-artifact@v4
