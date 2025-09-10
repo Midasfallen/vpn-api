@@ -9,7 +9,6 @@ from fastapi.testclient import TestClient
 
 from vpn_api.main import app
 
-
 # ensure secret present like in conftest
 os.environ.setdefault("SECRET_KEY", "test-secret")
 

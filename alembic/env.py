@@ -1,20 +1,24 @@
-from logging.config import fileConfig
-from sqlalchemy import engine_from_config, pool
-from alembic import context
-import sys
 import os
+import sys
+from logging.config import fileConfig
+
+from sqlalchemy import engine_from_config, pool
+
+from alembic import context
 
 # Ensure project root is on sys.path so package imports work (vpn_api)
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
+import logging
+
+from vpn_api import models
+
 # Import application metadata using package-qualified imports so static analyzers
 # (Pylance) can resolve symbols. Keep sys.path updated above to allow alembic
 # runtime to import the package when invoked from the repo root.
 from vpn_api.database import Base
-from vpn_api import models
-import logging
 
 config = context.config
 fileConfig(config.config_file_name)

@@ -1,9 +1,9 @@
-import sys
 import os
+import sys
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "vpn_api")))
-from database import Base
 import models
+from database import Base
 
 
 def run():

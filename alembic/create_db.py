@@ -1,9 +1,9 @@
-import sys
 import os
+import sys
 from pathlib import Path
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "vpn_api")))
-from database import Base, DB_URL
+from database import DB_URL, Base
 from sqlalchemy import create_engine
 
 

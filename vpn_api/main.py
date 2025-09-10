@@ -1,5 +1,6 @@
-from fastapi import FastAPI
 import os
+
+from fastapi import FastAPI
 
 from vpn_api import models
 from vpn_api.auth import router as auth_router

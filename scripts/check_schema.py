@@ -6,7 +6,6 @@ Run manually during development. Not used in CI.
 import os
 import sqlite3
 
-
 p = os.path.abspath("vpn_api/test.db")
 print("DB:", p)
 

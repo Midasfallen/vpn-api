@@ -8,9 +8,8 @@ import os
 
 from fastapi.testclient import TestClient
 
-from vpn_api.main import app
 from vpn_api.database import SessionLocal
-
+from vpn_api.main import app
 
 os.environ.setdefault("SECRET_KEY", "test-secret")
 os.environ.setdefault("PROMOTE_SECRET", "bootstrap-secret")
