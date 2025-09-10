@@ -3,16 +3,20 @@ FROM python:3.11-slim
 ENV PYTHONUNBUFFERED=1
 WORKDIR /app
 
-# system deps for psycopg2 and build
+# copy requirements first so Docker cache is effective
+COPY vpn_api/requirements.txt /app/requirements.txt
+
+# install system build deps, install python deps, then remove build deps to keep image small
 RUN apt-get update \
-	&& apt-get install -y --no-install-recommends gcc libpq-dev build-essential curl \
-	&& apt-get upgrade -y \
+	&& apt-get install -y --no-install-recommends \
+		gcc \
+		libpq-dev \
+		build-essential \
+		curl \
+	&& pip install --no-cache-dir -r /app/requirements.txt \
+	&& apt-get purge -y --auto-remove gcc build-essential \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
-
-# install python deps
-COPY vpn_api/requirements.txt /app/requirements.txt
-RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # copy project source and alembic config so alembic works inside container
 COPY vpn_api /app/vpn_api
