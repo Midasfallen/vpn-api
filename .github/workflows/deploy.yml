@@ -54,17 +54,19 @@ jobs:
           # run pytest via the interpreter to guarantee the correct executable is used
           python -m pytest -q
       - name: Create DB backup - build job
-        if: ${{ secrets.DATABASE_URL != '' }}
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: |
+          if [ -z "${DATABASE_URL}" ]; then
+            echo "DATABASE_URL not set, skipping backup"
+            exit 0
+          fi
           echo "Installing pg_dump (postgresql-client)"
           sudo apt-get update && sudo apt-get install -y postgresql-client
           echo "Creating database backup before deploy (build job)"
           pg_dump --dbname="${DATABASE_URL}" -Fc -f backup.dump || echo "pg_dump failed"
 
       - name: Inspect DB backup before upload - build job
-        if: ${{ secrets.DATABASE_URL != '' }}
         run: |
           echo "--- ls -la (workspace) ---"
           ls -la || true
@@ -76,7 +78,6 @@ jobs:
           if [ -f backup.dump ]; then head -c 256 backup.dump | xxd -p | fold -w 2 | sed 's/.*/& /' | tr -d '\n'; echo; else echo 'backup.dump not found'; fi
 
       - name: Save DB backup diagnostics to artifact - build job
-        if: ${{ secrets.DATABASE_URL != '' }}
         run: |
           echo "Saving diagnostic output to backup-inspect.txt"
           {
@@ -94,18 +95,18 @@ jobs:
           } > backup-inspect.txt 2>&1 || true
 
       - name: Upload DB backup diagnostics artifact - build job
-        if: ${{ secrets.DATABASE_URL != '' }}
         uses: actions/upload-artifact@v4
         with:
           name: pre-deploy-backup-inspect
           path: backup-inspect.txt
+          if-no-files-found: warn
 
       - name: Upload DB backup artifact - build job
-        if: ${{ secrets.DATABASE_URL != '' }}
         uses: actions/upload-artifact@v4
         with:
           name: pre-deploy-backup
           path: backup.dump
+          if-no-files-found: warn
 
       - name: Post-install diagnostics
         run: |
