@@ -40,6 +40,22 @@ PY
         run: |
           # run pytest via the interpreter to guarantee the correct executable is used
           python -m pytest -q
+      - name: Create DB backup - build job
+        if: ${{ secrets.DATABASE_URL != '' }}
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          echo "Installing pg_dump (postgresql-client)"
+          sudo apt-get update && sudo apt-get install -y postgresql-client
+          echo "Creating database backup before deploy (build job)"
+          pg_dump --dbname="${DATABASE_URL}" -Fc -f backup.dump || echo "pg_dump failed"
+
+      - name: Upload DB backup artifact - build job
+        if: ${{ secrets.DATABASE_URL != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: pre-deploy-backup
+          path: backup.dump
 
       - name: Post-install diagnostics
         run: |
