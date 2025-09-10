@@ -62,6 +62,31 @@ PY
           echo "--- head of backup.dump (first 256 bytes as hex) ---"
           if [ -f backup.dump ]; then head -c 256 backup.dump | xxd -p | fold -w 2 | sed 's/.*/& /' | tr -d '\n'; echo; else echo 'backup.dump not found'; fi
 
+      - name: Save DB backup diagnostics to artifact - build job
+        if: ${{ secrets.DATABASE_URL != '' }}
+        run: |
+          echo "Saving diagnostic output to backup-inspect.txt"
+          {
+            echo "--- python and pytest info ---"
+            python -V || true
+            python -m pip show pytest || true
+            echo "--- ls -la (workspace) ---"
+            ls -la || true
+            echo "--- ls -la (backup.dump) ---"
+            ls -la backup.dump || true
+            echo "--- file type ---"
+            file backup.dump || true
+            echo "--- head of backup.dump (first 256 bytes as hex) ---"
+            if [ -f backup.dump ]; then head -c 256 backup.dump | xxd -p | fold -w 2 | sed 's/.*/& /' | tr -d '\n'; echo; else echo 'backup.dump not found'; fi
+          } > backup-inspect.txt 2>&1 || true
+
+      - name: Upload DB backup diagnostics artifact - build job
+        if: ${{ secrets.DATABASE_URL != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: pre-deploy-backup-inspect
+          path: backup-inspect.txt
+
       - name: Upload DB backup artifact - build job
         if: ${{ secrets.DATABASE_URL != '' }}
         uses: actions/upload-artifact@v4
