@@ -101,6 +101,35 @@ PY
           echo "--- pytest via python -m pytest --version ---"
           python -m pytest --version || true
 
+      - name: Collect and upload diagnostic snapshot (always) - build job
+        if: ${{ always() }}
+        run: |
+          echo "Collecting diagnostic snapshot into snapshot.txt"
+          {
+            echo "--- python and pytest info ---"
+            python -V || true
+            python -m pip show pytest || true
+            echo "--- env vars (partial) ---"
+            python - <<'PY' || true
+import os
+print('DEV_INIT_DB=', os.environ.get('DEV_INIT_DB'))
+print('PWD=', os.getcwd())
+PY
+            echo "--- ls -la (workspace) ---"
+            ls -la || true
+            echo "--- ls -la (backup.dump) ---"
+            ls -la backup.dump || true
+            echo "--- head of backup.dump (first 256 bytes as hex) ---"
+            if [ -f backup.dump ]; then head -c 256 backup.dump | xxd -p | fold -w 2 | sed 's/.*/& /' | tr -d '\n'; echo; else echo 'backup.dump not found'; fi
+          } > snapshot.txt 2>&1 || true
+
+      - name: Upload diagnostic snapshot artifact (always) - build job
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: pre-deploy-backup-inspect
+          path: snapshot.txt
+
   deploy:
     needs: build-and-test
     runs-on: ubuntu-latest
