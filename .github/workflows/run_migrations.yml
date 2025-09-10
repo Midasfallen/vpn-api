@@ -87,13 +87,28 @@ jobs:
               set -a
               . ./dbinfo.env
               set +a
-              echo "Parsed DB host=$PGHOST port=${PGPORT:-5432} user=$PGUSER database=$PGDATABASE"
+              echo "Parsed DB host=$PGHOST port=${PGPORT:-5432} user=$PGUSER database=$PGDATABASE" > pre-deploy-backup-inspect.txt
               if [ -z "$PGHOST" ]; then
-                echo "Could not parse a host from DATABASE_URL, aborting backup"; exit 1
+                echo "Could not parse a host from DATABASE_URL, aborting backup" >> pre-deploy-backup-inspect.txt; exit 1
               fi
               export PGPASSWORD="$PGPASSWORD"
-              # run pg_dump and capture stderr in an inspect file
-              pg_dump --host="$PGHOST" --port="${PGPORT:-5432}" --username="$PGUSER" --dbname="$PGDATABASE" -F c -f backup.dump 2> pre-deploy-backup-inspect.txt || true
+              echo "pg_dump version:" >> pre-deploy-backup-inspect.txt
+              pg_dump --version >> pre-deploy-backup-inspect.txt 2>&1 || true
+              # connectivity check with retries
+              tries=0
+              max=3
+              until pg_isready -h "$PGHOST" -p "${PGPORT:-5432}" -U "$PGUSER" >/dev/null 2>&1 || [ $tries -ge $max ]; do
+                echo "pg_isready failed, retrying ($tries/$max)..." >> pre-deploy-backup-inspect.txt
+                tries=$((tries+1))
+                sleep 5
+              done
+              if ! pg_isready -h "$PGHOST" -p "${PGPORT:-5432}" -U "$PGUSER" >/dev/null 2>&1; then
+                echo "Database not accepting connections after retries" >> pre-deploy-backup-inspect.txt
+                unset PGPASSWORD
+                exit 1
+              fi
+              # run pg_dump verbose to capture messages
+              pg_dump --host="$PGHOST" --port="${PGPORT:-5432}" --username="$PGUSER" --dbname="$PGDATABASE" -F c -f backup.dump -v 2>> pre-deploy-backup-inspect.txt || true
               RC=$?
               echo "pg_dump exit code: $RC" >> pre-deploy-backup-inspect.txt
               if [ ! -s backup.dump ]; then
