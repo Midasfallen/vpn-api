@@ -28,6 +28,16 @@ jobs:
             echo "--- ls -la workspace ---"; ls -la || true
           } > migrations-early-diagnostics.txt 2>&1 || true
 
+      - name: Early run-start diagnostics (always)
+        if: ${{ always() }}
+        run: |
+          echo "run-start: $(date)" > run-start-diagnostics.txt
+          echo "job: migrate" >> run-start-diagnostics.txt
+          echo "github.event_name=${{ github.event_name }}" >> run-start-diagnostics.txt
+          echo "github.ref=${{ github.ref }}" >> run-start-diagnostics.txt
+          echo "Workflow inputs (limited):" >> run-start-diagnostics.txt
+          echo "confirm=${{ github.event.inputs.confirm || '' }}" >> run-start-diagnostics.txt
+
       - name: Upload early migrations diagnostics (always)
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
@@ -82,7 +92,16 @@ jobs:
                 echo "Could not parse a host from DATABASE_URL, aborting backup"; exit 1
               fi
               export PGPASSWORD="$PGPASSWORD"
-              pg_dump --host="$PGHOST" --port="${PGPORT:-5432}" --username="$PGUSER" --dbname="$PGDATABASE" -F c -f backup.dump || (echo "pg_dump failed"; exit 1)
+              # run pg_dump and capture stderr in an inspect file
+              pg_dump --host="$PGHOST" --port="${PGPORT:-5432}" --username="$PGUSER" --dbname="$PGDATABASE" -F c -f backup.dump 2> pre-deploy-backup-inspect.txt || true
+              RC=$?
+              echo "pg_dump exit code: $RC" >> pre-deploy-backup-inspect.txt
+              if [ ! -s backup.dump ]; then
+                echo "Backup file is empty or missing; see pre-deploy-backup-inspect.txt" >&2
+                cat pre-deploy-backup-inspect.txt || true
+                unset PGPASSWORD
+                exit 1
+              fi
               unset PGPASSWORD
               ;;
             *)
@@ -90,12 +109,14 @@ jobs:
               ;;
           esac
 
-      - name: Upload DB backup
-        if: always()
+      - name: Upload DB backup and inspect (always)
+        if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
           name: db-backup
-          path: backup.dump
+          path: |
+            backup.dump
+            pre-deploy-backup-inspect.txt
 
       - name: Run alembic upgrade head
         env:
