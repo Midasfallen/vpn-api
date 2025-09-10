@@ -8,134 +8,105 @@ REST API для управления пользователями и тариф�
 1. Клонируйте репозиторий и создайте виртуальное окружение:
 
 ```powershell
-python -m venv venv
-.\venv\Scripts\Activate.ps1
-pip install -r vpn_api/requirements.txt
-```
+# VPN API — краткая и актуальная инструкция
 
-2. Запустите приложение:
+REST API для управления пользователями, тарифами и WireGuard‑peer'ами на базе FastAPI + SQLAlchemy.
+
+Цель этого README — быстро ввести разработчика в проект, описать как запускать, тестировать и деплоить,
+и зафиксировать важные наблюдения из последней отладки CI/Deploy.
+
+## Быстрый старт (локально)
+
+1) Клонировать и создать виртуальное окружение:
 
 ```powershell
-uvicorn vpn_api.main:app --reload
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip setuptools wheel
+python -m pip install -r vpn_api/requirements.txt
 ```
 
-3. Откройте документацию по адресу http://127.0.0.1:8000/docs
+2) Запустить сервис локально:
 
-## Переменные окружения
-- `SECRET_KEY` — секретный ключ для JWT (обязательно задать в продакшене)
-- `ALGORITHM` — алгоритм шифрования JWT (по умолчанию HS256)
-- `ACCESS_TOKEN_EXPIRE_MINUTES` — время жизни токена (по умолчанию 60)
-- `PROMOTE_SECRET` — секрет для назначения первого админа
-- `DATABASE_URL` — URL базы данных для Alembic/приложения (например, postgresql://user:pass@host:5432/dbname)
+```powershell
+python -m uvicorn vpn_api.main:app --reload
+# API docs: http://127.0.0.1:8000/docs
+```
 
-## Используемые технологии
-- FastAPI
-- SQLAlchemy
-- Pydantic
-- Alembic (миграции)
-- Passlib (bcrypt)
-- python-jose (JWT)
-- wireguard (внешняя интеграция — модуль заготовлен)
+3) Запустить тесты:
+
+```powershell
+python -m pytest -q
+```
+
+Если тесты запускаются в CI, используйте `python -m pytest` (гарантирует корректную загрузку `conftest.py`).
+
+## Важные файлы и примерные локации
+- `vpn_api/main.py` — приложение FastAPI и точка входа. Обратите внимание: создание таблиц `create_all` защищено через `DEV_INIT_DB`.
+- `vpn_api/database.py` — экспортирует `DB_URL`, `engine`, `SessionLocal`, `Base`.
+- `vpn_api/conftest.py` — тестовая настройка: временная SQLite, установка `DATABASE_URL` и `DEV_INIT_DB` для тестов.
+- `alembic/env.py` и `alembic.ini` — конфигурация миграций; env.py использует `vpn_api.database.DB_URL`, если `sqlalchemy.url` не задан.
+- `.github/workflows/ci.yml` и `.github/workflows/deploy.yml` — CI и деплой: смотрите шаги `build-and-test` и `deploy`.
+
+## Миграции
+
+Примеры команд (локально):
+```powershell
+alembic revision --autogenerate -m "msg"
+alembic upgrade head
+alembic downgrade -1
+```
+
+Важно: `alembic/env.py` больше не делает «мягкий» fallback к SQLite — нужно обеспечить `DATABASE_URL` для рабочих запусков.
+
+## CI / Deploy — практические нюансы
+- Workflow `deploy.yml` выполняет `build-and-test` и затем `deploy` (на `main`).
+- Перед деплоем workflow делает `pg_dump` и загружает артефакт `pre-deploy-backup`.
+- В CI были проблемы: иногда `pytest` отсутствовал в PATH (решение: всегда устанавливать dev deps и запускать `python -m pytest`).
+- Полезные диагностические команды (локально/CI):
+  - `python -V` / `python -m pip show pytest`
+  - `echo $DEV_INIT_DB, $DATABASE_URL` (PowerShell) или `echo $ENV_VAR` в bash
+
+Особенности GitHub CLI на Windows PowerShell: не используйте `||`/`&&` в PowerShell 5.1 — в скриптах CI-отладке используйте `$LASTEXITCODE` или запускайте PowerShell 7 (`pwsh`).
+
+## Переменные окружения, обязательные для работы
+- `DATABASE_URL` — обязателен для рабочих запусков
+- `SECRET_KEY`, `PROMOTE_SECRET` — безопасность, требуется в проде
+- SSH‑ключ / `DEPLOY_SSH_PRIVATE_KEY`, `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_PATH` — для `deploy.yml`
+
+## Как получить пред‑деплой бэкап (коротко)
+- Workflow пытается загрузить артефакт `pre-deploy-backup` (имя в `deploy.yml`).
+- Локально/в терминале можно скачать артефакт через `gh`:
+  ```powershell
+  gh api repos/<owner>/<repo>/actions/artifacts --jq '.artifacts[] | {id:.id,name:.name,created_at:.created_at}'
+  gh api repos/<owner>/<repo>/actions/artifacts/<artifact_id>/zip --silent > ./backup.zip
+  Expand-Archive -LiteralPath ./backup.zip -DestinationPath ./backup
+  ```
+
+Если `gh` возвращает `Bad credentials`, выполните `gh auth login --web` и повторите.
+
+## Частые проблемы и как их исправлять
+- "pytest: command not found" в CI — убедитесь, что `requirements-dev.txt` устанавливается и используйте `python -m pytest`.
+- Alembic выполняет миграции не туда — проверьте `DATABASE_URL` и `alembic.ini`.
+- Не сохраняйте приватные WG‑ключи в БД в открытом виде — шифруйте или храните только публичное.
+
+## Короткий план дальнейших действий (приоритеты)
+1. Убедиться, что `deploy` workflow надёжно устанавливает dev‑deps и запускает `python -m pytest` — наблюдать за ближайшим run.
+2. Поднять CI‑проверку pre‑deploy backup: убедиться, что `pg_dump` выполняется и артефакт `pre-deploy-backup` доступен.
+3. Проверить и зафиксировать процесс удалённого выполнения `alembic upgrade head` в `deploy.yml` (логирование, ошибки).
+4. Настроить секреты на сервере/CI: `DATABASE_URL`, `SECRET_KEY`, `PROMOTE_SECRET`, `DEPLOY_SSH_PRIVATE_KEY`.
+5. Добавить/уточнить инструкции по локальной разработке и восстановлению БД в `scripts/` и обновить `conftest.py` при необходимости.
+
+## Куда смотреть в первую очередь
+- `vpn_api/main.py`, `vpn_api/database.py`, `vpn_api/conftest.py`
+- `alembic/env.py`, `alembic/versions/`
+- `.github/workflows/deploy.yml` — шаги бэкапа/загрузки артефакта/ssh
+- `vpn_api/payments.py` и `vpn_api/peers.py` — бизнес‑логика, которая влияет на создание ресурсов
+
 
 ---
+Последнее обновление: 2025-09-10 — содержит наблюдения по CI/Deploy из последних прогонов.
 
-## Техническое описание
-
-Ниже — подробное описание модулей проекта, моделей, API‑эндпоинтов и вспомогательных скриптов. Описание ориентировано на текущую структуру репозитория и реализованный функционал.
-
-### Структура проекта (ключевые файлы)
-- vpn_api/
-  - main.py — создание FastAPI приложения, подключение роутеров и middlewares.
-  - database.py — SQLAlchemy Engine, SessionLocal, Base, и константа DB_URL.
-  - models.py — все ORM‑модели (User, Tariff, UserTariff, VpnPeer, Payment).
-  - schemas.py — Pydantic‑схемы для запросов/ответов (UserCreate, UserOut, TariffCreate, TariffOut, VpnPeerOut, PaymentOut и т.д.).
-  - auth.py — логика регистрации, входа (JWT), получение текущего пользователя, promote admin, валидация пароля.
-  - tariffs.py — CRUD для тарифов, список (с пагинацией), назначение тарифа пользователю.
-  - vpn.py (или peers.py) — создание/удаление VPN‑пира, генерация конфигурации WireGuard, выдача .conf, проверка статуса подключения.
-  - payments.py — создание платежа, webhook обработки уведомлений от Telegram‑бота/провайдера, проверка статуса платежа.
-  - peers.py — маршруты CRUD для vpn_peers (если отдельный модуль).
-  - alembic/ — конфигурация миграций и папка versions с ревизиями.
-  - scripts/check_schema.py — утилита для проверки структуры SQLite тестовой БД.
-  - tests/ или vpn_api/*.py (test_*.py) — набор pytest тестов (TestClient), conftest.py обеспечивает тестовую настройку окружения/БД.
-
-### models.py — описание моделей
-- User
-  - id: Integer, PK
-  - email: String, unique, not null
-  - hashed_password: String
-  - google_id: String, nullable (для Google SignIn)
-  - status: Enum(UserStatus) — pending/active/blocked
-  - is_admin: Boolean
-  - created_at: DateTime(timezone=True)
-  - relationships: tariffs (UserTariff), vpn_peers (VpnPeer), payments (Payment)
-
-- Tariff
-  - id: Integer, PK
-  - name: String, unique, not null
-  - description: String, nullable
-  - duration_days: Integer, default 30
-  - price: Numeric(10,2)
-  - created_at: DateTime(timezone=True)
-  - relationship: user_tariffs
-
-- UserTariff (история тарифов)
-  - id: Integer, PK
-  - user_id: FK -> users.id (ON DELETE CASCADE)
-  - tariff_id: FK -> tariffs.id (ON DELETE RESTRICT)
-  - started_at: DateTime
-  - ended_at: DateTime, nullable
-  - status: String (active/expired/cancelled)
-  - UniqueConstraint на (user_id, tariff_id, started_at) — опционально
-
-- VpnPeer
-  - id: Integer, PK
-  - user_id: FK -> users.id (ON DELETE CASCADE)
-  - wg_private_key: String (секретно — хранение в открытом виде нежелательно для продакшна)
-  - wg_public_key: String, unique
-  - wg_ip: String, unique (e.g. "10.0.0.5/32")
-  - allowed_ips: String, nullable
-  - active: Boolean
-  - created_at: DateTime
-
-- Payment
-  - id: Integer, PK
-  - user_id: FK -> users.id (ON DELETE SET NULL или CASCADE в зависимости от политики)
-  - amount: Numeric(10,2)
-  - currency: String
-  - status: Enum(PaymentStatus) — pending/completed/failed/refunded
-  - provider: String (telegram_stars, crypto, stripe...)
-  - provider_payment_id: String (внешний id для идемпотентности)
-  - created_at: DateTime
-
-### database.py
-- Экспортирует:
-  - DB_URL — строка подключения (используется alembic/env.py при отсутствии sqlalchemy.url в alembic.ini)
-  - engine — SQLAlchemy Engine
-  - SessionLocal — фабрика сессий
-  - Base — declarative_base()
-- Предусмотрено поведение: если используется SQLite для тестов, DB_URL указывает на vpn_api/test.db
-
-### alembic/env.py
-- Подключает project root в sys.path, затем делает пакетные импорты vpn_api.database и vpn_api.models
-- target_metadata = Base.metadata используется для autogenerate
-- Если alembic.ini не содержит sqlalchemy.url, берёт DB_URL из vpn_api.database
-
-Примечание: в рабочем коде env.py поправлен импорт, чтобы Pylance разрешал package imports.
-
-### auth.py — ключевые функции/эндпоинты
-(основная логика авторизации и управления пользователями)
-- register (POST /auth/register)
-  - Валидирует email и пароль (минимальная длина, опционально сложность)
-  - Хеширует пароль (bcrypt via passlib)
-  - Создаёт запись User со статусом pending
-  - Возвращает UserOut без поля hashed_password
-  - Обрабатывает IntegrityError при дублировании email
-
-- login (POST /auth/login)
-  - Принимает email и пароль
-  - Проверяет хеш пароля
-  - Выдаёт JWT access token (и опционально refresh token)
-  - Токен содержит user_id и is_admin флаги
 
 - get_current_user (dependency)
   - Разворачивает токен из Authorization заголовка (Bearer)
