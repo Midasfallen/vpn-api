@@ -9,15 +9,31 @@ on:
         default: 'NO'
   push:
     branches: [ main, master ]
-
 jobs:
   migrate:
     name: run alembic migrations
     runs-on: ubuntu-latest
-  # For manual dispatch require confirm == YES, for push events run automatically
-  # We'll abort early in a step if manual dispatch without confirmation
     steps:
       - uses: actions/checkout@v4
+
+      - name: Early diagnostics for migrations (always)
+        if: ${{ always() }}
+        run: |
+          echo "Collecting early diagnostics for migrations job"
+          {
+            echo "--- date ---"; date || true
+            echo "--- runner ---"; uname -a || true
+            echo "--- pwd ---"; pwd || true
+            echo "--- limited env (no secrets) ---"; env | grep -v -E 'TOKEN|KEY|PASSWORD|SECRET' | sort || true
+            echo "--- ls -la workspace ---"; ls -la || true
+          } > migrations-early-diagnostics.txt 2>&1 || true
+
+      - name: Upload early migrations diagnostics (always)
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: migrations-early-diagnostics
+          path: migrations-early-diagnostics.txt
 
       - name: Sanity check
         run: |
@@ -54,40 +70,20 @@ jobs:
           case "$DATABASE_URL" in
             postgresql://*|postgresql+psycopg2://*|postgres://*)
               echo "Detected Postgres URI, preparing connection info..."
-              # Normalize SQLAlchemy-style scheme (remove +psycopg2 if present)
               DBURL_NORMALIZED=$(echo "$DATABASE_URL" | sed -E 's/\+psycopg2//')
               export DBURL="$DBURL_NORMALIZED"
-
-              # Parse DB URL into libpq connection pieces using Python (safe: do not print password)
-              python - <<'PY' > dbinfo.env
-import os, urllib.parse
-u = os.environ.get('DBURL', '')
-if not u:
-    raise SystemExit(1)
-p = urllib.parse.urlparse(u)
-print(f'PGHOST={p.hostname or ""}')
-print(f'PGPORT={p.port or ""}')
-print(f'PGUSER={p.username or ""}')
-print(f'PGPASSWORD={p.password or ""}')
-print(f'PGDATABASE={(p.path[1:] if p.path else "")}')
-PY
-
-              # Load parsed env (source the file with exported vars)
+              python -c "import os, urllib.parse, sys; u = os.environ.get('DBURL', '');
+if not u: sys.exit(1)
+import urllib.parse as _up; p = _up.urlparse(u); print('PGHOST=' + (p.hostname or '')); print('PGPORT=' + (str(p.port) if p.port else '')); print('PGUSER=' + (p.username or '')); print('PGPASSWORD=' + (p.password or '')); print('PGDATABASE=' + (p.path[1:] if p.path else ''))" > dbinfo.env
               set -a
               . ./dbinfo.env
               set +a
-
-              # Basic diagnostics (do not print password)
               echo "Parsed DB host=$PGHOST port=${PGPORT:-5432} user=$PGUSER database=$PGDATABASE"
-
               if [ -z "$PGHOST" ]; then
                 echo "Could not parse a host from DATABASE_URL, aborting backup"; exit 1
               fi
-
-              # Run pg_dump over TCP using parsed fields (export password only for pg_dump)
               export PGPASSWORD="$PGPASSWORD"
               pg_dump --host="$PGHOST" --port="${PGPORT:-5432}" --username="$PGUSER" --dbname="$PGDATABASE" -F c -f backup.dump || (echo "pg_dump failed"; exit 1)
-              # unset sensitive env var
               unset PGPASSWORD
               ;;
             *)
