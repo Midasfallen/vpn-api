@@ -9,6 +9,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Early diagnostics (always)
+        if: ${{ always() }}
+        run: |
+          echo "Collecting early diagnostics for deploy job"
+          {
+            echo "--- date ---"; date || true
+            echo "--- runner info ---"; uname -a || true
+            echo "--- pwd ---"; pwd || true
+            echo "--- limited env (no secrets) ---"; env | grep -v -E 'TOKEN|KEY|PASSWORD|SECRET' | sort || true
+            echo "--- ls -la workspace ---"; ls -la || true
+          } > deploy-early-diagnostics.txt 2>&1 || true
+
+      - name: Upload early diagnostics artifact (always)
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: deploy-early-diagnostics
+          path: deploy-early-diagnostics.txt
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -26,12 +44,7 @@ jobs:
           python -V || true
           python -m pip show pytest || true
           echo "--- env vars ---"
-          python - <<'PY'
-import os
-print('DEV_INIT_DB=', os.environ.get('DEV_INIT_DB'))
-print('DATABASE_URL=', os.environ.get('DATABASE_URL'))
-print('PWD=', os.getcwd())
-PY
+          python -c "import os; print('DEV_INIT_DB=', os.environ.get('DEV_INIT_DB')); print('DATABASE_URL=', os.environ.get('DATABASE_URL')); import os as _os; print('PWD=', _os.getcwd())"
           echo "--- vpn_api dir listing ---"
           ls -la vpn_api || true
           echo "--- conftest.py preview ---"
@@ -110,11 +123,7 @@ PY
             python -V || true
             python -m pip show pytest || true
             echo "--- env vars (partial) ---"
-            python - <<'PY' || true
-import os
-print('DEV_INIT_DB=', os.environ.get('DEV_INIT_DB'))
-print('PWD=', os.getcwd())
-PY
+            python -c "import os; print('DEV_INIT_DB=', os.environ.get('DEV_INIT_DB')); print('PWD=', __import__('os').getcwd())" || true
             echo "--- ls -la (workspace) ---"
             ls -la || true
             echo "--- ls -la (backup.dump) ---"
