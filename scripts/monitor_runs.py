@@ -10,8 +10,9 @@ The script requires 'requests'.
 import argparse
 import os
 import time
-import requests
 from pathlib import Path
+
+import requests
 
 
 def api_get(url, token, params=None):
