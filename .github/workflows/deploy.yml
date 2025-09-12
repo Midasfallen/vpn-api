@@ -60,14 +60,25 @@ jobs:
         run: |
           echo "Preparing image tag"
           IMAGE_TAG=${GITHUB_SHA::8}
-          if [ -n "${DOCKER_REGISTRY}" ]; then
-            REG_PREFIX="${DOCKER_REGISTRY}/"
+          # sanitize registry: trim whitespace and remove trailing slashes
+          DOCKER_REGISTRY_CLEAN=$(echo "${DOCKER_REGISTRY}" | sed -E 's/^[[:space:]]+|[[:space:]]+$//g' | sed -E 's:/*$::')
+          if [ -n "${DOCKER_REGISTRY_CLEAN}" ]; then
+            REG_PREFIX="${DOCKER_REGISTRY_CLEAN}/"
           else
             REG_PREFIX=""
           fi
-          IMAGE_FULL="${REG_PREFIX}${DOCKER_USERNAME}/vpn-api:${IMAGE_TAG}"
+          # sanitize username: lowercase and replace any invalid chars with '-'
+          SANITIZED_USER=$(echo "${DOCKER_USERNAME}" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9_.-]/-/g' | sed -E 's/^-+|-+$//g')
+          IMAGE_FULL="${REG_PREFIX}${SANITIZED_USER}/vpn-api:${IMAGE_TAG}"
           echo "IMAGE_TAG=${IMAGE_TAG}" >> $GITHUB_ENV
           echo "IMAGE_FULL=${IMAGE_FULL}" >> $GITHUB_ENV
+          echo "Prepared IMAGE_FULL=${IMAGE_FULL}"
+          # quick validation: no spaces or asterisks allowed; fail early with actionable message
+          if echo "${IMAGE_FULL}" | grep -q '[*[:space:]]'; then
+            echo "ERROR: IMAGE_FULL contains invalid characters: '${IMAGE_FULL}'" >&2
+            echo "Please check secrets DOCKER_REGISTRY and DOCKER_USERNAME: they must not contain '*' or spaces and username should be lowercase." >&2
+            exit 1
+          fi
       - name: Log in to container registry
         uses: docker/login-action@v2
         with:
@@ -312,15 +323,25 @@ jobs:
           if [ -n "${ENV_PRODUCTION}" ]; then
             ssh -o StrictHostKeyChecking=no "${DEPLOY_USER}@${DEPLOY_HOST}" "printf '%s' \"${ENV_PRODUCTION}\" > '${DEPLOY_PATH}/.env.production' && chmod 600 '${DEPLOY_PATH}/.env.production'"
           fi
-          # determine image name to pull (short sha tag)
+          # determine image name to pull (short sha tag) with sanitization
           IMAGE_TAG=${GITHUB_SHA::8}
-          if [ -n "${DOCKER_REGISTRY}" ]; then
-            REG_PREFIX="${DOCKER_REGISTRY}/"
+          # sanitize registry: trim whitespace and remove trailing slashes
+          DOCKER_REGISTRY_CLEAN=$(echo "${DOCKER_REGISTRY}" | sed -E 's/^[[:space:]]+|[[:space:]]+$//g' | sed -E 's:/*$::')
+          if [ -n "${DOCKER_REGISTRY_CLEAN}" ]; then
+            REG_PREFIX="${DOCKER_REGISTRY_CLEAN}/"
           else
             REG_PREFIX=""
           fi
-          IMAGE_FULL="${REG_PREFIX}${DOCKER_USERNAME}/vpn-api:${IMAGE_TAG}"
+          # sanitize username: lowercase and replace any invalid chars with '-'
+          SANITIZED_USER=$(echo "${DOCKER_USERNAME}" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9_.-]/-/g' | sed -E 's/^-+|-+$//g')
+          IMAGE_FULL="${REG_PREFIX}${SANITIZED_USER}/vpn-api:${IMAGE_TAG}"
           echo "IMAGE_FULL will be: $IMAGE_FULL"
+          # quick validation: no spaces or asterisks allowed; fail early with actionable message
+          if echo "${IMAGE_FULL}" | grep -q '[*[:space:]]'; then
+            echo "ERROR: IMAGE_FULL contains invalid characters: '${IMAGE_FULL}'" >&2
+            echo "Please check secrets DOCKER_REGISTRY and DOCKER_USERNAME: they must not contain '*' or spaces and username should be lowercase." >&2
+            exit 1
+          fi
           # perform docker login on remote server if registry creds provided
           if [ -n "${DOCKER_USERNAME}" ] && [ -n "${DOCKER_PASSWORD}" ]; then
             ssh -o StrictHostKeyChecking=no "${DEPLOY_USER}@${DEPLOY_HOST}" "echo \"${DOCKER_PASSWORD}\" | docker login -u \"${DOCKER_USERNAME}\" --password-stdin ${DOCKER_REGISTRY:-} || true"
