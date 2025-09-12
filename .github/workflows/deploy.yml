@@ -220,10 +220,21 @@ jobs:
         with:
           name: pre-deploy-backup-${{ github.job }}
           path: backup.dump
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.7.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Set up SSH (from secret)
+        run: |
+          echo "Setting up SSH from secret"
+          mkdir -p ~/.ssh
+          # write private key from secret to file securely
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          # populate known_hosts for the deploy host to avoid interactive prompt
+          ssh-keyscan -H ${{ secrets.DEPLOY_HOST }} >> ~/.ssh/known_hosts || true
+          chmod 644 ~/.ssh/known_hosts || true
+          # start ssh-agent and add the key
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/id_ed25519
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Ensure remote path exists
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "mkdir -p '${{ secrets.DEPLOY_PATH }}'"
