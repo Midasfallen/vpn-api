@@ -67,8 +67,9 @@ jobs:
           else
             REG_PREFIX=""
           fi
-          # sanitize username: lowercase and replace any invalid chars with '-'
-          SANITIZED_USER=$(echo "${DOCKER_USERNAME}" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9_.-]/-/g' | sed -E 's/^-+|-+$//g')
+          # sanitize username: if an email was used, drop the domain part after '@', then lowercase and replace invalid chars with '-'
+          RAW_USER=$(echo "${DOCKER_USERNAME}" | sed -E 's/@.*$//')
+          SANITIZED_USER=$(echo "${RAW_USER}" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9_.-]/-/g' | sed -E 's/^-+|-+$//g')
           IMAGE_FULL="${REG_PREFIX}${SANITIZED_USER}/vpn-api:${IMAGE_TAG}"
           echo "IMAGE_TAG=${IMAGE_TAG}" >> $GITHUB_ENV
           echo "IMAGE_FULL=${IMAGE_FULL}" >> $GITHUB_ENV
@@ -332,8 +333,9 @@ jobs:
           else
             REG_PREFIX=""
           fi
-          # sanitize username: lowercase and replace any invalid chars with '-'
-          SANITIZED_USER=$(echo "${DOCKER_USERNAME}" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9_.-]/-/g' | sed -E 's/^-+|-+$//g')
+          # sanitize username: if an email was used, drop the domain part after '@', then lowercase and replace invalid chars with '-'
+          RAW_USER=$(echo "${DOCKER_USERNAME}" | sed -E 's/@.*$//')
+          SANITIZED_USER=$(echo "${RAW_USER}" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9_.-]/-/g' | sed -E 's/^-+|-+$//g')
           IMAGE_FULL="${REG_PREFIX}${SANITIZED_USER}/vpn-api:${IMAGE_TAG}"
           echo "IMAGE_FULL will be: $IMAGE_FULL"
           # quick validation: no spaces or asterisks allowed; fail early with actionable message
