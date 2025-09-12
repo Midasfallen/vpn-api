@@ -258,7 +258,23 @@ jobs:
         env:
           DOCKER_HOST: unix:///var/run/docker.sock
       - name: SSH run remote deploy (docker compose)
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "cd ${{ secrets.DEPLOY_PATH }} && docker compose pull || true && docker compose up -d --build"
         env:
           DOCKER_HOST: unix:///var/run/docker.sock
+          ENV_PRODUCTION: ${{ secrets.ENV_PRODUCTION }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_REGISTRY: ${{ secrets.DOCKER_REGISTRY }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+        run: |
+          echo "Preparing remote deploy: login (if provided) and write env file"
+          # write env file on server if secret provided
+          if [ -n "${ENV_PRODUCTION}" ]; then
+            ssh -o StrictHostKeyChecking=no "${DEPLOY_USER}@${DEPLOY_HOST}" "printf '%s' \"${ENV_PRODUCTION}\" > '${DEPLOY_PATH}/.env.production' && chmod 600 '${DEPLOY_PATH}/.env.production'"
+          fi
+          # perform docker login on remote server if registry creds provided
+          if [ -n "${DOCKER_USERNAME}" ] && [ -n "${DOCKER_PASSWORD}" ]; then
+            ssh -o StrictHostKeyChecking=no "${DEPLOY_USER}@${DEPLOY_HOST}" "echo \"${DOCKER_PASSWORD}\" | docker login -u \"${DOCKER_USERNAME}\" --password-stdin ${DOCKER_REGISTRY:-} || true"
+          fi
+          ssh -o StrictHostKeyChecking=no "${DEPLOY_USER}@${DEPLOY_HOST}" "cd '${DEPLOY_PATH}' && docker compose pull || true && docker compose up -d --build"
