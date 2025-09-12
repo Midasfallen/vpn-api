@@ -113,6 +113,7 @@ jobs:
             else
               echo "Performing local build with --load"
               docker buildx build --platform linux/amd64 -t "$IMAGE_FULL" --load .
+            fi
       - name: Create DB backup - build job
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
