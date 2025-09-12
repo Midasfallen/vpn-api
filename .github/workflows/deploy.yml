@@ -325,6 +325,29 @@ jobs:
           else
             echo "ENV_PRODUCTION not set, skipping .env.production creation"
           fi
+      - name: Synthesize .env.production from DATABASE_URL and SECRET_KEY (if needed)
+        env:
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+          ENV_PRODUCTION: ${{ secrets.ENV_PRODUCTION }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        run: |
+          if [ -n "${ENV_PRODUCTION}" ]; then
+            echo "ENV_PRODUCTION provided, skipping synthesis"
+            exit 0
+          fi
+          if [ -z "${DATABASE_URL}" ] || [ -z "${SECRET_KEY}" ]; then
+            echo "DATABASE_URL or SECRET_KEY missing from secrets; cannot synthesize .env.production"
+            exit 0
+          fi
+          echo "ENV_PRODUCTION not set — synthesizing .env.production from individual secrets"
+          # build content with required keys; add UVICORN_WORKERS default
+          ENV_CONTENT="DATABASE_URL=${DATABASE_URL}\nUVICORN_WORKERS=2\nSECRET_KEY=${SECRET_KEY}"
+          echo "Writing synthesized .env.production to remote"
+          ssh -o StrictHostKeyChecking=no "${DEPLOY_USER}@${DEPLOY_HOST}" "printf '%s' \"${ENV_CONTENT}\" > '${DEPLOY_PATH}/.env.production' && chmod 600 '${DEPLOY_PATH}/.env.production'"
+
 
       - name: SSH run migrations on server
         run: |

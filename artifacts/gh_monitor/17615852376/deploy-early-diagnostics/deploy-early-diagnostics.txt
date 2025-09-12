@@ -1,0 +1,149 @@
+--- date ---
+Wed Sep 10 13:46:19 UTC 2025
+--- runner info ---
+Linux runnervmf4ws1 6.11.0-1018-azure #18~24.04.1-Ubuntu SMP Sat Jun 28 04:46:03 UTC 2025 x86_64 x86_64 x86_64 GNU/Linux
+--- pwd ---
+/home/runner/work/vpn-api/vpn-api
+--- limited env (no secrets) ---
+ACCEPT_EULA=Y
+ACTIONS_RUNNER_ACTION_ARCHIVE_CACHE=/opt/actionarchivecache
+AGENT_TOOLSDIRECTORY=/opt/hostedtoolcache
+ANDROID_HOME=/usr/local/lib/android/sdk
+ANDROID_NDK=/usr/local/lib/android/sdk/ndk/27.3.13750724
+ANDROID_NDK_HOME=/usr/local/lib/android/sdk/ndk/27.3.13750724
+ANDROID_NDK_LATEST_HOME=/usr/local/lib/android/sdk/ndk/28.2.13676358
+ANDROID_NDK_ROOT=/usr/local/lib/android/sdk/ndk/27.3.13750724
+ANDROID_SDK_ROOT=/usr/local/lib/android/sdk
+ANT_HOME=/usr/share/ant
+AZURE_EXTENSION_DIR=/opt/az/azcliextensions
+BOOTSTRAP_HASKELL_NONINTERACTIVE=1
+CHROMEWEBDRIVER=/usr/local/share/chromedriver-linux64
+CHROME_BIN=/usr/bin/google-chrome
+CI=true
+CONDA=/usr/share/miniconda
+DEBIAN_FRONTEND=noninteractive
+DOTNET_MULTILEVEL_LOOKUP=0
+DOTNET_NOLOGO=1
+DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
+EDGEWEBDRIVER=/usr/local/share/edge_driver
+ENABLE_RUNNER_TRACING=true
+GECKOWEBDRIVER=/usr/local/share/gecko_driver
+GHCUP_INSTALL_BASE_PREFIX=/usr/local
+GITHUB_ACTION=__run
+GITHUB_ACTIONS=true
+GITHUB_ACTION_REF=
+GITHUB_ACTION_REPOSITORY=
+GITHUB_ACTOR=Midasfallen
+GITHUB_ACTOR_ID=84739015
+GITHUB_API_URL=https://api.github.com
+GITHUB_BASE_REF=
+GITHUB_ENV=/home/runner/work/_temp/_runner_file_commands/set_env_ff655020-dc13-42a6-9b59-cdca7b8e7eab
+GITHUB_EVENT_NAME=push
+GITHUB_EVENT_PATH=/home/runner/work/_temp/_github_workflow/event.json
+GITHUB_GRAPHQL_URL=https://api.github.com/graphql
+GITHUB_HEAD_REF=
+GITHUB_JOB=build-and-test
+GITHUB_OUTPUT=/home/runner/work/_temp/_runner_file_commands/set_output_ff655020-dc13-42a6-9b59-cdca7b8e7eab
+GITHUB_PATH=/home/runner/work/_temp/_runner_file_commands/add_path_ff655020-dc13-42a6-9b59-cdca7b8e7eab
+GITHUB_REF=refs/heads/main
+GITHUB_REF_NAME=main
+GITHUB_REF_PROTECTED=false
+GITHUB_REF_TYPE=branch
+GITHUB_REPOSITORY=Midasfallen/vpn-api
+GITHUB_REPOSITORY_ID=1041292295
+GITHUB_REPOSITORY_OWNER=Midasfallen
+GITHUB_REPOSITORY_OWNER_ID=84739015
+GITHUB_RETENTION_DAYS=90
+GITHUB_RUN_ATTEMPT=1
+GITHUB_RUN_ID=17615852376
+GITHUB_RUN_NUMBER=20
+GITHUB_SERVER_URL=https://github.com
+GITHUB_SHA=599dee971c21448d13db01658e2596eacda6b5c0
+GITHUB_STATE=/home/runner/work/_temp/_runner_file_commands/save_state_ff655020-dc13-42a6-9b59-cdca7b8e7eab
+GITHUB_STEP_SUMMARY=/home/runner/work/_temp/_runner_file_commands/step_summary_ff655020-dc13-42a6-9b59-cdca7b8e7eab
+GITHUB_TRIGGERING_ACTOR=Midasfallen
+GITHUB_WORKFLOW=CI & Deploy
+GITHUB_WORKFLOW_REF=Midasfallen/vpn-api/.github/workflows/deploy.yml@refs/heads/main
+GITHUB_WORKFLOW_SHA=599dee971c21448d13db01658e2596eacda6b5c0
+GITHUB_WORKSPACE=/home/runner/work/vpn-api/vpn-api
+GOROOT_1_22_X64=/opt/hostedtoolcache/go/1.22.12/x64
+GOROOT_1_23_X64=/opt/hostedtoolcache/go/1.23.12/x64
+GOROOT_1_24_X64=/opt/hostedtoolcache/go/1.24.7/x64
+GRADLE_HOME=/usr/share/gradle-9.0.0
+HOME=/home/runner
+HOMEBREW_CLEANUP_PERIODIC_FULL_DAYS=3650
+HOMEBREW_NO_AUTO_UPDATE=1
+INVOCATION_ID=ff75263855bb422fb3556100644c4385
+ImageOS=ubuntu24
+ImageVersion=20250907.24.1
+JAVA_HOME=/usr/lib/jvm/temurin-17-jdk-amd64
+JAVA_HOME_11_X64=/usr/lib/jvm/temurin-11-jdk-amd64
+JAVA_HOME_17_X64=/usr/lib/jvm/temurin-17-jdk-amd64
+JAVA_HOME_21_X64=/usr/lib/jvm/temurin-21-jdk-amd64
+JAVA_HOME_8_X64=/usr/lib/jvm/temurin-8-jdk-amd64
+JOURNAL_STREAM=9:14500
+LANG=C.UTF-8
+LOGNAME=runner
+MEMORY_PRESSURE_WATCH=/sys/fs/cgroup/system.slice/hosted-compute-agent.service/memory.pressure
+MEMORY_PRESSURE_WRITE=c29tZSAyMDAwMDAgMjAwMDAwMAA=
+NVM_DIR=/home/runner/.nvm
+PATH=/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+PIPX_BIN_DIR=/opt/pipx_bin
+PIPX_HOME=/opt/pipx
+POWERSHELL_DISTRIBUTION_CHANNEL=GitHub-Actions-ubuntu24
+PWD=/home/runner/work/vpn-api/vpn-api
+RUNNER_ARCH=X64
+RUNNER_ENVIRONMENT=github-hosted
+RUNNER_NAME=GitHub Actions 1000000210
+RUNNER_OS=Linux
+RUNNER_TEMP=/home/runner/work/_temp
+RUNNER_TOOL_CACHE=/opt/hostedtoolcache
+RUNNER_TRACKING_ID=github_6a75ccbf-fd05-4ab1-a1e3-c07d725eda54
+RUNNER_WORKSPACE=/home/runner/work/vpn-api
+SELENIUM_JAR_PATH=/usr/share/java/selenium-server.jar
+SGX_AESM_ADDR=1
+SHELL=/bin/bash
+SHLVL=1
+SWIFT_PATH=/usr/share/swift/usr/bin
+SYSTEMD_EXEC_PID=1921
+USER=runner
+VCPKG_INSTALLATION_ROOT=/usr/local/share/vcpkg
+XDG_CONFIG_HOME=/home/runner/.config
+XDG_RUNTIME_DIR=/run/user/1001
+_=/usr/bin/env
+--- ls -la workspace ---
+total 420
+drwxr-xr-x 12 runner runner   4096 Sep 10 13:46 .
+drwxr-xr-x  3 runner runner   4096 Sep 10 13:46 ..
+-rw-r--r--  1 runner runner  53248 Sep 10 13:46 .coverage
+-rw-r--r--  1 runner runner    602 Sep 10 13:46 .env.example
+-rw-r--r--  1 runner runner    209 Sep 10 13:46 .env.production.example
+drwxr-xr-x  7 runner runner   4096 Sep 10 13:46 .git
+drwxr-xr-x  3 runner runner   4096 Sep 10 13:46 .github
+-rw-r--r--  1 runner runner    517 Sep 10 13:46 .pre-commit-config.yaml
+drwxr-xr-x  2 runner runner   4096 Sep 10 13:46 .vscode
+-rw-r--r--  1 runner runner    727 Sep 10 13:46 Dockerfile
+-rw-r--r--  1 runner runner  15593 Sep 10 13:46 README.md
+drwxr-xr-x  4 runner runner   4096 Sep 10 13:46 alembic
+-rw-r--r--  1 runner runner   1282 Sep 10 13:46 alembic-upgrade.log
+-rw-r--r--  1 runner runner    484 Sep 10 13:46 alembic.ini
+drwxr-xr-x  4 runner runner   4096 Sep 10 13:46 artifacts
+-rw-r--r--  1 runner runner   2382 Sep 10 13:46 artifacts_list.json
+drwxr-xr-x  5 runner runner   4096 Sep 10 13:46 ci-artifacts
+-rw-r--r--  1 runner runner      0 Sep 10 13:46 ci-artifacts-db-backup.zip
+-rw-r--r--  1 runner runner   1170 Sep 10 13:46 debug_admin_flow.py
+-rw-r--r--  1 runner runner    540 Sep 10 13:46 debug_register.py
+-rw-r--r--  1 runner runner   4642 Sep 10 13:46 deploy-early-diagnostics.txt
+-rw-r--r--  1 runner runner    429 Sep 10 13:46 docker-compose.dev.yml
+-rw-r--r--  1 runner runner    395 Sep 10 13:46 docker-compose.yml
+drwxr-xr-x  2 runner runner   4096 Sep 10 13:46 downloaded_artifacts
+-rw-r--r--  1 runner runner    254 Sep 10 13:46 inspect_db.py
+-rw-r--r--  1 runner runner    372 Sep 10 13:46 parse_db.py
+-rw-r--r--  1 runner runner    454 Sep 10 13:46 pyproject.toml
+drwxr-xr-x  2 runner runner   4096 Sep 10 13:46 reports
+drwxr-xr-x  2 runner runner   4096 Sep 10 13:46 scripts
+-rw-r--r--  1 runner runner  45056 Sep 10 13:46 test.db
+-rw-r--r--  1 runner runner 122965 Sep 10 13:46 trivy-report.json
+-rw-r--r--  1 runner runner  51734 Sep 10 13:46 trivy-table.txt
+drwxr-xr-x  3 runner runner   4096 Sep 10 13:46 vpn_api
+-rw-r--r--  1 runner runner  16711 Sep 10 13:46 vpn_pre_migrate.dump
