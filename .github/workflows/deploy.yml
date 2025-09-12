@@ -88,16 +88,31 @@ jobs:
         run: |
           echo "Building image $IMAGE_FULL (push if registry creds present)"
           docker buildx create --use --driver docker-container || true
-          if [ -n "${DOCKER_USERNAME}" ] && [ -n "${DOCKER_PASSWORD}" ]; then
-            echo "Registry credentials present — logging in and pushing"
-            # login to registry (best-effort)
-            echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin "${DOCKER_REGISTRY:-}" || true
-            docker buildx build --platform linux/amd64 -t "$IMAGE_FULL" --push .
-          else
-            echo "No registry credentials — building locally (no push)"
-            # --load makes the image available in the local docker daemon (single-platform)
-            docker buildx build --platform linux/amd64 -t "$IMAGE_FULL" --load .
-          fi
+            login_ok=0
+            if [ -n "${DOCKER_USERNAME}" ] && [ -n "${DOCKER_PASSWORD}" ]; then
+              echo "Attempting docker login to registry '${DOCKER_REGISTRY:-index.docker.io}'"
+              echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin "${DOCKER_REGISTRY:-}" 2>&1 || login_ok=$?
+              if [ "$login_ok" -eq 0 ]; then
+                echo "Docker login succeeded"
+              else
+                echo "Docker login failed with code $login_ok — will fallback to local build (no push)"
+              fi
+            else
+              echo "No registry credentials provided — will fallback to local build (no push)"
+              login_ok=2
+            fi
+
+            if [ "$login_ok" -eq 0 ]; then
+              echo "Login OK — performing buildx with --push"
+              docker buildx build --platform linux/amd64 -t "$IMAGE_FULL" --push .
+              rc=$?
+              if [ $rc -ne 0 ]; then
+                echo "Remote push failed (buildx exit code $rc). Falling back to local load build for resilience."
+                docker buildx build --platform linux/amd64 -t "$IMAGE_FULL" --load .
+              fi
+            else
+              echo "Performing local build with --load"
+              docker buildx build --platform linux/amd64 -t "$IMAGE_FULL" --load .
       - name: Create DB backup - build job
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
