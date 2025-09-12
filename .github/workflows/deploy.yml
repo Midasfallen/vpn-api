@@ -128,14 +128,14 @@ jobs:
       - name: Upload DB backup diagnostics artifact - build job
         uses: actions/upload-artifact@v4
         with:
-          name: pre-deploy-backup-inspect
+          name: pre-deploy-backup-inspect-${{ github.job }}
           path: backup-inspect.txt
           if-no-files-found: warn
 
       - name: Upload DB backup artifact - build job
         uses: actions/upload-artifact@v4
         with:
-          name: pre-deploy-backup
+          name: pre-deploy-backup-${{ github.job }}
           path: backup.dump
           if-no-files-found: warn
 
@@ -168,7 +168,7 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
-          name: pre-deploy-snapshot
+          name: pre-deploy-snapshot-${{ github.job }}
           path: snapshot.txt
 
   deploy:
@@ -218,7 +218,7 @@ jobs:
       - name: Upload DB backup as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: pre-deploy-backup
+          name: pre-deploy-backup-${{ github.job }}
           path: backup.dump
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.7.0
