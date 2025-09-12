@@ -53,6 +53,34 @@ jobs:
         run: |
           # run pytest via the interpreter to guarantee the correct executable is used
           python -m pytest -q
+      - name: Prepare image name and tag
+        env:
+          DOCKER_REGISTRY: ${{ secrets.DOCKER_REGISTRY }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        run: |
+          echo "Preparing image tag"
+          IMAGE_TAG=${GITHUB_SHA::8}
+          if [ -n "${DOCKER_REGISTRY}" ]; then
+            REG_PREFIX="${DOCKER_REGISTRY}/"
+          else
+            REG_PREFIX=""
+          fi
+          IMAGE_FULL="${REG_PREFIX}${DOCKER_USERNAME}/vpn-api:${IMAGE_TAG}"
+          echo "IMAGE_TAG=${IMAGE_TAG}" >> $GITHUB_ENV
+          echo "IMAGE_FULL=${IMAGE_FULL}" >> $GITHUB_ENV
+      - name: Log in to container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ secrets.DOCKER_REGISTRY }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build and push docker image
+        env:
+          IMAGE_FULL: ${{ env.IMAGE_FULL }}
+        run: |
+          echo "Building and pushing image $IMAGE_FULL"
+          docker buildx create --use --driver docker-container || true
+          docker buildx build --platform linux/amd64 -t "$IMAGE_FULL" --push .
       - name: Create DB backup - build job
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -252,6 +280,19 @@ jobs:
       - name: Rsync files to server
         run: |
           rsync -avz --delete --exclude '.git' --exclude 'venv' ./ ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}
+      - name: Write .env.production on server (if provided)
+        env:
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+        run: |
+          if [ -n "${ENV_PRODUCTION}" ]; then
+            echo "Writing .env.production to remote host before migrations"
+            ssh -o StrictHostKeyChecking=no "${DEPLOY_USER}@${DEPLOY_HOST}" "printf '%s' \"${ENV_PRODUCTION}\" > '${DEPLOY_PATH}/.env.production' && chmod 600 '${DEPLOY_PATH}/.env.production'"
+          else
+            echo "ENV_PRODUCTION not set, skipping .env.production creation"
+          fi
+
       - name: SSH run migrations on server
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "cd ${{ secrets.DEPLOY_PATH }} && docker compose run --rm -v $(pwd):/app web alembic -c /app/alembic.ini upgrade head || true"
@@ -260,10 +301,8 @@ jobs:
       - name: SSH run remote deploy (docker compose)
         env:
           DOCKER_HOST: unix:///var/run/docker.sock
-          ENV_PRODUCTION: ${{ secrets.ENV_PRODUCTION }}
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          DOCKER_REGISTRY: ${{ secrets.DOCKER_REGISTRY }}
           DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
           DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
           DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
@@ -273,8 +312,18 @@ jobs:
           if [ -n "${ENV_PRODUCTION}" ]; then
             ssh -o StrictHostKeyChecking=no "${DEPLOY_USER}@${DEPLOY_HOST}" "printf '%s' \"${ENV_PRODUCTION}\" > '${DEPLOY_PATH}/.env.production' && chmod 600 '${DEPLOY_PATH}/.env.production'"
           fi
+          # determine image name to pull (short sha tag)
+          IMAGE_TAG=${GITHUB_SHA::8}
+          if [ -n "${DOCKER_REGISTRY}" ]; then
+            REG_PREFIX="${DOCKER_REGISTRY}/"
+          else
+            REG_PREFIX=""
+          fi
+          IMAGE_FULL="${REG_PREFIX}${DOCKER_USERNAME}/vpn-api:${IMAGE_TAG}"
+          echo "IMAGE_FULL will be: $IMAGE_FULL"
           # perform docker login on remote server if registry creds provided
           if [ -n "${DOCKER_USERNAME}" ] && [ -n "${DOCKER_PASSWORD}" ]; then
             ssh -o StrictHostKeyChecking=no "${DEPLOY_USER}@${DEPLOY_HOST}" "echo \"${DOCKER_PASSWORD}\" | docker login -u \"${DOCKER_USERNAME}\" --password-stdin ${DOCKER_REGISTRY:-} || true"
           fi
-          ssh -o StrictHostKeyChecking=no "${DEPLOY_USER}@${DEPLOY_HOST}" "cd '${DEPLOY_PATH}' && docker compose pull || true && docker compose up -d --build"
+          # build on server: docker compose will use build: . and create the image locally (avoids registry friction)
+          ssh -o StrictHostKeyChecking=no "${DEPLOY_USER}@${DEPLOY_HOST}" "cd '${DEPLOY_PATH}' && docker compose up -d --build"
