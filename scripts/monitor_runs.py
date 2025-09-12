@@ -118,11 +118,19 @@ def validate_token(token):
             pass
         print("\nGitHub API authentication failed.")
         if status == 401:
-            print("  -> HTTP 401 Unauthorized: token is invalid, expired, or missing required scopes.")
+            print(
+                "  -> HTTP 401 Unauthorized: token is invalid, expired, or missing required scopes."
+            )
             print("  Required scopes:")
-            print("    - For classic PATs: 'repo' (for private repos) and 'workflow' or 'repo' to access Actions/artifacts.")
-            print("    - For fine-grained tokens: give the token 'Repository access' to this repo (Read) and 'Actions' -> Read access.")
-            print("  Confirm you didn't accidentally include quotes/newlines when passing the token, and that the token is current.")
+            print(
+                "    - For classic PATs: 'repo' (for private repos) and 'workflow' or 'repo' to access Actions/artifacts."
+            )
+            print(
+                "    - For fine-grained tokens: give the token 'Repository access' to this repo (Read) and 'Actions' -> Read access."
+            )
+            print(
+                "  Confirm you didn't accidentally include quotes/newlines when passing the token, and that the token is current."
+            )
         else:
             print(f"  -> HTTP {status}: {e}")
         # print a tiny diagnostic (no token content)
@@ -143,7 +151,9 @@ def main():
         raise SystemExit(1)
     # validate token first to provide clearer error messages for 401
     validate_token(args.token)
-    monitor(args.repo, args.token, poll_interval=args.poll_interval, once=args.once, outdir=args.outdir)
+    monitor(
+        args.repo, args.token, poll_interval=args.poll_interval, once=args.once, outdir=args.outdir
+    )
 
 
 if __name__ == "__main__":

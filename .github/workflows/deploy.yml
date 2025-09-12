@@ -64,7 +64,38 @@ jobs:
           echo "Installing pg_dump (postgresql-client)"
           sudo apt-get update && sudo apt-get install -y postgresql-client
           echo "Creating database backup before deploy (build job)"
-          pg_dump --dbname="${DATABASE_URL}" -Fc -f backup.dump || echo "pg_dump failed"
+          # normalize and parse connection info to avoid local unix socket fallback
+          DBURL_NORMALIZED=$(echo "$DATABASE_URL" | sed -E 's/\+psycopg2//')
+          export DBURL="$DBURL_NORMALIZED"
+          python parse_db.py > dbinfo.env
+          set -a
+          . ./dbinfo.env
+          set +a
+          echo "Parsed DB host=$PGHOST port=${PGPORT:-5432} user=$PGUSER database=$PGDATABASE"
+          if [ -z "$PGHOST" ]; then
+            echo "Could not parse a host from DATABASE_URL, skipping backup"; exit 1
+          fi
+          export PGPASSWORD="$PGPASSWORD"
+          # retry pg_dump up to 3 times with exponential backoff
+          tries=0
+          max_tries=3
+          rc=0
+          while [ $tries -lt $max_tries ]; do
+            tries=$((tries+1))
+            echo "pg_dump attempt $tries/$max_tries..." >> backup-inspect.txt 2>&1 || true
+            pg_dump --host="$PGHOST" --port="${PGPORT:-5432}" --username="$PGUSER" --dbname="$PGDATABASE" -Fc -f backup.dump 2>> backup-inspect.txt && rc=$? || rc=$?
+            if [ $rc -eq 0 ] && [ -s backup.dump ]; then
+              break
+            fi
+            sleep $((tries * 5))
+          done
+          echo "pg_dump exit code after retries: $rc" >> backup-inspect.txt 2>&1 || true
+          if [ $rc -ne 0 ] || [ ! -s backup.dump ]; then
+            echo "pg_dump failed after $tries attempts or produced empty backup" >> backup-inspect.txt 2>&1 || true
+            unset PGPASSWORD
+            # preserve diagnostics and fail the job so artifacts are uploaded by the always() steps
+            exit 1
+          fi
 
       - name: Inspect DB backup before upload - build job
         run: |
@@ -153,8 +184,36 @@ jobs:
           echo "Installing pg_dump (postgresql-client)"
           sudo apt-get update && sudo apt-get install -y postgresql-client
           echo "Creating database backup before deploy"
-          # Use libpq connection string support in pg_dump
-          pg_dump --dbname="${DATABASE_URL}" -Fc -f backup.dump
+          DBURL_NORMALIZED=$(echo "$DATABASE_URL" | sed -E 's/\+psycopg2//')
+          export DBURL="$DBURL_NORMALIZED"
+          python parse_db.py > dbinfo.env
+          set -a
+          . ./dbinfo.env
+          set +a
+          echo "Parsed DB host=$PGHOST port=${PGPORT:-5432} user=$PGUSER database=$PGDATABASE"
+          if [ -z "$PGHOST" ]; then
+            echo "Could not parse a host from DATABASE_URL, aborting"; exit 1
+          fi
+          export PGPASSWORD="$PGPASSWORD"
+          # retry pg_dump up to 3 times with exponential backoff
+          tries=0
+          max_tries=3
+          rc=0
+          while [ $tries -lt $max_tries ]; do
+            tries=$((tries+1))
+            echo "pg_dump attempt $tries/$max_tries..." >> pre-deploy-backup-inspect.txt 2>&1 || true
+            pg_dump --host="$PGHOST" --port="${PGPORT:-5432}" --username="$PGUSER" --dbname="$PGDATABASE" -Fc -f backup.dump 2>> pre-deploy-backup-inspect.txt && rc=$? || rc=$?
+            if [ $rc -eq 0 ] && [ -s backup.dump ]; then
+              break
+            fi
+            sleep $((tries * 5))
+          done
+          echo "pg_dump exit code after retries: $rc" >> pre-deploy-backup-inspect.txt 2>&1 || true
+          if [ $rc -ne 0 ] || [ ! -s backup.dump ]; then
+            echo "pg_dump failed after $tries attempts or produced empty backup" >> pre-deploy-backup-inspect.txt 2>&1 || true
+            unset PGPASSWORD
+            exit 1
+          fi
           echo "Backup written to backup.dump"
       - name: Upload DB backup as artifact
         uses: actions/upload-artifact@v4
@@ -165,6 +224,9 @@ jobs:
         uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+      - name: Ensure remote path exists
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "mkdir -p '${{ secrets.DEPLOY_PATH }}'"
       - name: Rsync files to server
         run: |
           rsync -avz --delete --exclude '.git' --exclude 'venv' ./ ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}
