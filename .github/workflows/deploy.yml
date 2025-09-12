@@ -220,22 +220,10 @@ jobs:
         with:
           name: pre-deploy-backup-${{ github.job }}
           path: backup.dump
-      - name: Set up SSH (temporary file-based key)
-        if: always()
-        run: |
-          echo "Using repository-stored deploy key for CI (temporary)."
-          mkdir -p ~/.ssh
-          # copy provided deploy key into runner ssh dir
-          cat .github/deploy_key > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          # ensure known_hosts contains server keys to avoid interactive prompt
-          cat .github/known_hosts >> ~/.ssh/known_hosts
-          chmod 644 ~/.ssh/known_hosts || true
-          # start ssh-agent and add the key
-          eval "$(ssh-agent -s)"
-          ssh-add ~/.ssh/id_ed25519
-          # verify SSH connectivity (host key checking disabled in later steps)
-          ssh -o BatchMode=yes -o ConnectTimeout=5 -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} 'echo connected' || true
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Ensure remote path exists
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "mkdir -p '${{ secrets.DEPLOY_PATH }}'"
