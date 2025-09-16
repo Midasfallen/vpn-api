@@ -5,7 +5,7 @@ Version: 6.2.5
 Summary: pytest: simple powerful testing with Python
 Home-page: https://docs.pytest.org/en/latest/
 Author: Holger Krekel, Bruno Oliveira, Ronny Pfannschmidt, Floris Bruynooghe, Brianna Laugher, Florian Bruhin and others
-Author-email: 
+Author-email:
 License: MIT
 Location: /opt/hostedtoolcache/Python/3.11.13/x64/lib/python3.11/site-packages
 Requires: attrs, iniconfig, packaging, pluggy, py, toml
@@ -71,4 +71,3 @@ drwxr-xr-x  3 runner runner   4096 Sep 10 14:25 vpn_api
 --- file type ---
 backup.dump: empty
 --- head of backup.dump (first 256 bytes as hex) ---
-

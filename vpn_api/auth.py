@@ -8,7 +8,7 @@ import os
 from datetime import datetime, timedelta
 from typing import Optional
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from passlib.context import CryptContext
@@ -17,6 +17,7 @@ from sqlalchemy.orm import Session
 
 from vpn_api import models, schemas
 from vpn_api.database import get_db
+from vpn_api.mail_service import send_verification_email_background
 
 router = APIRouter()
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -59,12 +60,15 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
 
 @router.post("/register", response_model=schemas.UserOut)
 def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    # legacy registration (username+password) remains supported via existing route
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
     if db_user:
         raise HTTPException(status_code=400, detail="Email already registered")
-    # Валидация пароля
-    get_password_hash(user.password)  # выбросит ошибку, если невалиден
-    hashed_pw = pwd_context.hash(user.password)
+    # Validate password if provided
+    hashed_pw = None
+    if user.password:
+        get_password_hash(user.password)
+        hashed_pw = pwd_context.hash(user.password)
     new_user = models.User(email=user.email, hashed_password=hashed_pw)
     db.add(new_user)
     try:
@@ -76,11 +80,61 @@ def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
     return new_user
 
 
+@router.post("/auth/register")
+def email_register(
+    payload: schemas.RegisterIn, background_tasks: BackgroundTasks, db: Session = Depends(get_db)
+):
+    """Start email verification flow: create user record (if missing), generate code and email it.
+
+    Returns a generic success message to avoid leaking account existence.
+    """
+    db_user = db.query(models.User).filter(models.User.email == payload.email).first()
+    if db_user and db_user.is_verified:
+        return {"status": "ok", "message": "Email already verified"}
+    if not db_user:
+        db_user = models.User(email=payload.email)
+        db.add(db_user)
+    # generate 6-digit code
+    import random
+
+    code = f"{random.randint(0, 999999):06d}"
+    db_user.verification_code = code
+    from datetime import datetime, timedelta
+
+    db_user.verification_expires_at = datetime.utcnow() + timedelta(minutes=10)
+    db.commit()
+    # send email in background
+    send_verification_email_background(background_tasks, payload.email, code)
+    return {"status": "ok", "message": "Check your email"}
+
+
 @router.post("/login")
 def login(user: schemas.UserLogin, db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
     if not db_user or not verify_password(user.password, db_user.hashed_password):
         raise HTTPException(status_code=401, detail="Invalid credentials")
+    token = create_access_token({"sub": db_user.email})
+    return {"access_token": token, "token_type": "bearer"}
+
+
+@router.post("/auth/verify", response_model=schemas.TokenOut)
+def email_verify(payload: schemas.VerifyIn, db: Session = Depends(get_db)):
+    db_user = db.query(models.User).filter(models.User.email == payload.email).first()
+    if not db_user or not db_user.verification_code:
+        raise HTTPException(status_code=400, detail="No verification in progress for this email")
+    from datetime import datetime
+
+    if db_user.verification_expires_at and db_user.verification_expires_at < datetime.utcnow():
+        raise HTTPException(status_code=400, detail="Verification code expired")
+    if db_user.verification_code != payload.code:
+        raise HTTPException(status_code=400, detail="Invalid verification code")
+    # mark verified, clear code
+    db_user.is_verified = True
+    db_user.verification_code = None
+    db_user.verification_expires_at = None
+    # set status active
+    db_user.status = "active"
+    db.commit()
     token = create_access_token({"sub": db_user.email})
     return {"access_token": token, "token_type": "bearer"}
 

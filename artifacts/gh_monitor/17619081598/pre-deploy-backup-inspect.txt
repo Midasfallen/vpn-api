@@ -49,7 +49,7 @@ pg_dump: reading large objects
 pg_dump: reading dependency data
 pg_dump: saving encoding = UTF8
 pg_dump: saving standard_conforming_strings = on
-pg_dump: saving search_path = 
+pg_dump: saving search_path =
 pg_dump: saving database definition
 pg_dump: dumping contents of table "public.alembic_version"
 pg_dump: dumping contents of table "public.payments"

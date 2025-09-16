@@ -134,7 +134,7 @@ test (matrix) (3.12)	Cache pip	2025-09-03T08:34:14.9312152Z with:
 test (matrix) (3.12)	Cache pip	2025-09-03T08:34:14.9312363Z   path: ~/.cache/pip
 test (matrix) (3.12)	Cache pip	2025-09-03T08:34:14.9312781Z   key: Linux-pip-3.12-a6eccb1713941e060539e642d15778cc6707b259104049e74b27fccaa727ac6a
 test (matrix) (3.12)	Cache pip	2025-09-03T08:34:14.9313221Z   restore-keys: Linux-pip-
-test (matrix) (3.12)	Cache pip	
+test (matrix) (3.12)	Cache pip
 test (matrix) (3.12)	Cache pip	2025-09-03T08:34:14.9313493Z   enableCrossOsArchive: false
 test (matrix) (3.12)	Cache pip	2025-09-03T08:34:14.9313752Z   fail-on-cache-miss: false
 test (matrix) (3.12)	Cache pip	2025-09-03T08:34:14.9313993Z   lookup-only: false
@@ -315,7 +315,7 @@ test (matrix) (3.12)	Install dependencies	2025-09-03T08:34:22.6221198Z Using cac
 test (matrix) (3.12)	Install dependencies	2025-09-03T08:34:22.6235751Z Using cached mako-1.3.10-py3-none-any.whl (78 kB)
 test (matrix) (3.12)	Install dependencies	2025-09-03T08:34:22.6247318Z Using cached pycparser-2.22-py3-none-any.whl (117 kB)
 test (matrix) (3.12)	Install dependencies	2025-09-03T08:34:22.7727155Z Installing collected packages: passlib, websockets, uvloop, typing-extensions, sniffio, six, shellingham, pyyaml, python-multipart, python-dotenv, pygments, pycparser, pyasn1, mdurl, MarkupSafe, idna, httptools, h11, greenlet, dnspython, click, certifi, bcrypt, annotated-types, uvicorn, typing-inspection, SQLAlchemy, rsa, pydantic-core, markdown-it-py, Mako, jinja2, httpcore, email_validator, ecdsa, cffi, anyio, watchfiles, starlette, rich, python-jose, pydantic, httpx, cryptography, alembic, typer, rich-toolkit, fastapi-cli, fastapi
-test (matrix) (3.12)	Install dependencies	2025-09-03T08:34:27.9728994Z 
+test (matrix) (3.12)	Install dependencies	2025-09-03T08:34:27.9728994Z
 test (matrix) (3.12)	Install dependencies	2025-09-03T08:34:27.9778154Z Successfully installed Mako-1.3.10 MarkupSafe-3.0.2 SQLAlchemy-2.0.43 alembic-1.16.5 annotated-types-0.7.0 anyio-4.10.0 bcrypt-4.3.0 certifi-2025.8.3 cffi-1.17.1 click-8.2.1 cryptography-45.0.7 dnspython-2.7.0 ecdsa-0.19.1 email_validator-2.3.0 fastapi-0.111.1 fastapi-cli-0.0.10 greenlet-3.2.4 h11-0.16.0 httpcore-1.0.9 httptools-0.6.4 httpx-0.28.1 idna-3.10 jinja2-3.1.6 markdown-it-py-4.0.0 mdurl-0.1.2 passlib-1.7.4 pyasn1-0.6.1 pycparser-2.22 pydantic-2.11.3 pydantic-core-2.33.1 pygments-2.19.2 python-dotenv-1.1.1 python-jose-3.5.0 python-multipart-0.0.20 pyyaml-6.0.2 rich-14.1.0 rich-toolkit-0.15.0 rsa-4.9.1 shellingham-1.5.4 six-1.17.0 sniffio-1.3.1 starlette-0.37.2 typer-0.17.3 typing-extensions-4.15.0 typing-inspection-0.4.1 uvicorn-0.29.0 uvloop-0.21.0 watchfiles-1.1.0 websockets-15.0.1
 test (matrix) (3.12)	Install dependencies	2025-09-03T08:34:29.1797373Z Collecting pytest==6.2.5 (from -r vpn_api/requirements-dev.txt (line 1))
 test (matrix) (3.12)	Install dependencies	2025-09-03T08:34:29.1811149Z   Using cached pytest-6.2.5-py3-none-any.whl.metadata (7.5 kB)
@@ -357,7 +357,7 @@ test (matrix) (3.12)	Install dependencies	2025-09-03T08:34:29.7333715Z Using cac
 test (matrix) (3.12)	Install dependencies	2025-09-03T08:34:29.7344628Z Using cached packaging-25.0-py3-none-any.whl (66 kB)
 test (matrix) (3.12)	Install dependencies	2025-09-03T08:34:29.7355908Z Using cached toml-0.10.2-py2.py3-none-any.whl (16 kB)
 test (matrix) (3.12)	Install dependencies	2025-09-03T08:34:29.8064834Z Installing collected packages: toml, py, pluggy, packaging, junit-xml, iniconfig, coverage, attrs, pytest, pytest-cov
-test (matrix) (3.12)	Install dependencies	2025-09-03T08:34:30.3382190Z 
+test (matrix) (3.12)	Install dependencies	2025-09-03T08:34:30.3382190Z
 test (matrix) (3.12)	Install dependencies	2025-09-03T08:34:30.3434770Z Successfully installed attrs-25.3.0 coverage-7.10.6 iniconfig-2.1.0 junit-xml-1.9 packaging-25.0 pluggy-1.6.0 py-1.11.0 pytest-6.2.5 pytest-cov-6.2.1 toml-0.10.2
 test (matrix) (3.12)	Prepare reports dir	я╗┐2025-09-03T08:34:30.4252880Z ##[group]Run mkdir -p reports
 test (matrix) (3.12)	Prepare reports dir	2025-09-03T08:34:30.4253205Z [36;1mmkdir -p reports[0m
@@ -386,59 +386,59 @@ test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1579619Z ====================
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1580466Z ../../../../../opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:689
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1582092Z   /opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:689: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1583393Z     and isinstance(item.value, ast.Str)
-test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1583703Z 
+test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1583703Z
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1584183Z ../../../../../opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:691
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1585765Z   /opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:691: DeprecationWarning: Attribute s is deprecated and will be removed in Python 3.14; use value instead
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1587012Z     doc = item.value.s
-test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1587209Z 
+test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1587209Z
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1587723Z ../../../../../opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:958: 43 warnings
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1588519Z vpn_api/test_admin_flow.py: 8 warnings
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1590016Z   /opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:958: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1591352Z     inlocs = ast.Compare(ast.Str(name.id), [ast.In()], [locs])
-test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1591714Z 
+test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1591714Z
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1592227Z ../../../../../opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:961: 43 warnings
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1593014Z vpn_api/test_admin_flow.py: 8 warnings
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1594232Z   /opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:961: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1595574Z     expr = ast.IfExp(test, self.display(name), ast.Str(name.id))
-test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1595930Z 
+test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1595930Z
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1596441Z ../../../../../opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:1071: 40 warnings
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1597247Z vpn_api/test_admin_flow.py: 7 warnings
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1598461Z   /opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:1071: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1599861Z     syms.append(ast.Str(sym))
-test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1600129Z 
+test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1600129Z
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1600632Z ../../../../../opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:1073: 40 warnings
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1601414Z vpn_api/test_admin_flow.py: 7 warnings
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1603061Z   /opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:1073: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1604288Z     expls.append(ast.Str(expl))
-test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1604529Z 
+test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1604529Z
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1605053Z ../../../../../opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:823: 172 warnings
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1605829Z vpn_api/test_admin_flow.py: 28 warnings
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1607051Z   /opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:823: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1608543Z     keys = [ast.Str(key) for key in current.keys()]
-test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1608855Z 
+test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1608855Z
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1609508Z ../../../../../opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:933: 39 warnings
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1610325Z vpn_api/test_admin_flow.py: 6 warnings
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1611558Z   /opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:933: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1612789Z     assertmsg = ast.Str("")
-test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1613019Z 
+test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1613019Z
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1613543Z ../../../../../opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:935: 39 warnings
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1614347Z vpn_api/test_admin_flow.py: 7 warnings
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1615571Z   /opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:935: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1616909Z     template = ast.BinOp(assertmsg, ast.Add(), ast.Str(explanation))
-test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1617300Z 
+test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1617300Z
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1617813Z ../../../../../opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:947: 37 warnings
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1618615Z vpn_api/test_admin_flow.py: 7 warnings
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1620086Z   /opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:947: DeprecationWarning: ast.NameConstant is deprecated and will be removed in Python 3.14; use ast.Constant instead
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1621467Z     clear = ast.Assign(variables, ast.NameConstant(None))
-test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1621804Z 
+test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1621804Z
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1622240Z ../../../../../opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/starlette/formparsers.py:12
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1623672Z   /opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/starlette/formparsers.py:12: PendingDeprecationWarning: Please use `import python_multipart` instead.
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1624770Z     import multipart
-test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1624952Z 
+test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1624952Z
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1625387Z ../../../../../opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/passlib/utils/__init__.py:854
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1626816Z   /opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/passlib/utils/__init__.py:854: DeprecationWarning: 'crypt' is deprecated and slated for removal in Python 3.13
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1627955Z     from crypt import crypt as _crypt
-test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1628215Z 
+test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1628215Z
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1628672Z ../../../../../opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:983
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1629889Z ../../../../../opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:983
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1630967Z ../../../../../opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:983
@@ -449,7 +449,7 @@ test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1635344Z ../../../../../opt/h
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1636354Z ../../../../../opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:983
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1637902Z   /opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:983: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1639713Z     expl_format = self.pop_format_context(ast.Str(expl))
-test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1640042Z 
+test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1640042Z
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1640491Z ../../../../../opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:995
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1641565Z ../../../../../opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:995
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1642599Z ../../../../../opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:995
@@ -457,7 +457,7 @@ test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1643636Z ../../../../../opt/h
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1644640Z ../../../../../opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:995
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1646177Z   /opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:995: DeprecationWarning: ast.Num is deprecated and will be removed in Python 3.14; use ast.Constant instead
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1647581Z     expl_template = self.helper("_format_boolop", expl_list, ast.Num(is_or))
-test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1648003Z 
+test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1648003Z
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1648273Z vpn_api/test_admin_flow.py::test_admin_flow
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1648736Z vpn_api/test_admin_flow.py::test_admin_flow
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1649439Z vpn_api/test_flow.py::test_basic_flow
@@ -466,12 +466,12 @@ test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1650484Z vpn_api/test_peers.p
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1650957Z vpn_api/test_unit.py::test_register_and_login
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1652448Z   /home/runner/work/vpn-api/vpn-api/vpn_api/auth.py:48: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1654199Z     expire = datetime.utcnow() + (expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
-test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1654715Z 
+test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1654715Z
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1654957Z -- Docs: https://docs.pytest.org/en/stable/warnings.html
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1655619Z --- generated xml file: /home/runner/work/vpn-api/vpn-api/reports/junit.xml ----
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1656231Z ================================ tests coverage ================================
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1680279Z _______________ coverage: platform linux, python 3.12.11-final-0 _______________
-test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1680787Z 
+test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1680787Z
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1681011Z Coverage XML written to file reports/coverage.xml
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1681575Z Required test coverage of 80% reached. Total coverage: 81.75%
 test (matrix) (3.12)	Run tests	2025-09-03T08:34:40.1682091Z 5 passed, 1 skipped, 554 warnings in 8.25s
@@ -673,7 +673,7 @@ test (matrix) (3.11)	Cache pip	2025-09-03T08:34:21.8318663Z with:
 test (matrix) (3.11)	Cache pip	2025-09-03T08:34:21.8318843Z   path: ~/.cache/pip
 test (matrix) (3.11)	Cache pip	2025-09-03T08:34:21.8319208Z   key: Linux-pip-3.11-a6eccb1713941e060539e642d15778cc6707b259104049e74b27fccaa727ac6a
 test (matrix) (3.11)	Cache pip	2025-09-03T08:34:21.8319616Z   restore-keys: Linux-pip-
-test (matrix) (3.11)	Cache pip	
+test (matrix) (3.11)	Cache pip
 test (matrix) (3.11)	Cache pip	2025-09-03T08:34:21.8319887Z   enableCrossOsArchive: false
 test (matrix) (3.11)	Cache pip	2025-09-03T08:34:21.8320135Z   fail-on-cache-miss: false
 test (matrix) (3.11)	Cache pip	2025-09-03T08:34:21.8320355Z   lookup-only: false
@@ -854,7 +854,7 @@ test (matrix) (3.11)	Install dependencies	2025-09-03T08:34:33.2682883Z Using cac
 test (matrix) (3.11)	Install dependencies	2025-09-03T08:34:33.2697130Z Using cached mako-1.3.10-py3-none-any.whl (78 kB)
 test (matrix) (3.11)	Install dependencies	2025-09-03T08:34:33.2710390Z Using cached pycparser-2.22-py3-none-any.whl (117 kB)
 test (matrix) (3.11)	Install dependencies	2025-09-03T08:34:33.4278782Z Installing collected packages: passlib, websockets, uvloop, typing-extensions, sniffio, six, shellingham, pyyaml, python-multipart, python-dotenv, pygments, pycparser, pyasn1, mdurl, MarkupSafe, idna, httptools, h11, greenlet, dnspython, click, certifi, bcrypt, annotated-types, uvicorn, typing-inspection, SQLAlchemy, rsa, pydantic-core, markdown-it-py, Mako, jinja2, httpcore, email_validator, ecdsa, cffi, anyio, watchfiles, starlette, rich, python-jose, pydantic, httpx, cryptography, alembic, typer, rich-toolkit, fastapi-cli, fastapi
-test (matrix) (3.11)	Install dependencies	2025-09-03T08:34:38.1435762Z 
+test (matrix) (3.11)	Install dependencies	2025-09-03T08:34:38.1435762Z
 test (matrix) (3.11)	Install dependencies	2025-09-03T08:34:38.1466580Z Successfully installed Mako-1.3.10 MarkupSafe-3.0.2 SQLAlchemy-2.0.43 alembic-1.16.5 annotated-types-0.7.0 anyio-4.10.0 bcrypt-4.3.0 certifi-2025.8.3 cffi-1.17.1 click-8.2.1 cryptography-45.0.7 dnspython-2.7.0 ecdsa-0.19.1 email_validator-2.3.0 fastapi-0.111.1 fastapi-cli-0.0.10 greenlet-3.2.4 h11-0.16.0 httpcore-1.0.9 httptools-0.6.4 httpx-0.28.1 idna-3.10 jinja2-3.1.6 markdown-it-py-4.0.0 mdurl-0.1.2 passlib-1.7.4 pyasn1-0.6.1 pycparser-2.22 pydantic-2.11.3 pydantic-core-2.33.1 pygments-2.19.2 python-dotenv-1.1.1 python-jose-3.5.0 python-multipart-0.0.20 pyyaml-6.0.2 rich-14.1.0 rich-toolkit-0.15.0 rsa-4.9.1 shellingham-1.5.4 six-1.17.0 sniffio-1.3.1 starlette-0.37.2 typer-0.17.3 typing-extensions-4.15.0 typing-inspection-0.4.1 uvicorn-0.29.0 uvloop-0.21.0 watchfiles-1.1.0 websockets-15.0.1
 test (matrix) (3.11)	Install dependencies	2025-09-03T08:34:39.4756473Z Collecting pytest==6.2.5 (from -r vpn_api/requirements-dev.txt (line 1))
 test (matrix) (3.11)	Install dependencies	2025-09-03T08:34:39.4773338Z   Using cached pytest-6.2.5-py3-none-any.whl.metadata (7.5 kB)
@@ -896,7 +896,7 @@ test (matrix) (3.11)	Install dependencies	2025-09-03T08:34:40.0179478Z Using cac
 test (matrix) (3.11)	Install dependencies	2025-09-03T08:34:40.0192579Z Using cached packaging-25.0-py3-none-any.whl (66 kB)
 test (matrix) (3.11)	Install dependencies	2025-09-03T08:34:40.0205828Z Using cached toml-0.10.2-py2.py3-none-any.whl (16 kB)
 test (matrix) (3.11)	Install dependencies	2025-09-03T08:34:40.0842946Z Installing collected packages: toml, py, pluggy, packaging, junit-xml, iniconfig, coverage, attrs, pytest, pytest-cov
-test (matrix) (3.11)	Install dependencies	2025-09-03T08:34:40.5530422Z 
+test (matrix) (3.11)	Install dependencies	2025-09-03T08:34:40.5530422Z
 test (matrix) (3.11)	Install dependencies	2025-09-03T08:34:40.5559417Z Successfully installed attrs-25.3.0 coverage-7.10.6 iniconfig-2.1.0 junit-xml-1.9 packaging-25.0 pluggy-1.6.0 py-1.11.0 pytest-6.2.5 pytest-cov-6.2.1 toml-0.10.2
 test (matrix) (3.11)	Prepare reports dir	я╗┐2025-09-03T08:34:40.6522096Z ##[group]Run mkdir -p reports
 test (matrix) (3.11)	Prepare reports dir	2025-09-03T08:34:40.6522626Z [36;1mmkdir -p reports[0m
@@ -925,16 +925,16 @@ test (matrix) (3.11)	Run tests	2025-09-03T08:34:49.8393504Z ====================
 test (matrix) (3.11)	Run tests	2025-09-03T08:34:49.8394283Z ../../../../../opt/hostedtoolcache/Python/3.11.13/x64/lib/python3.11/site-packages/starlette/formparsers.py:12
 test (matrix) (3.11)	Run tests	2025-09-03T08:34:49.8395708Z   /opt/hostedtoolcache/Python/3.11.13/x64/lib/python3.11/site-packages/starlette/formparsers.py:12: PendingDeprecationWarning: Please use `import python_multipart` instead.
 test (matrix) (3.11)	Run tests	2025-09-03T08:34:49.8396805Z     import multipart
-test (matrix) (3.11)	Run tests	2025-09-03T08:34:49.8397016Z 
+test (matrix) (3.11)	Run tests	2025-09-03T08:34:49.8397016Z
 test (matrix) (3.11)	Run tests	2025-09-03T08:34:49.8397478Z ../../../../../opt/hostedtoolcache/Python/3.11.13/x64/lib/python3.11/site-packages/passlib/utils/__init__.py:854
 test (matrix) (3.11)	Run tests	2025-09-03T08:34:49.8398851Z   /opt/hostedtoolcache/Python/3.11.13/x64/lib/python3.11/site-packages/passlib/utils/__init__.py:854: DeprecationWarning: 'crypt' is deprecated and slated for removal in Python 3.13
 test (matrix) (3.11)	Run tests	2025-09-03T08:34:49.8399926Z     from crypt import crypt as _crypt
-test (matrix) (3.11)	Run tests	2025-09-03T08:34:49.8400185Z 
+test (matrix) (3.11)	Run tests	2025-09-03T08:34:49.8400185Z
 test (matrix) (3.11)	Run tests	2025-09-03T08:34:49.8400432Z -- Docs: https://docs.pytest.org/en/stable/warnings.html
 test (matrix) (3.11)	Run tests	2025-09-03T08:34:49.8401072Z --- generated xml file: /home/runner/work/vpn-api/vpn-api/reports/junit.xml ----
 test (matrix) (3.11)	Run tests	2025-09-03T08:34:49.8401873Z ================================ tests coverage ================================
 test (matrix) (3.11)	Run tests	2025-09-03T08:34:49.8402445Z _______________ coverage: platform linux, python 3.11.13-final-0 _______________
-test (matrix) (3.11)	Run tests	2025-09-03T08:34:49.8402823Z 
+test (matrix) (3.11)	Run tests	2025-09-03T08:34:49.8402823Z
 test (matrix) (3.11)	Run tests	2025-09-03T08:34:49.8403015Z Coverage XML written to file reports/coverage.xml
 test (matrix) (3.11)	Run tests	2025-09-03T08:34:49.8403550Z Required test coverage of 80% reached. Total coverage: 81.75%
 test (matrix) (3.11)	Run tests	2025-09-03T08:34:49.8404052Z 5 passed, 1 skipped, 2 warnings in 6.97s
@@ -1264,7 +1264,7 @@ integration (postgres)	Wait for Postgres	2025-09-03T08:35:31.4248894Z Get:1 file
 integration (postgres)	Wait for Postgres	2025-09-03T08:35:31.5236549Z Get:2 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 postgresql-client all 16+257build1.1 [11.6 kB]
 integration (postgres)	Wait for Postgres	2025-09-03T08:35:31.7842642Z Fetched 11.6 kB in 0s (106 kB/s)
 integration (postgres)	Wait for Postgres	2025-09-03T08:35:31.8136482Z Selecting previously unselected package postgresql-client.
-integration (postgres)	Wait for Postgres	2025-09-03T08:35:31.8404298Z (Reading database ... 
+integration (postgres)	Wait for Postgres	2025-09-03T08:35:31.8404298Z (Reading database ...
 integration (postgres)	Wait for Postgres	2025-09-03T08:35:31.8404871Z (Reading database ... 5%
 integration (postgres)	Wait for Postgres	2025-09-03T08:35:31.8405181Z (Reading database ... 10%
 integration (postgres)	Wait for Postgres	2025-09-03T08:35:31.8405420Z (Reading database ... 15%
@@ -1289,18 +1289,18 @@ integration (postgres)	Wait for Postgres	2025-09-03T08:35:37.3991902Z (Reading d
 integration (postgres)	Wait for Postgres	2025-09-03T08:35:37.4041823Z Preparing to unpack .../postgresql-client_16+257build1.1_all.deb ...
 integration (postgres)	Wait for Postgres	2025-09-03T08:35:37.4065128Z Unpacking postgresql-client (16+257build1.1) ...
 integration (postgres)	Wait for Postgres	2025-09-03T08:35:37.4449565Z Setting up postgresql-client (16+257build1.1) ...
-integration (postgres)	Wait for Postgres	2025-09-03T08:35:38.7016234Z 
+integration (postgres)	Wait for Postgres	2025-09-03T08:35:38.7016234Z
 integration (postgres)	Wait for Postgres	2025-09-03T08:35:38.7016788Z Running kernel seems to be up-to-date.
-integration (postgres)	Wait for Postgres	2025-09-03T08:35:38.7017261Z 
+integration (postgres)	Wait for Postgres	2025-09-03T08:35:38.7017261Z
 integration (postgres)	Wait for Postgres	2025-09-03T08:35:38.7017422Z Restarting services...
-integration (postgres)	Wait for Postgres	2025-09-03T08:35:38.7091784Z 
+integration (postgres)	Wait for Postgres	2025-09-03T08:35:38.7091784Z
 integration (postgres)	Wait for Postgres	2025-09-03T08:35:38.7092209Z Service restarts being deferred:
 integration (postgres)	Wait for Postgres	2025-09-03T08:35:38.7093572Z  systemctl restart hosted-compute-agent.service
-integration (postgres)	Wait for Postgres	2025-09-03T08:35:38.7093934Z 
+integration (postgres)	Wait for Postgres	2025-09-03T08:35:38.7093934Z
 integration (postgres)	Wait for Postgres	2025-09-03T08:35:38.7094496Z No containers need to be restarted.
-integration (postgres)	Wait for Postgres	2025-09-03T08:35:38.7094819Z 
+integration (postgres)	Wait for Postgres	2025-09-03T08:35:38.7094819Z
 integration (postgres)	Wait for Postgres	2025-09-03T08:35:38.7095027Z No user sessions are running outdated binaries.
-integration (postgres)	Wait for Postgres	2025-09-03T08:35:38.7095414Z 
+integration (postgres)	Wait for Postgres	2025-09-03T08:35:38.7095414Z
 integration (postgres)	Wait for Postgres	2025-09-03T08:35:38.7095773Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
 integration (postgres)	Wait for Postgres	2025-09-03T08:35:39.7684109Z localhost:5432 - accepting connections
 integration (postgres)	Set up Python	я╗┐2025-09-03T08:35:39.7784947Z ##[group]Run actions/setup-python@v4
@@ -1484,7 +1484,7 @@ integration (postgres)	Install dependencies	2025-09-03T08:35:44.5433748Z Downloa
 integration (postgres)	Install dependencies	2025-09-03T08:35:44.5517389Z Downloading mako-1.3.10-py3-none-any.whl (78 kB)
 integration (postgres)	Install dependencies	2025-09-03T08:35:44.5572923Z Downloading pycparser-2.22-py3-none-any.whl (117 kB)
 integration (postgres)	Install dependencies	2025-09-03T08:35:44.6940084Z Installing collected packages: passlib, websockets, uvloop, typing-extensions, sniffio, six, shellingham, pyyaml, python-multipart, python-dotenv, pygments, pycparser, pyasn1, mdurl, MarkupSafe, idna, httptools, h11, greenlet, dnspython, click, certifi, bcrypt, annotated-types, uvicorn, typing-inspection, SQLAlchemy, rsa, pydantic-core, markdown-it-py, Mako, jinja2, httpcore, email_validator, ecdsa, cffi, anyio, watchfiles, starlette, rich, python-jose, pydantic, httpx, cryptography, alembic, typer, rich-toolkit, fastapi-cli, fastapi
-integration (postgres)	Install dependencies	2025-09-03T08:35:49.8397235Z 
+integration (postgres)	Install dependencies	2025-09-03T08:35:49.8397235Z
 integration (postgres)	Install dependencies	2025-09-03T08:35:49.8450416Z Successfully installed Mako-1.3.10 MarkupSafe-3.0.2 SQLAlchemy-2.0.43 alembic-1.16.5 annotated-types-0.7.0 anyio-4.10.0 bcrypt-4.3.0 certifi-2025.8.3 cffi-1.17.1 click-8.2.1 cryptography-45.0.7 dnspython-2.7.0 ecdsa-0.19.1 email_validator-2.3.0 fastapi-0.111.1 fastapi-cli-0.0.10 greenlet-3.2.4 h11-0.16.0 httpcore-1.0.9 httptools-0.6.4 httpx-0.28.1 idna-3.10 jinja2-3.1.6 markdown-it-py-4.0.0 mdurl-0.1.2 passlib-1.7.4 pyasn1-0.6.1 pycparser-2.22 pydantic-2.11.3 pydantic-core-2.33.1 pygments-2.19.2 python-dotenv-1.1.1 python-jose-3.5.0 python-multipart-0.0.20 pyyaml-6.0.2 rich-14.1.0 rich-toolkit-0.15.0 rsa-4.9.1 shellingham-1.5.4 six-1.17.0 sniffio-1.3.1 starlette-0.37.2 typer-0.17.3 typing-extensions-4.15.0 typing-inspection-0.4.1 uvicorn-0.29.0 uvloop-0.21.0 watchfiles-1.1.0 websockets-15.0.1
 integration (postgres)	Install dependencies	2025-09-03T08:35:50.7272468Z Collecting pytest==6.2.5 (from -r vpn_api/requirements-dev.txt (line 1))
 integration (postgres)	Install dependencies	2025-09-03T08:35:50.7593550Z   Downloading pytest-6.2.5-py3-none-any.whl.metadata (7.5 kB)
@@ -1526,7 +1526,7 @@ integration (postgres)	Install dependencies	2025-09-03T08:35:51.3490632Z Downloa
 integration (postgres)	Install dependencies	2025-09-03T08:35:51.3538243Z Downloading packaging-25.0-py3-none-any.whl (66 kB)
 integration (postgres)	Install dependencies	2025-09-03T08:35:51.3588027Z Downloading toml-0.10.2-py2.py3-none-any.whl (16 kB)
 integration (postgres)	Install dependencies	2025-09-03T08:35:51.4332725Z Installing collected packages: toml, py, pluggy, packaging, junit-xml, iniconfig, coverage, attrs, pytest, pytest-cov
-integration (postgres)	Install dependencies	2025-09-03T08:35:51.9841362Z 
+integration (postgres)	Install dependencies	2025-09-03T08:35:51.9841362Z
 integration (postgres)	Install dependencies	2025-09-03T08:35:51.9896884Z Successfully installed attrs-25.3.0 coverage-7.10.6 iniconfig-2.1.0 junit-xml-1.9 packaging-25.0 pluggy-1.6.0 py-1.11.0 pytest-6.2.5 pytest-cov-6.2.1 toml-0.10.2
 integration (postgres)	Apply migrations	я╗┐2025-09-03T08:35:52.1038559Z ##[group]Run alembic -c alembic.ini upgrade head
 integration (postgres)	Apply migrations	2025-09-03T08:35:52.1038941Z [36;1malembic -c alembic.ini upgrade head[0m
@@ -1596,13 +1596,13 @@ integration (postgres)	Stop containers	2025-09-03T08:35:52.9028841Z  The files b
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9031424Z  initdb: warning: enabling "trust" authentication for local connections
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9032497Z  initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9033755Z  This user must also own the server process.
-integration (postgres)	Stop containers	2025-09-03T08:35:52.9034156Z  
+integration (postgres)	Stop containers	2025-09-03T08:35:52.9034156Z
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9034560Z  The database cluster will be initialized with locale "en_US.utf8".
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9035222Z  The default database encoding has accordingly been set to "UTF8".
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9035888Z  The default text search configuration will be set to "english".
-integration (postgres)	Stop containers	2025-09-03T08:35:52.9036443Z  
+integration (postgres)	Stop containers	2025-09-03T08:35:52.9036443Z
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9036812Z  Data page checksums are disabled.
-integration (postgres)	Stop containers	2025-09-03T08:35:52.9037177Z  
+integration (postgres)	Stop containers	2025-09-03T08:35:52.9037177Z
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9037598Z  fixing permissions on existing directory /var/lib/postgresql/data ... ok
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9038204Z  creating subdirectories ... ok
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9038660Z  selecting dynamic shared memory implementation ... posix
@@ -1613,12 +1613,12 @@ integration (postgres)	Stop containers	2025-09-03T08:35:52.9040502Z  creating co
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9040905Z  running bootstrap script ... ok
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9041344Z  performing post-bootstrap initialization ... ok
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9041781Z  syncing data to disk ... ok
-integration (postgres)	Stop containers	2025-09-03T08:35:52.9042074Z  
-integration (postgres)	Stop containers	2025-09-03T08:35:52.9042286Z  
+integration (postgres)	Stop containers	2025-09-03T08:35:52.9042074Z
+integration (postgres)	Stop containers	2025-09-03T08:35:52.9042286Z
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9042587Z  Success. You can now start the database server using:
-integration (postgres)	Stop containers	2025-09-03T08:35:52.9043004Z  
+integration (postgres)	Stop containers	2025-09-03T08:35:52.9043004Z
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9043493Z      pg_ctl -D /var/lib/postgresql/data -l logfile start
-integration (postgres)	Stop containers	2025-09-03T08:35:52.9043921Z  
+integration (postgres)	Stop containers	2025-09-03T08:35:52.9043921Z
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9044803Z  waiting for server to start....2025-09-03 08:35:10.455 UTC [48] LOG:  starting PostgreSQL 15.14 (Debian 15.14-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9046040Z  2025-09-03 08:35:10.456 UTC [48] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9046817Z  2025-09-03 08:35:10.460 UTC [51] LOG:  database system was shut down at 2025-09-03 08:35:10 UTC
@@ -1632,10 +1632,10 @@ integration (postgres)	Stop containers	2025-09-03T08:35:52.9052484Z  2025-09-03 
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9052991Z  2025-09-03 08:35:10.769 UTC [64] LOG:  database system was shut down at 2025-09-03 08:35:10 UTC
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9053656Z  2025-09-03 08:35:10.776 UTC [1] LOG:  database system is ready to accept connections
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9053994Z  CREATE DATABASE
-integration (postgres)	Stop containers	2025-09-03T08:35:52.9054159Z  
-integration (postgres)	Stop containers	2025-09-03T08:35:52.9054290Z  
+integration (postgres)	Stop containers	2025-09-03T08:35:52.9054159Z
+integration (postgres)	Stop containers	2025-09-03T08:35:52.9054290Z
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9054572Z  /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
-integration (postgres)	Stop containers	2025-09-03T08:35:52.9054914Z  
+integration (postgres)	Stop containers	2025-09-03T08:35:52.9054914Z
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9055125Z  2025-09-03 08:35:10.644 UTC [48] LOG:  received fast shutdown request
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9055563Z  waiting for server to shut down....2025-09-03 08:35:10.645 UTC [48] LOG:  aborting any active transactions
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9056428Z  2025-09-03 08:35:10.647 UTC [48] LOG:  background worker "logical replication launcher" (PID 54) exited with exit code 1
@@ -1645,9 +1645,9 @@ integration (postgres)	Stop containers	2025-09-03T08:35:52.9058008Z  2025-09-03 
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9058947Z  2025-09-03 08:35:10.673 UTC [48] LOG:  database system is shut down
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9059221Z   done
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9059366Z  server stopped
-integration (postgres)	Stop containers	2025-09-03T08:35:52.9059524Z  
+integration (postgres)	Stop containers	2025-09-03T08:35:52.9059524Z
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9059731Z  PostgreSQL init process complete; ready for start up.
-integration (postgres)	Stop containers	2025-09-03T08:35:52.9059991Z  
+integration (postgres)	Stop containers	2025-09-03T08:35:52.9059991Z
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9065891Z Stop and remove container: f1806f7095f843df8053e87595274614_postgres15_3112db
 integration (postgres)	Stop containers	2025-09-03T08:35:52.9070721Z ##[command]/usr/bin/docker rm --force eb7c3886f73f74c9a9083acaf72c3ae9ea6c3aae9e4b855b622b3151abe78607
 integration (postgres)	Stop containers	2025-09-03T08:35:53.5261540Z eb7c3886f73f74c9a9083acaf72c3ae9ea6c3aae9e4b855b622b3151abe78607

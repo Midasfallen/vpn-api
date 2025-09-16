@@ -14,7 +14,21 @@ class UserStatus(str, Enum):
 
 class UserCreate(BaseModel):
     email: EmailStr
-    password: str
+    password: str | None = None
+
+
+class RegisterIn(BaseModel):
+    email: EmailStr
+
+
+class VerifyIn(BaseModel):
+    email: EmailStr
+    code: str
+
+
+class TokenOut(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
 
 
 class UserOut(BaseModel):

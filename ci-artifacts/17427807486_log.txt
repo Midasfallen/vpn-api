@@ -174,7 +174,7 @@ lint	Install dependencies	2025-09-03T08:34:14.9252747Z    тФБтФБтФБтФ
 lint	Install dependencies	2025-09-03T08:34:14.9447778Z Downloading distlib-0.4.0-py2.py3-none-any.whl (469 kB)
 lint	Install dependencies	2025-09-03T08:34:14.9674118Z Downloading filelock-3.19.1-py3-none-any.whl (15 kB)
 lint	Install dependencies	2025-09-03T08:34:15.0337403Z Installing collected packages: distlib, ruff, pyyaml, platformdirs, pathspec, packaging, nodeenv, mypy-extensions, isort, identify, filelock, click, cfgv, virtualenv, black, pre-commit
-lint	Install dependencies	2025-09-03T08:34:15.8508140Z 
+lint	Install dependencies	2025-09-03T08:34:15.8508140Z
 lint	Install dependencies	2025-09-03T08:34:15.8523308Z Successfully installed black-25.1.0 cfgv-3.4.0 click-8.2.1 distlib-0.4.0 filelock-3.19.1 identify-2.6.13 isort-6.0.1 mypy-extensions-1.1.0 nodeenv-1.9.1 packaging-25.0 pathspec-0.12.1 platformdirs-4.4.0 pre-commit-4.3.0 pyyaml-6.0.2 ruff-0.12.11 virtualenv-20.34.0
 lint	Run ruff	я╗┐2025-09-03T08:34:15.9393094Z ##[group]Run ruff check .
 lint	Run ruff	2025-09-03T08:34:15.9393372Z [36;1mruff check .[0m
@@ -193,7 +193,7 @@ lint	Run ruff	2025-09-03T08:34:15.9514083Z warning: `incorrect-blank-line-before
 lint	Run ruff	2025-09-03T08:34:15.9515843Z warning: `multi-line-summary-first-line` (D212) and `multi-line-summary-second-line` (D213) are incompatible. Ignoring `multi-line-summary-second-line`.
 lint	Run ruff	2025-09-03T08:34:15.9599450Z D104 Missing docstring in public package
 lint	Run ruff	2025-09-03T08:34:15.9599960Z --> alembic/__init__.py:1:1
-lint	Run ruff	2025-09-03T08:34:15.9600219Z 
+lint	Run ruff	2025-09-03T08:34:15.9600219Z
 lint	Run ruff	2025-09-03T08:34:15.9600355Z I001 [*] Import block is un-sorted or un-formatted
 lint	Run ruff	2025-09-03T08:34:15.9600657Z  --> alembic/__init__.py:1:1
 lint	Run ruff	2025-09-03T08:34:15.9600935Z   |
@@ -204,7 +204,7 @@ lint	Run ruff	2025-09-03T08:34:15.9602374Z 3 |   sys.path.insert(0, os.path.absp
 lint	Run ruff	2025-09-03T08:34:15.9603072Z 4 |   from database import Base
 lint	Run ruff	2025-09-03T08:34:15.9603451Z   |
 lint	Run ruff	2025-09-03T08:34:15.9603713Z help: Organize imports
-lint	Run ruff	2025-09-03T08:34:15.9603912Z 
+lint	Run ruff	2025-09-03T08:34:15.9603912Z
 lint	Run ruff	2025-09-03T08:34:15.9604049Z E501 Line too long (93 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9604396Z  --> alembic/__init__.py:3:89
 lint	Run ruff	2025-09-03T08:34:15.9604726Z   |
@@ -215,7 +215,7 @@ lint	Run ruff	2025-09-03T08:34:15.9606727Z   |                                  
 lint	Run ruff	2025-09-03T08:34:15.9607172Z 4 | from database import Base
 lint	Run ruff	2025-09-03T08:34:15.9607695Z 5 | import models
 lint	Run ruff	2025-09-03T08:34:15.9607971Z   |
-lint	Run ruff	2025-09-03T08:34:15.9608107Z 
+lint	Run ruff	2025-09-03T08:34:15.9608107Z
 lint	Run ruff	2025-09-03T08:34:15.9608284Z I001 [*] Import block is un-sorted or un-formatted
 lint	Run ruff	2025-09-03T08:34:15.9608731Z  --> alembic/__init__.py:4:1
 lint	Run ruff	2025-09-03T08:34:15.9609047Z   |
@@ -228,7 +228,7 @@ lint	Run ruff	2025-09-03T08:34:15.9611376Z 6 |
 lint	Run ruff	2025-09-03T08:34:15.9611604Z 7 |   def run():
 lint	Run ruff	2025-09-03T08:34:15.9611877Z   |
 lint	Run ruff	2025-09-03T08:34:15.9612119Z help: Organize imports
-lint	Run ruff	2025-09-03T08:34:15.9612324Z 
+lint	Run ruff	2025-09-03T08:34:15.9612324Z
 lint	Run ruff	2025-09-03T08:34:15.9612459Z F401 `models` imported but unused
 lint	Run ruff	2025-09-03T08:34:15.9612826Z  --> alembic/__init__.py:5:8
 lint	Run ruff	2025-09-03T08:34:15.9613155Z   |
@@ -240,7 +240,7 @@ lint	Run ruff	2025-09-03T08:34:15.9615103Z 6 |
 lint	Run ruff	2025-09-03T08:34:15.9615342Z 7 | def run():
 lint	Run ruff	2025-09-03T08:34:15.9615603Z   |
 lint	Run ruff	2025-09-03T08:34:15.9615872Z help: Remove unused import: `models`
-lint	Run ruff	2025-09-03T08:34:15.9680072Z 
+lint	Run ruff	2025-09-03T08:34:15.9680072Z
 lint	Run ruff	2025-09-03T08:34:15.9680255Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:15.9680676Z  --> alembic/__init__.py:7:5
 lint	Run ruff	2025-09-03T08:34:15.9681026Z   |
@@ -251,10 +251,10 @@ lint	Run ruff	2025-09-03T08:34:15.9682294Z   |     ^^^
 lint	Run ruff	2025-09-03T08:34:15.9682647Z 8 |     from sqlalchemy import create_engine
 lint	Run ruff	2025-09-03T08:34:15.9683304Z 9 |     db_url = os.getenv("DATABASE_URL", "sqlite:///../vpn_api/test.db")
 lint	Run ruff	2025-09-03T08:34:15.9683884Z   |
-lint	Run ruff	2025-09-03T08:34:15.9684026Z 
+lint	Run ruff	2025-09-03T08:34:15.9684026Z
 lint	Run ruff	2025-09-03T08:34:15.9684169Z D100 Missing docstring in public module
 lint	Run ruff	2025-09-03T08:34:15.9684523Z --> alembic/create_db.py:1:1
-lint	Run ruff	2025-09-03T08:34:15.9684752Z 
+lint	Run ruff	2025-09-03T08:34:15.9684752Z
 lint	Run ruff	2025-09-03T08:34:15.9684921Z I001 [*] Import block is un-sorted or un-formatted
 lint	Run ruff	2025-09-03T08:34:15.9685362Z  --> alembic/create_db.py:1:1
 lint	Run ruff	2025-09-03T08:34:15.9685702Z   |
@@ -266,7 +266,7 @@ lint	Run ruff	2025-09-03T08:34:15.9687667Z 4 |   sys.path.insert(0, os.path.absp
 lint	Run ruff	2025-09-03T08:34:15.9688402Z 5 |   from database import Base, DB_URL
 lint	Run ruff	2025-09-03T08:34:15.9688780Z   |
 lint	Run ruff	2025-09-03T08:34:15.9689055Z help: Organize imports
-lint	Run ruff	2025-09-03T08:34:15.9689274Z 
+lint	Run ruff	2025-09-03T08:34:15.9689274Z
 lint	Run ruff	2025-09-03T08:34:15.9689447Z F401 [*] `pathlib.Path` imported but unused
 lint	Run ruff	2025-09-03T08:34:15.9689911Z  --> alembic/create_db.py:3:21
 lint	Run ruff	2025-09-03T08:34:15.9690245Z   |
@@ -278,7 +278,7 @@ lint	Run ruff	2025-09-03T08:34:15.9692079Z 4 | sys.path.insert(0, os.path.abspat
 lint	Run ruff	2025-09-03T08:34:15.9692791Z 5 | from database import Base, DB_URL
 lint	Run ruff	2025-09-03T08:34:15.9693189Z   |
 lint	Run ruff	2025-09-03T08:34:15.9693513Z help: Remove unused import: `pathlib.Path`
-lint	Run ruff	2025-09-03T08:34:15.9693825Z 
+lint	Run ruff	2025-09-03T08:34:15.9693825Z
 lint	Run ruff	2025-09-03T08:34:15.9693957Z E501 Line too long (93 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9694331Z  --> alembic/create_db.py:4:89
 lint	Run ruff	2025-09-03T08:34:15.9694693Z   |
@@ -289,7 +289,7 @@ lint	Run ruff	2025-09-03T08:34:15.9696965Z   |                                  
 lint	Run ruff	2025-09-03T08:34:15.9697609Z 5 | from database import Base, DB_URL
 lint	Run ruff	2025-09-03T08:34:15.9698082Z 6 | from sqlalchemy import create_engine
 lint	Run ruff	2025-09-03T08:34:15.9698464Z   |
-lint	Run ruff	2025-09-03T08:34:15.9698608Z 
+lint	Run ruff	2025-09-03T08:34:15.9698608Z
 lint	Run ruff	2025-09-03T08:34:15.9698837Z I001 [*] Import block is un-sorted or un-formatted
 lint	Run ruff	2025-09-03T08:34:15.9699297Z  --> alembic/create_db.py:5:1
 lint	Run ruff	2025-09-03T08:34:15.9699734Z   |
@@ -300,7 +300,7 @@ lint	Run ruff	2025-09-03T08:34:15.9701790Z 6 | | from sqlalchemy import create_e
 lint	Run ruff	2025-09-03T08:34:15.9702188Z   | |____________________________________^
 lint	Run ruff	2025-09-03T08:34:15.9702554Z   |
 lint	Run ruff	2025-09-03T08:34:15.9702861Z help: Organize imports
-lint	Run ruff	2025-09-03T08:34:15.9703096Z 
+lint	Run ruff	2025-09-03T08:34:15.9703096Z
 lint	Run ruff	2025-09-03T08:34:15.9703267Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:15.9703598Z   --> alembic/create_db.py:9:5
 lint	Run ruff	2025-09-03T08:34:15.9703798Z    |
@@ -309,7 +309,7 @@ lint	Run ruff	2025-09-03T08:34:15.9704140Z    |     ^^^
 lint	Run ruff	2025-09-03T08:34:15.9704675Z 10 |     # ╨Х╤Б╨╗╨╕ DATABASE_URL ╨╖╨░╨┤╨░╨╜, ╨╕╤Б╨┐╨╛╨╗╤М╨╖╤Г╨╡╨╝ ╨╡╨│╨╛, ╨╕╨╜╨░╤З╨╡ ╨╕╤Б╨┐╨╛╨╗╤М╨╖╤Г╨╡╨╝ ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ ╨╕╨╖ database.DB_URL
 lint	Run ruff	2025-09-03T08:34:15.9705027Z 11 |     db_url = os.getenv('DATABASE_URL', DB_URL)
 lint	Run ruff	2025-09-03T08:34:15.9705271Z    |
-lint	Run ruff	2025-09-03T08:34:15.9705356Z 
+lint	Run ruff	2025-09-03T08:34:15.9705356Z
 lint	Run ruff	2025-09-03T08:34:15.9705927Z RUF003 Comment contains ambiguous `╨╡` (CYRILLIC SMALL LETTER IE). Did you mean `e` (LATIN SMALL LETTER E)?
 lint	Run ruff	2025-09-03T08:34:15.9706369Z   --> alembic/create_db.py:10:43
 lint	Run ruff	2025-09-03T08:34:15.9706571Z    |
@@ -319,7 +319,7 @@ lint	Run ruff	2025-09-03T08:34:15.9708220Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9708487Z 11 |     db_url = os.getenv('DATABASE_URL', DB_URL)
 lint	Run ruff	2025-09-03T08:34:15.9708826Z 12 |     # ╨Ф╨╗╤П sqlite ╤Г╨▒╨╡╨┤╨╕╨╝╤Б╤П, ╤З╤В╨╛ ╨┤╨╕╤А╨╡╨║╤В╨╛╤А╨╕╤П ╤Б╤Г╤Й╨╡╤Б╤В╨▓╤Г╨╡╤В
 lint	Run ruff	2025-09-03T08:34:15.9709066Z    |
-lint	Run ruff	2025-09-03T08:34:15.9709147Z 
+lint	Run ruff	2025-09-03T08:34:15.9709147Z
 lint	Run ruff	2025-09-03T08:34:15.9709494Z RUF003 Comment contains ambiguous `╨│` (CYRILLIC SMALL LETTER GHE). Did you mean `r` (LATIN SMALL LETTER R)?
 lint	Run ruff	2025-09-03T08:34:15.9709952Z   --> alembic/create_db.py:10:44
 lint	Run ruff	2025-09-03T08:34:15.9710167Z    |
@@ -329,7 +329,7 @@ lint	Run ruff	2025-09-03T08:34:15.9710974Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9711237Z 11 |     db_url = os.getenv('DATABASE_URL', DB_URL)
 lint	Run ruff	2025-09-03T08:34:15.9711549Z 12 |     # ╨Ф╨╗╤П sqlite ╤Г╨▒╨╡╨┤╨╕╨╝╤Б╤П, ╤З╤В╨╛ ╨┤╨╕╤А╨╡╨║╤В╨╛╤А╨╕╤П ╤Б╤Г╤Й╨╡╤Б╤В╨▓╤Г╨╡╤В
 lint	Run ruff	2025-09-03T08:34:15.9711806Z    |
-lint	Run ruff	2025-09-03T08:34:15.9711891Z 
+lint	Run ruff	2025-09-03T08:34:15.9711891Z
 lint	Run ruff	2025-09-03T08:34:15.9712229Z RUF003 Comment contains ambiguous `╨╛` (CYRILLIC SMALL LETTER O). Did you mean `o` (LATIN SMALL LETTER O)?
 lint	Run ruff	2025-09-03T08:34:15.9712668Z   --> alembic/create_db.py:10:45
 lint	Run ruff	2025-09-03T08:34:15.9712873Z    |
@@ -339,7 +339,7 @@ lint	Run ruff	2025-09-03T08:34:15.9713637Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9713889Z 11 |     db_url = os.getenv('DATABASE_URL', DB_URL)
 lint	Run ruff	2025-09-03T08:34:15.9714198Z 12 |     # ╨Ф╨╗╤П sqlite ╤Г╨▒╨╡╨┤╨╕╨╝╤Б╤П, ╤З╤В╨╛ ╨┤╨╕╤А╨╡╨║╤В╨╛╤А╨╕╤П ╤Б╤Г╤Й╨╡╤Б╤В╨▓╤Г╨╡╤В
 lint	Run ruff	2025-09-03T08:34:15.9714445Z    |
-lint	Run ruff	2025-09-03T08:34:15.9714525Z 
+lint	Run ruff	2025-09-03T08:34:15.9714525Z
 lint	Run ruff	2025-09-03T08:34:15.9714611Z E501 Line too long (91 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9714819Z   --> alembic/create_db.py:10:89
 lint	Run ruff	2025-09-03T08:34:15.9715027Z    |
@@ -349,10 +349,10 @@ lint	Run ruff	2025-09-03T08:34:15.9715965Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9716248Z 11 |     db_url = os.getenv('DATABASE_URL', DB_URL)
 lint	Run ruff	2025-09-03T08:34:15.9716562Z 12 |     # ╨Ф╨╗╤П sqlite ╤Г╨▒╨╡╨┤╨╕╨╝╤Б╤П, ╤З╤В╨╛ ╨┤╨╕╤А╨╡╨║╤В╨╛╤А╨╕╤П ╤Б╤Г╤Й╨╡╤Б╤В╨▓╤Г╨╡╤В
 lint	Run ruff	2025-09-03T08:34:15.9716796Z    |
-lint	Run ruff	2025-09-03T08:34:15.9716875Z 
+lint	Run ruff	2025-09-03T08:34:15.9716875Z
 lint	Run ruff	2025-09-03T08:34:15.9716971Z D100 Missing docstring in public module
 lint	Run ruff	2025-09-03T08:34:15.9717206Z --> alembic/env.py:1:1
-lint	Run ruff	2025-09-03T08:34:15.9717327Z 
+lint	Run ruff	2025-09-03T08:34:15.9717327Z
 lint	Run ruff	2025-09-03T08:34:15.9717596Z I001 [*] Import block is un-sorted or un-formatted
 lint	Run ruff	2025-09-03T08:34:15.9717887Z  --> alembic/env.py:1:1
 lint	Run ruff	2025-09-03T08:34:15.9718064Z   |
@@ -366,7 +366,7 @@ lint	Run ruff	2025-09-03T08:34:15.9719602Z 6 |   # Ensure project root is on sys
 lint	Run ruff	2025-09-03T08:34:15.9720035Z 7 |   project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 lint	Run ruff	2025-09-03T08:34:15.9720369Z   |
 lint	Run ruff	2025-09-03T08:34:15.9720528Z help: Organize imports
-lint	Run ruff	2025-09-03T08:34:15.9720646Z 
+lint	Run ruff	2025-09-03T08:34:15.9720646Z
 lint	Run ruff	2025-09-03T08:34:15.9720740Z E402 Module level import not at top of file
 lint	Run ruff	2025-09-03T08:34:15.9720992Z   --> alembic/env.py:14:1
 lint	Run ruff	2025-09-03T08:34:15.9721177Z    |
@@ -377,7 +377,7 @@ lint	Run ruff	2025-09-03T08:34:15.9722513Z    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9722721Z 15 | from vpn_api.database import Base
 lint	Run ruff	2025-09-03T08:34:15.9722966Z 16 | from vpn_api import models
 lint	Run ruff	2025-09-03T08:34:15.9723166Z    |
-lint	Run ruff	2025-09-03T08:34:15.9723255Z 
+lint	Run ruff	2025-09-03T08:34:15.9723255Z
 lint	Run ruff	2025-09-03T08:34:15.9723362Z I001 [*] Import block is un-sorted or un-formatted
 lint	Run ruff	2025-09-03T08:34:15.9723619Z   --> alembic/env.py:14:1
 lint	Run ruff	2025-09-03T08:34:15.9723798Z    |
@@ -391,7 +391,7 @@ lint	Run ruff	2025-09-03T08:34:15.9725679Z 17 |
 lint	Run ruff	2025-09-03T08:34:15.9725838Z 18 |   config = context.config
 lint	Run ruff	2025-09-03T08:34:15.9726035Z    |
 lint	Run ruff	2025-09-03T08:34:15.9726180Z help: Organize imports
-lint	Run ruff	2025-09-03T08:34:15.9726298Z 
+lint	Run ruff	2025-09-03T08:34:15.9726298Z
 lint	Run ruff	2025-09-03T08:34:15.9726397Z E402 Module level import not at top of file
 lint	Run ruff	2025-09-03T08:34:15.9726640Z   --> alembic/env.py:15:1
 lint	Run ruff	2025-09-03T08:34:15.9726821Z    |
@@ -401,7 +401,7 @@ lint	Run ruff	2025-09-03T08:34:15.9727799Z 15 | from vpn_api.database import Bas
 lint	Run ruff	2025-09-03T08:34:15.9728028Z    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9728245Z 16 | from vpn_api import models
 lint	Run ruff	2025-09-03T08:34:15.9728435Z    |
-lint	Run ruff	2025-09-03T08:34:15.9728514Z 
+lint	Run ruff	2025-09-03T08:34:15.9728514Z
 lint	Run ruff	2025-09-03T08:34:15.9728613Z E402 Module level import not at top of file
 lint	Run ruff	2025-09-03T08:34:15.9728848Z   --> alembic/env.py:16:1
 lint	Run ruff	2025-09-03T08:34:15.9729030Z    |
@@ -412,7 +412,7 @@ lint	Run ruff	2025-09-03T08:34:15.9729834Z    | ^^^^^^^^^^^^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9730014Z 17 |
 lint	Run ruff	2025-09-03T08:34:15.9730164Z 18 | config = context.config
 lint	Run ruff	2025-09-03T08:34:15.9730491Z    |
-lint	Run ruff	2025-09-03T08:34:15.9730570Z 
+lint	Run ruff	2025-09-03T08:34:15.9730570Z
 lint	Run ruff	2025-09-03T08:34:15.9730668Z F401 [*] `vpn_api.models` imported but unused
 lint	Run ruff	2025-09-03T08:34:15.9730918Z   --> alembic/env.py:16:21
 lint	Run ruff	2025-09-03T08:34:15.9731098Z    |
@@ -424,7 +424,7 @@ lint	Run ruff	2025-09-03T08:34:15.9732073Z 17 |
 lint	Run ruff	2025-09-03T08:34:15.9732227Z 18 | config = context.config
 lint	Run ruff	2025-09-03T08:34:15.9732411Z    |
 lint	Run ruff	2025-09-03T08:34:15.9732587Z help: Remove unused import: `vpn_api.models`
-lint	Run ruff	2025-09-03T08:34:15.9732769Z 
+lint	Run ruff	2025-09-03T08:34:15.9732769Z
 lint	Run ruff	2025-09-03T08:34:15.9732862Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:15.9733101Z   --> alembic/env.py:27:5
 lint	Run ruff	2025-09-03T08:34:15.9733274Z    |
@@ -435,7 +435,7 @@ lint	Run ruff	2025-09-03T08:34:15.9734119Z    |     ^^^^^^^^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9734345Z 28 |     url = config.get_main_option("sqlalchemy.url")
 lint	Run ruff	2025-09-03T08:34:15.9734609Z 29 |     context.configure(
 lint	Run ruff	2025-09-03T08:34:15.9734789Z    |
-lint	Run ruff	2025-09-03T08:34:15.9734870Z 
+lint	Run ruff	2025-09-03T08:34:15.9734870Z
 lint	Run ruff	2025-09-03T08:34:15.9734958Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:15.9735188Z   --> alembic/env.py:35:5
 lint	Run ruff	2025-09-03T08:34:15.9735366Z    |
@@ -446,7 +446,7 @@ lint	Run ruff	2025-09-03T08:34:15.9736087Z    |     ^^^^^^^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9736422Z 36 |     connectable = engine_from_config(
 lint	Run ruff	2025-09-03T08:34:15.9736692Z 37 |         config.get_section(config.config_ini_section),
 lint	Run ruff	2025-09-03T08:34:15.9736947Z    |
-lint	Run ruff	2025-09-03T08:34:15.9737026Z 
+lint	Run ruff	2025-09-03T08:34:15.9737026Z
 lint	Run ruff	2025-09-03T08:34:15.9737113Z D400 First line should end with a period
 lint	Run ruff	2025-09-03T08:34:15.9737664Z  --> alembic/versions/881faf8bfb76_expand_models_add_vpn_peers_payments.py:1:1
 lint	Run ruff	2025-09-03T08:34:15.9738045Z   |
@@ -461,7 +461,7 @@ lint	Run ruff	2025-09-03T08:34:15.9739469Z 7 |   from alembic import op
 lint	Run ruff	2025-09-03T08:34:15.9739672Z 8 |   import sqlalchemy as sa
 lint	Run ruff	2025-09-03T08:34:15.9739865Z   |
 lint	Run ruff	2025-09-03T08:34:15.9740009Z help: Add period
-lint	Run ruff	2025-09-03T08:34:15.9740118Z 
+lint	Run ruff	2025-09-03T08:34:15.9740118Z
 lint	Run ruff	2025-09-03T08:34:15.9740299Z D415 First line should end with a period, question mark, or exclamation point
 lint	Run ruff	2025-09-03T08:34:15.9740749Z  --> alembic/versions/881faf8bfb76_expand_models_add_vpn_peers_payments.py:1:1
 lint	Run ruff	2025-09-03T08:34:15.9741079Z   |
@@ -476,7 +476,7 @@ lint	Run ruff	2025-09-03T08:34:15.9742472Z 7 |   from alembic import op
 lint	Run ruff	2025-09-03T08:34:15.9742681Z 8 |   import sqlalchemy as sa
 lint	Run ruff	2025-09-03T08:34:15.9742871Z   |
 lint	Run ruff	2025-09-03T08:34:15.9743021Z help: Add closing punctuation
-lint	Run ruff	2025-09-03T08:34:15.9743155Z 
+lint	Run ruff	2025-09-03T08:34:15.9743155Z
 lint	Run ruff	2025-09-03T08:34:15.9743270Z I001 [*] Import block is un-sorted or un-formatted
 lint	Run ruff	2025-09-03T08:34:15.9743648Z   --> alembic/versions/881faf8bfb76_expand_models_add_vpn_peers_payments.py:7:1
 lint	Run ruff	2025-09-03T08:34:15.9743994Z    |
@@ -489,7 +489,7 @@ lint	Run ruff	2025-09-03T08:34:15.9745249Z  9 |
 lint	Run ruff	2025-09-03T08:34:15.9745427Z 10 |   # revision identifiers, used by Alembic.
 lint	Run ruff	2025-09-03T08:34:15.9745649Z    |
 lint	Run ruff	2025-09-03T08:34:15.9745800Z help: Organize imports
-lint	Run ruff	2025-09-03T08:34:15.9745914Z 
+lint	Run ruff	2025-09-03T08:34:15.9745914Z
 lint	Run ruff	2025-09-03T08:34:15.9746004Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:15.9746370Z   --> alembic/versions/881faf8bfb76_expand_models_add_vpn_peers_payments.py:17:5
 lint	Run ruff	2025-09-03T08:34:15.9746702Z    |
@@ -498,7 +498,7 @@ lint	Run ruff	2025-09-03T08:34:15.9747013Z    |     ^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9747205Z 18 |     # ### commands auto generated by Alembic ###
 lint	Run ruff	2025-09-03T08:34:15.9747745Z 19 |     op.add_column('tariffs', sa.Column('description', sa.String(), nullable=True))
 lint	Run ruff	2025-09-03T08:34:15.9748082Z    |
-lint	Run ruff	2025-09-03T08:34:15.9748168Z 
+lint	Run ruff	2025-09-03T08:34:15.9748168Z
 lint	Run ruff	2025-09-03T08:34:15.9748242Z E501 Line too long (130 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9748568Z   --> alembic/versions/881faf8bfb76_expand_models_add_vpn_peers_payments.py:21:89
 lint	Run ruff	2025-09-03T08:34:15.9748913Z    |
@@ -509,7 +509,7 @@ lint	Run ruff	2025-09-03T08:34:15.9750702Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9751002Z 22 |     with op.batch_alter_table('tariffs') as batch_op:
 lint	Run ruff	2025-09-03T08:34:15.9751462Z 23 |         batch_op.alter_column('price', existing_type=sa.INTEGER(), type_=sa.Numeric(10,2), existing_nullable=False)
 lint	Run ruff	2025-09-03T08:34:15.9752013Z    |
-lint	Run ruff	2025-09-03T08:34:15.9752095Z 
+lint	Run ruff	2025-09-03T08:34:15.9752095Z
 lint	Run ruff	2025-09-03T08:34:15.9752176Z E501 Line too long (115 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9752503Z   --> alembic/versions/881faf8bfb76_expand_models_add_vpn_peers_payments.py:23:89
 lint	Run ruff	2025-09-03T08:34:15.9752856Z    |
@@ -520,7 +520,7 @@ lint	Run ruff	2025-09-03T08:34:15.9754644Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9754884Z 24 |
 lint	Run ruff	2025-09-03T08:34:15.9755184Z 25 |     op.add_column('user_tariffs', sa.Column('ended_at', sa.DateTime(timezone=True), nullable=True))
 lint	Run ruff	2025-09-03T08:34:15.9755556Z    |
-lint	Run ruff	2025-09-03T08:34:15.9755635Z 
+lint	Run ruff	2025-09-03T08:34:15.9755635Z
 lint	Run ruff	2025-09-03T08:34:15.9755709Z E501 Line too long (99 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9756044Z   --> alembic/versions/881faf8bfb76_expand_models_add_vpn_peers_payments.py:25:89
 lint	Run ruff	2025-09-03T08:34:15.9756385Z    |
@@ -531,7 +531,7 @@ lint	Run ruff	2025-09-03T08:34:15.9758054Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9758472Z 26 |     op.add_column('user_tariffs', sa.Column('status', sa.String(), nullable=False, server_default='active'))
 lint	Run ruff	2025-09-03T08:34:15.9758929Z 27 |     with op.batch_alter_table('user_tariffs') as batch_op:
 lint	Run ruff	2025-09-03T08:34:15.9759202Z    |
-lint	Run ruff	2025-09-03T08:34:15.9759288Z 
+lint	Run ruff	2025-09-03T08:34:15.9759288Z
 lint	Run ruff	2025-09-03T08:34:15.9759363Z E501 Line too long (108 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9759696Z   --> alembic/versions/881faf8bfb76_expand_models_add_vpn_peers_payments.py:26:89
 lint	Run ruff	2025-09-03T08:34:15.9760030Z    |
@@ -541,7 +541,7 @@ lint	Run ruff	2025-09-03T08:34:15.9761406Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9761710Z 27 |     with op.batch_alter_table('user_tariffs') as batch_op:
 lint	Run ruff	2025-09-03T08:34:15.9762321Z 28 |         batch_op.alter_column('started_at', existing_type=sa.TIMESTAMP(), type_=sa.DateTime(timezone=True), existing_nullable=True, nuтАж
 lint	Run ruff	2025-09-03T08:34:15.9762787Z    |
-lint	Run ruff	2025-09-03T08:34:15.9762867Z 
+lint	Run ruff	2025-09-03T08:34:15.9762867Z
 lint	Run ruff	2025-09-03T08:34:15.9762939Z E501 Line too long (147 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9763281Z   --> alembic/versions/881faf8bfb76_expand_models_add_vpn_peers_payments.py:28:89
 lint	Run ruff	2025-09-03T08:34:15.9763625Z    |
@@ -551,7 +551,7 @@ lint	Run ruff	2025-09-03T08:34:15.9764710Z 28 | тАжg_type=sa.TIMESTAMP(), typ
 lint	Run ruff	2025-09-03T08:34:15.9765128Z    |                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9765474Z 29 | тАж_tariff_start', ['user_id', 'tariff_id', 'started_at'])
 lint	Run ruff	2025-09-03T08:34:15.9765740Z    |
-lint	Run ruff	2025-09-03T08:34:15.9765822Z 
+lint	Run ruff	2025-09-03T08:34:15.9765822Z
 lint	Run ruff	2025-09-03T08:34:15.9765902Z E501 Line too long (106 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9766233Z   --> alembic/versions/881faf8bfb76_expand_models_add_vpn_peers_payments.py:29:89
 lint	Run ruff	2025-09-03T08:34:15.9766577Z    |
@@ -562,7 +562,7 @@ lint	Run ruff	2025-09-03T08:34:15.9768817Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9769059Z 30 |
 lint	Run ruff	2025-09-03T08:34:15.9769306Z 31 |     op.add_column('users', sa.Column('google_id', sa.String(), nullable=True))
 lint	Run ruff	2025-09-03T08:34:15.9769622Z    |
-lint	Run ruff	2025-09-03T08:34:15.9769701Z 
+lint	Run ruff	2025-09-03T08:34:15.9769701Z
 lint	Run ruff	2025-09-03T08:34:15.9769774Z E501 Line too long (102 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9770107Z   --> alembic/versions/881faf8bfb76_expand_models_add_vpn_peers_payments.py:32:89
 lint	Run ruff	2025-09-03T08:34:15.9770443Z    |
@@ -572,7 +572,7 @@ lint	Run ruff	2025-09-03T08:34:15.9771579Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9772010Z 33 |     op.add_column('users', sa.Column('is_admin', sa.Boolean(), nullable=False, server_default=sa.text('false')))
 lint	Run ruff	2025-09-03T08:34:15.9772647Z 34 |     op.add_column('users', sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('NOW()'), nullable=False))
 lint	Run ruff	2025-09-03T08:34:15.9773099Z    |
-lint	Run ruff	2025-09-03T08:34:15.9773177Z 
+lint	Run ruff	2025-09-03T08:34:15.9773177Z
 lint	Run ruff	2025-09-03T08:34:15.9773256Z E501 Line too long (112 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9773583Z   --> alembic/versions/881faf8bfb76_expand_models_add_vpn_peers_payments.py:33:89
 lint	Run ruff	2025-09-03T08:34:15.9773926Z    |
@@ -582,7 +582,7 @@ lint	Run ruff	2025-09-03T08:34:15.9775186Z 33 |     op.add_column('users', sa.Co
 lint	Run ruff	2025-09-03T08:34:15.9775610Z    |                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9776227Z 34 |     op.add_column('users', sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('NOW()'), nullable=False))
 lint	Run ruff	2025-09-03T08:34:15.9776663Z    |
-lint	Run ruff	2025-09-03T08:34:15.9776756Z 
+lint	Run ruff	2025-09-03T08:34:15.9776756Z
 lint	Run ruff	2025-09-03T08:34:15.9776833Z E501 Line too long (128 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9777176Z   --> alembic/versions/881faf8bfb76_expand_models_add_vpn_peers_payments.py:34:89
 lint	Run ruff	2025-09-03T08:34:15.9777765Z    |
@@ -593,7 +593,7 @@ lint	Run ruff	2025-09-03T08:34:15.9779811Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9780064Z 35 |
 lint	Run ruff	2025-09-03T08:34:15.9780216Z 36 |     op.create_table(
 lint	Run ruff	2025-09-03T08:34:15.9780394Z    |
-lint	Run ruff	2025-09-03T08:34:15.9780475Z 
+lint	Run ruff	2025-09-03T08:34:15.9780475Z
 lint	Run ruff	2025-09-03T08:34:15.9780555Z E501 Line too long (106 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9780896Z   --> alembic/versions/881faf8bfb76_expand_models_add_vpn_peers_payments.py:39:89
 lint	Run ruff	2025-09-03T08:34:15.9781245Z    |
@@ -604,7 +604,7 @@ lint	Run ruff	2025-09-03T08:34:15.9782464Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9782933Z 40 |         sa.Column('wg_private_key', sa.String(), nullable=False),
 lint	Run ruff	2025-09-03T08:34:15.9783267Z 41 |         sa.Column('wg_public_key', sa.String(), nullable=False),
 lint	Run ruff	2025-09-03T08:34:15.9783527Z    |
-lint	Run ruff	2025-09-03T08:34:15.9783616Z 
+lint	Run ruff	2025-09-03T08:34:15.9783616Z
 lint	Run ruff	2025-09-03T08:34:15.9783691Z E501 Line too long (90 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9784020Z   --> alembic/versions/881faf8bfb76_expand_models_add_vpn_peers_payments.py:44:89
 lint	Run ruff	2025-09-03T08:34:15.9784363Z    |
@@ -615,7 +615,7 @@ lint	Run ruff	2025-09-03T08:34:15.9785623Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9786049Z 45 |         sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('NOW()'), nullable=False),
 lint	Run ruff	2025-09-03T08:34:15.9786447Z 46 |     )
 lint	Run ruff	2025-09-03T08:34:15.9786592Z    |
-lint	Run ruff	2025-09-03T08:34:15.9786671Z 
+lint	Run ruff	2025-09-03T08:34:15.9786671Z
 lint	Run ruff	2025-09-03T08:34:15.9786743Z E501 Line too long (109 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9787072Z   --> alembic/versions/881faf8bfb76_expand_models_add_vpn_peers_payments.py:45:89
 lint	Run ruff	2025-09-03T08:34:15.9787416Z    |
@@ -625,7 +625,7 @@ lint	Run ruff	2025-09-03T08:34:15.9788663Z 45 |         sa.Column('created_at', 
 lint	Run ruff	2025-09-03T08:34:15.9789082Z    |                                                                                         ^^^^^^^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9789317Z 46 |     )
 lint	Run ruff	2025-09-03T08:34:15.9789461Z    |
-lint	Run ruff	2025-09-03T08:34:15.9789547Z 
+lint	Run ruff	2025-09-03T08:34:15.9789547Z
 lint	Run ruff	2025-09-03T08:34:15.9789620Z E501 Line too long (105 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9789941Z   --> alembic/versions/881faf8bfb76_expand_models_add_vpn_peers_payments.py:51:89
 lint	Run ruff	2025-09-03T08:34:15.9790279Z    |
@@ -636,7 +636,7 @@ lint	Run ruff	2025-09-03T08:34:15.9791629Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9791930Z 52 |         sa.Column('amount', sa.Numeric(10,2), nullable=False),
 lint	Run ruff	2025-09-03T08:34:15.9792324Z 53 |         sa.Column('currency', sa.String(length=8), nullable=False, server_default='USD'),
 lint	Run ruff	2025-09-03T08:34:15.9792658Z    |
-lint	Run ruff	2025-09-03T08:34:15.9792740Z 
+lint	Run ruff	2025-09-03T08:34:15.9792740Z
 lint	Run ruff	2025-09-03T08:34:15.9792820Z E501 Line too long (89 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9793151Z   --> alembic/versions/881faf8bfb76_expand_models_add_vpn_peers_payments.py:53:89
 lint	Run ruff	2025-09-03T08:34:15.9793497Z    |
@@ -647,7 +647,7 @@ lint	Run ruff	2025-09-03T08:34:15.9794977Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9795316Z 54 |         sa.Column('status', sa.String(), nullable=False, server_default='pending'),
 lint	Run ruff	2025-09-03T08:34:15.9795693Z 55 |         sa.Column('provider', sa.String(), nullable=True),
 lint	Run ruff	2025-09-03T08:34:15.9795942Z    |
-lint	Run ruff	2025-09-03T08:34:15.9796029Z 
+lint	Run ruff	2025-09-03T08:34:15.9796029Z
 lint	Run ruff	2025-09-03T08:34:15.9796103Z E501 Line too long (109 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9796429Z   --> alembic/versions/881faf8bfb76_expand_models_add_vpn_peers_payments.py:57:89
 lint	Run ruff	2025-09-03T08:34:15.9796943Z    |
@@ -658,7 +658,7 @@ lint	Run ruff	2025-09-03T08:34:15.9798498Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9798736Z 58 |     )
 lint	Run ruff	2025-09-03T08:34:15.9798915Z 59 |     # ### end Alembic commands ###
 lint	Run ruff	2025-09-03T08:34:15.9799136Z    |
-lint	Run ruff	2025-09-03T08:34:15.9799219Z 
+lint	Run ruff	2025-09-03T08:34:15.9799219Z
 lint	Run ruff	2025-09-03T08:34:15.9799312Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:15.9799689Z   --> alembic/versions/881faf8bfb76_expand_models_add_vpn_peers_payments.py:62:5
 lint	Run ruff	2025-09-03T08:34:15.9800025Z    |
@@ -667,7 +667,7 @@ lint	Run ruff	2025-09-03T08:34:15.9800350Z    |     ^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9800614Z 63 |     # ### commands auto generated by Alembic - please adjust! ###
 lint	Run ruff	2025-09-03T08:34:15.9800917Z 64 |     op.drop_table('payments')
 lint	Run ruff	2025-09-03T08:34:15.9801126Z    |
-lint	Run ruff	2025-09-03T08:34:15.9801204Z 
+lint	Run ruff	2025-09-03T08:34:15.9801204Z
 lint	Run ruff	2025-09-03T08:34:15.9801282Z E501 Line too long (122 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9801627Z   --> alembic/versions/881faf8bfb76_expand_models_add_vpn_peers_payments.py:77:89
 lint	Run ruff	2025-09-03T08:34:15.9801975Z    |
@@ -678,7 +678,7 @@ lint	Run ruff	2025-09-03T08:34:15.9803341Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9803590Z 78 |
 lint	Run ruff	2025-09-03T08:34:15.9803780Z 79 |     with op.batch_alter_table('tariffs') as batch_op:
 lint	Run ruff	2025-09-03T08:34:15.9804046Z    |
-lint	Run ruff	2025-09-03T08:34:15.9804130Z 
+lint	Run ruff	2025-09-03T08:34:15.9804130Z
 lint	Run ruff	2025-09-03T08:34:15.9804207Z E501 Line too long (115 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9804545Z   --> alembic/versions/881faf8bfb76_expand_models_add_vpn_peers_payments.py:80:89
 lint	Run ruff	2025-09-03T08:34:15.9804884Z    |
@@ -688,10 +688,10 @@ lint	Run ruff	2025-09-03T08:34:15.9806134Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9806417Z 81 |         batch_op.drop_column('created_at')
 lint	Run ruff	2025-09-03T08:34:15.9806680Z 82 |         batch_op.drop_column('duration_days')
 lint	Run ruff	2025-09-03T08:34:15.9806915Z    |
-lint	Run ruff	2025-09-03T08:34:15.9806997Z 
+lint	Run ruff	2025-09-03T08:34:15.9806997Z
 lint	Run ruff	2025-09-03T08:34:15.9807088Z D100 Missing docstring in public module
 lint	Run ruff	2025-09-03T08:34:15.9807339Z --> alembic/versions/init.py:1:1
-lint	Run ruff	2025-09-03T08:34:15.9807590Z 
+lint	Run ruff	2025-09-03T08:34:15.9807590Z
 lint	Run ruff	2025-09-03T08:34:15.9807691Z E402 Module level import not at top of file
 lint	Run ruff	2025-09-03T08:34:15.9807942Z  --> alembic/versions/init.py:7:1
 lint	Run ruff	2025-09-03T08:34:15.9808151Z   |
@@ -701,7 +701,7 @@ lint	Run ruff	2025-09-03T08:34:15.9808629Z 7 | from alembic import op
 lint	Run ruff	2025-09-03T08:34:15.9808833Z   | ^^^^^^^^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9809025Z 8 | import sqlalchemy as sa
 lint	Run ruff	2025-09-03T08:34:15.9809220Z   |
-lint	Run ruff	2025-09-03T08:34:15.9809299Z 
+lint	Run ruff	2025-09-03T08:34:15.9809299Z
 lint	Run ruff	2025-09-03T08:34:15.9809412Z I001 [*] Import block is un-sorted or un-formatted
 lint	Run ruff	2025-09-03T08:34:15.9809679Z   --> alembic/versions/init.py:7:1
 lint	Run ruff	2025-09-03T08:34:15.9809890Z    |
@@ -714,7 +714,7 @@ lint	Run ruff	2025-09-03T08:34:15.9810965Z  9 |
 lint	Run ruff	2025-09-03T08:34:15.9811111Z 10 |   def upgrade():
 lint	Run ruff	2025-09-03T08:34:15.9811410Z    |
 lint	Run ruff	2025-09-03T08:34:15.9811564Z help: Organize imports
-lint	Run ruff	2025-09-03T08:34:15.9811681Z 
+lint	Run ruff	2025-09-03T08:34:15.9811681Z
 lint	Run ruff	2025-09-03T08:34:15.9811774Z E402 Module level import not at top of file
 lint	Run ruff	2025-09-03T08:34:15.9812029Z   --> alembic/versions/init.py:8:1
 lint	Run ruff	2025-09-03T08:34:15.9812230Z    |
@@ -724,7 +724,7 @@ lint	Run ruff	2025-09-03T08:34:15.9812789Z    | ^^^^^^^^^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9812962Z  9 |
 lint	Run ruff	2025-09-03T08:34:15.9813108Z 10 | def upgrade():
 lint	Run ruff	2025-09-03T08:34:15.9813265Z    |
-lint	Run ruff	2025-09-03T08:34:15.9813350Z 
+lint	Run ruff	2025-09-03T08:34:15.9813350Z
 lint	Run ruff	2025-09-03T08:34:15.9813439Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:15.9813690Z   --> alembic/versions/init.py:10:5
 lint	Run ruff	2025-09-03T08:34:15.9813895Z    |
@@ -735,7 +735,7 @@ lint	Run ruff	2025-09-03T08:34:15.9814531Z    |     ^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9814704Z 11 |     op.create_table(
 lint	Run ruff	2025-09-03T08:34:15.9814890Z 12 |         'users',
 lint	Run ruff	2025-09-03T08:34:15.9815053Z    |
-lint	Run ruff	2025-09-03T08:34:15.9815131Z 
+lint	Run ruff	2025-09-03T08:34:15.9815131Z
 lint	Run ruff	2025-09-03T08:34:15.9815205Z E501 Line too long (96 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9815414Z   --> alembic/versions/init.py:29:89
 lint	Run ruff	2025-09-03T08:34:15.9815630Z    |
@@ -746,7 +746,7 @@ lint	Run ruff	2025-09-03T08:34:15.9816858Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9817251Z 30 |         sa.Column('tariff_id', sa.Integer, sa.ForeignKey('tariffs.id'), nullable=False, index=True),
 lint	Run ruff	2025-09-03T08:34:15.9817946Z 31 |         sa.Column('started_at', sa.TIMESTAMP, server_default=sa.func.now()),
 lint	Run ruff	2025-09-03T08:34:15.9818258Z    |
-lint	Run ruff	2025-09-03T08:34:15.9818340Z 
+lint	Run ruff	2025-09-03T08:34:15.9818340Z
 lint	Run ruff	2025-09-03T08:34:15.9818414Z E501 Line too long (100 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9818644Z   --> alembic/versions/init.py:30:89
 lint	Run ruff	2025-09-03T08:34:15.9818853Z    |
@@ -757,7 +757,7 @@ lint	Run ruff	2025-09-03T08:34:15.9820500Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9820830Z 31 |         sa.Column('started_at', sa.TIMESTAMP, server_default=sa.func.now()),
 lint	Run ruff	2025-09-03T08:34:15.9821132Z 32 |     )
 lint	Run ruff	2025-09-03T08:34:15.9821277Z    |
-lint	Run ruff	2025-09-03T08:34:15.9821365Z 
+lint	Run ruff	2025-09-03T08:34:15.9821365Z
 lint	Run ruff	2025-09-03T08:34:15.9821456Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:15.9821703Z   --> alembic/versions/init.py:34:5
 lint	Run ruff	2025-09-03T08:34:15.9821916Z    |
@@ -768,10 +768,10 @@ lint	Run ruff	2025-09-03T08:34:15.9822523Z    |     ^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9822716Z 35 |     op.drop_table('user_tariffs')
 lint	Run ruff	2025-09-03T08:34:15.9822949Z 36 |     op.drop_table('tariffs')
 lint	Run ruff	2025-09-03T08:34:15.9823151Z    |
-lint	Run ruff	2025-09-03T08:34:15.9823236Z 
+lint	Run ruff	2025-09-03T08:34:15.9823236Z
 lint	Run ruff	2025-09-03T08:34:15.9823323Z D100 Missing docstring in public module
 lint	Run ruff	2025-09-03T08:34:15.9823566Z --> debug_admin_flow.py:1:1
-lint	Run ruff	2025-09-03T08:34:15.9823699Z 
+lint	Run ruff	2025-09-03T08:34:15.9823699Z
 lint	Run ruff	2025-09-03T08:34:15.9823810Z I001 [*] Import block is un-sorted or un-formatted
 lint	Run ruff	2025-09-03T08:34:15.9824070Z  --> debug_admin_flow.py:1:1
 lint	Run ruff	2025-09-03T08:34:15.9824261Z   |
@@ -782,7 +782,7 @@ lint	Run ruff	2025-09-03T08:34:15.9825127Z 3 |   os.environ.setdefault('SECRET_K
 lint	Run ruff	2025-09-03T08:34:15.9825467Z 4 |   os.environ.setdefault('PROMOTE_SECRET','bootstrap-secret')
 lint	Run ruff	2025-09-03T08:34:15.9825882Z   |
 lint	Run ruff	2025-09-03T08:34:15.9826029Z help: Organize imports
-lint	Run ruff	2025-09-03T08:34:15.9826155Z 
+lint	Run ruff	2025-09-03T08:34:15.9826155Z
 lint	Run ruff	2025-09-03T08:34:15.9826255Z I001 [*] Import block is un-sorted or un-formatted
 lint	Run ruff	2025-09-03T08:34:15.9826516Z  --> debug_admin_flow.py:5:1
 lint	Run ruff	2025-09-03T08:34:15.9826700Z   |
@@ -795,7 +795,7 @@ lint	Run ruff	2025-09-03T08:34:15.9828374Z 7 |
 lint	Run ruff	2025-09-03T08:34:15.9828525Z 8 |   client = TestClient(app)
 lint	Run ruff	2025-09-03T08:34:15.9828721Z   |
 lint	Run ruff	2025-09-03T08:34:15.9828863Z help: Organize imports
-lint	Run ruff	2025-09-03T08:34:15.9828979Z 
+lint	Run ruff	2025-09-03T08:34:15.9828979Z
 lint	Run ruff	2025-09-03T08:34:15.9829058Z E501 Line too long (94 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9829261Z   --> debug_admin_flow.py:10:89
 lint	Run ruff	2025-09-03T08:34:15.9829465Z    |
@@ -806,7 +806,7 @@ lint	Run ruff	2025-09-03T08:34:15.9830542Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9830826Z 11 | print('reg user', r.status_code, r.json())
 lint	Run ruff	2025-09-03T08:34:15.9831220Z 12 | r = client.post('/auth/register', json={'email':'admin2@example.com','password':'password123'})
 lint	Run ruff	2025-09-03T08:34:15.9831592Z    |
-lint	Run ruff	2025-09-03T08:34:15.9831675Z 
+lint	Run ruff	2025-09-03T08:34:15.9831675Z
 lint	Run ruff	2025-09-03T08:34:15.9831748Z E501 Line too long (95 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9831955Z   --> debug_admin_flow.py:12:89
 lint	Run ruff	2025-09-03T08:34:15.9832147Z    |
@@ -817,7 +817,7 @@ lint	Run ruff	2025-09-03T08:34:15.9833628Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9833895Z 13 | print('reg admin', r.status_code, r.json())
 lint	Run ruff	2025-09-03T08:34:15.9834428Z 14 | prom = client.post('/auth/admin/promote', params={'user_id':2,'secret':'bootstrap-secret'})
 lint	Run ruff	2025-09-03T08:34:15.9834795Z    |
-lint	Run ruff	2025-09-03T08:34:15.9834883Z 
+lint	Run ruff	2025-09-03T08:34:15.9834883Z
 lint	Run ruff	2025-09-03T08:34:15.9834957Z E501 Line too long (91 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9835166Z   --> debug_admin_flow.py:14:89
 lint	Run ruff	2025-09-03T08:34:15.9835355Z    |
@@ -827,10 +827,10 @@ lint	Run ruff	2025-09-03T08:34:15.9836453Z 14 | prom = client.post('/auth/admin/
 lint	Run ruff	2025-09-03T08:34:15.9836852Z    |                                                                                         ^^^
 lint	Run ruff	2025-09-03T08:34:15.9837138Z 15 | print('promote', prom.status_code, prom.text)
 lint	Run ruff	2025-09-03T08:34:15.9837382Z    |
-lint	Run ruff	2025-09-03T08:34:15.9837586Z 
+lint	Run ruff	2025-09-03T08:34:15.9837586Z
 lint	Run ruff	2025-09-03T08:34:15.9837676Z D100 Missing docstring in public module
 lint	Run ruff	2025-09-03T08:34:15.9837925Z --> debug_register.py:1:1
-lint	Run ruff	2025-09-03T08:34:15.9838055Z 
+lint	Run ruff	2025-09-03T08:34:15.9838055Z
 lint	Run ruff	2025-09-03T08:34:15.9838155Z I001 [*] Import block is un-sorted or un-formatted
 lint	Run ruff	2025-09-03T08:34:15.9838415Z  --> debug_register.py:1:1
 lint	Run ruff	2025-09-03T08:34:15.9838596Z   |
@@ -841,7 +841,7 @@ lint	Run ruff	2025-09-03T08:34:15.9839430Z 3 |   # ensure secret present like in
 lint	Run ruff	2025-09-03T08:34:15.9839716Z 4 |   os.environ.setdefault('SECRET_KEY', 'test-secret')
 lint	Run ruff	2025-09-03T08:34:15.9839978Z   |
 lint	Run ruff	2025-09-03T08:34:15.9840124Z help: Organize imports
-lint	Run ruff	2025-09-03T08:34:15.9840371Z 
+lint	Run ruff	2025-09-03T08:34:15.9840371Z
 lint	Run ruff	2025-09-03T08:34:15.9840445Z E501 Line too long (96 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9840644Z   --> debug_register.py:8:89
 lint	Run ruff	2025-09-03T08:34:15.9840835Z    |
@@ -851,7 +851,7 @@ lint	Run ruff	2025-09-03T08:34:15.9841770Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9842030Z  9 | print('status', resp.status_code)
 lint	Run ruff	2025-09-03T08:34:15.9842251Z 10 | try:
 lint	Run ruff	2025-09-03T08:34:15.9842395Z    |
-lint	Run ruff	2025-09-03T08:34:15.9842482Z 
+lint	Run ruff	2025-09-03T08:34:15.9842482Z
 lint	Run ruff	2025-09-03T08:34:15.9842564Z E401 [*] Multiple imports on one line
 lint	Run ruff	2025-09-03T08:34:15.9842798Z  --> scripts/check_schema.py:1:1
 lint	Run ruff	2025-09-03T08:34:15.9843001Z   |
@@ -861,10 +861,10 @@ lint	Run ruff	2025-09-03T08:34:15.9843536Z 2 | p = os.path.abspath('vpn_api/test
 lint	Run ruff	2025-09-03T08:34:15.9843784Z 3 | print('DB:', p)
 lint	Run ruff	2025-09-03T08:34:15.9843952Z   |
 lint	Run ruff	2025-09-03T08:34:15.9844096Z help: Split imports
-lint	Run ruff	2025-09-03T08:34:15.9844208Z 
+lint	Run ruff	2025-09-03T08:34:15.9844208Z
 lint	Run ruff	2025-09-03T08:34:15.9844295Z D100 Missing docstring in public module
 lint	Run ruff	2025-09-03T08:34:15.9844534Z --> scripts/check_schema.py:1:1
-lint	Run ruff	2025-09-03T08:34:15.9844687Z 
+lint	Run ruff	2025-09-03T08:34:15.9844687Z
 lint	Run ruff	2025-09-03T08:34:15.9844788Z I001 [*] Import block is un-sorted or un-formatted
 lint	Run ruff	2025-09-03T08:34:15.9845053Z  --> scripts/check_schema.py:1:1
 lint	Run ruff	2025-09-03T08:34:15.9845250Z   |
@@ -874,10 +874,10 @@ lint	Run ruff	2025-09-03T08:34:15.9845765Z 2 | p = os.path.abspath('vpn_api/test
 lint	Run ruff	2025-09-03T08:34:15.9845997Z 3 | print('DB:', p)
 lint	Run ruff	2025-09-03T08:34:15.9846166Z   |
 lint	Run ruff	2025-09-03T08:34:15.9846312Z help: Organize imports
-lint	Run ruff	2025-09-03T08:34:15.9846430Z 
+lint	Run ruff	2025-09-03T08:34:15.9846430Z
 lint	Run ruff	2025-09-03T08:34:15.9846517Z D100 Missing docstring in public module
 lint	Run ruff	2025-09-03T08:34:15.9846749Z --> vpn_api/auth.py:1:1
-lint	Run ruff	2025-09-03T08:34:15.9846875Z 
+lint	Run ruff	2025-09-03T08:34:15.9846875Z
 lint	Run ruff	2025-09-03T08:34:15.9846982Z I001 [*] Import block is un-sorted or un-formatted
 lint	Run ruff	2025-09-03T08:34:15.9847243Z   --> vpn_api/auth.py:1:1
 lint	Run ruff	2025-09-03T08:34:15.9847516Z    |
@@ -896,7 +896,7 @@ lint	Run ruff	2025-09-03T08:34:15.9850598Z 11 |
 lint	Run ruff	2025-09-03T08:34:15.9850749Z 12 |   router = APIRouter()
 lint	Run ruff	2025-09-03T08:34:15.9850943Z    |
 lint	Run ruff	2025-09-03T08:34:15.9851089Z help: Organize imports
-lint	Run ruff	2025-09-03T08:34:15.9851209Z 
+lint	Run ruff	2025-09-03T08:34:15.9851209Z
 lint	Run ruff	2025-09-03T08:34:15.9851299Z E402 Module level import not at top of file
 lint	Run ruff	2025-09-03T08:34:15.9851548Z   --> vpn_api/auth.py:15:1
 lint	Run ruff	2025-09-03T08:34:15.9851728Z    |
@@ -905,7 +905,7 @@ lint	Run ruff	2025-09-03T08:34:15.9852266Z 14 |
 lint	Run ruff	2025-09-03T08:34:15.9852410Z 15 | import os
 lint	Run ruff	2025-09-03T08:34:15.9852565Z    | ^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9852719Z    |
-lint	Run ruff	2025-09-03T08:34:15.9852797Z 
+lint	Run ruff	2025-09-03T08:34:15.9852797Z
 lint	Run ruff	2025-09-03T08:34:15.9852899Z I001 [*] Import block is un-sorted or un-formatted
 lint	Run ruff	2025-09-03T08:34:15.9853162Z   --> vpn_api/auth.py:15:1
 lint	Run ruff	2025-09-03T08:34:15.9853348Z    |
@@ -915,7 +915,7 @@ lint	Run ruff	2025-09-03T08:34:15.9854009Z 15 | import os
 lint	Run ruff	2025-09-03T08:34:15.9854167Z    | ^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9854312Z    |
 lint	Run ruff	2025-09-03T08:34:15.9854622Z help: Organize imports
-lint	Run ruff	2025-09-03T08:34:15.9854741Z 
+lint	Run ruff	2025-09-03T08:34:15.9854741Z
 lint	Run ruff	2025-09-03T08:34:15.9854829Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:15.9855078Z   --> vpn_api/auth.py:31:5
 lint	Run ruff	2025-09-03T08:34:15.9855260Z    |
@@ -924,7 +924,7 @@ lint	Run ruff	2025-09-03T08:34:15.9855676Z    |     ^^^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9855871Z 32 |     if len(password) < 8:
 lint	Run ruff	2025-09-03T08:34:15.9856231Z 33 |         raise HTTPException(status_code=400, detail="Password must be at least 8 characters")
 lint	Run ruff	2025-09-03T08:34:15.9856595Z    |
-lint	Run ruff	2025-09-03T08:34:15.9856682Z 
+lint	Run ruff	2025-09-03T08:34:15.9856682Z
 lint	Run ruff	2025-09-03T08:34:15.9856756Z E501 Line too long (93 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9856961Z   --> vpn_api/auth.py:33:89
 lint	Run ruff	2025-09-03T08:34:15.9857151Z    |
@@ -935,7 +935,7 @@ lint	Run ruff	2025-09-03T08:34:15.9858567Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9858914Z 34 |     # ╨Ь╨╛╨╢╨╜╨╛ ╨┤╨╛╨▒╨░╨▓╨╕╤В╤М ╨┐╤А╨╛╨▓╨╡╤А╨║╨╕ ╨╜╨░ ╤Б╨╗╨╛╨╢╨╜╨╛╤Б╤В╤М
 lint	Run ruff	2025-09-03T08:34:15.9859144Z 35 |     return True
 lint	Run ruff	2025-09-03T08:34:15.9859314Z    |
-lint	Run ruff	2025-09-03T08:34:15.9859396Z 
+lint	Run ruff	2025-09-03T08:34:15.9859396Z
 lint	Run ruff	2025-09-03T08:34:15.9859498Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:15.9859753Z   --> vpn_api/auth.py:37:5
 lint	Run ruff	2025-09-03T08:34:15.9859941Z    |
@@ -946,7 +946,7 @@ lint	Run ruff	2025-09-03T08:34:15.9860616Z    |     ^^^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9860801Z 38 |     validate_password(password)
 lint	Run ruff	2025-09-03T08:34:15.9861040Z 39 |     return pwd_context.hash(password)
 lint	Run ruff	2025-09-03T08:34:15.9861258Z    |
-lint	Run ruff	2025-09-03T08:34:15.9861340Z 
+lint	Run ruff	2025-09-03T08:34:15.9861340Z
 lint	Run ruff	2025-09-03T08:34:15.9861427Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:15.9861662Z   --> vpn_api/auth.py:42:5
 lint	Run ruff	2025-09-03T08:34:15.9861855Z    |
@@ -954,7 +954,7 @@ lint	Run ruff	2025-09-03T08:34:15.9862016Z 42 | def verify_password(plain, hashe
 lint	Run ruff	2025-09-03T08:34:15.9862239Z    |     ^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9862450Z 43 |     return pwd_context.verify(plain, hashed)
 lint	Run ruff	2025-09-03T08:34:15.9862682Z    |
-lint	Run ruff	2025-09-03T08:34:15.9862765Z 
+lint	Run ruff	2025-09-03T08:34:15.9862765Z
 lint	Run ruff	2025-09-03T08:34:15.9862854Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:15.9863230Z   --> vpn_api/auth.py:46:5
 lint	Run ruff	2025-09-03T08:34:15.9863415Z    |
@@ -963,7 +963,7 @@ lint	Run ruff	2025-09-03T08:34:15.9863976Z    |     ^^^^^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9864178Z 47 |     to_encode = data.copy()
 lint	Run ruff	2025-09-03T08:34:15.9864549Z 48 |     expire = datetime.utcnow() + (expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
 lint	Run ruff	2025-09-03T08:34:15.9864930Z    |
-lint	Run ruff	2025-09-03T08:34:15.9865011Z 
+lint	Run ruff	2025-09-03T08:34:15.9865011Z
 lint	Run ruff	2025-09-03T08:34:15.9865114Z RUF013 PEP 484 prohibits implicit `Optional`
 lint	Run ruff	2025-09-03T08:34:15.9865376Z   --> vpn_api/auth.py:46:52
 lint	Run ruff	2025-09-03T08:34:15.9865562Z    |
@@ -973,7 +973,7 @@ lint	Run ruff	2025-09-03T08:34:15.9866388Z 47 |     to_encode = data.copy()
 lint	Run ruff	2025-09-03T08:34:15.9866761Z 48 |     expire = datetime.utcnow() + (expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
 lint	Run ruff	2025-09-03T08:34:15.9867141Z    |
 lint	Run ruff	2025-09-03T08:34:15.9867304Z help: Convert to `Optional[T]`
-lint	Run ruff	2025-09-03T08:34:15.9867580Z 
+lint	Run ruff	2025-09-03T08:34:15.9867580Z
 lint	Run ruff	2025-09-03T08:34:15.9867658Z E501 Line too long (98 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9867865Z   --> vpn_api/auth.py:48:89
 lint	Run ruff	2025-09-03T08:34:15.9868045Z    |
@@ -984,7 +984,7 @@ lint	Run ruff	2025-09-03T08:34:15.9869373Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9869758Z 49 |     to_encode.update({"exp": expire})
 lint	Run ruff	2025-09-03T08:34:15.9870072Z 50 |     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 lint	Run ruff	2025-09-03T08:34:15.9870357Z    |
-lint	Run ruff	2025-09-03T08:34:15.9870446Z 
+lint	Run ruff	2025-09-03T08:34:15.9870446Z
 lint	Run ruff	2025-09-03T08:34:15.9870547Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:15.9870794Z   --> vpn_api/auth.py:54:5
 lint	Run ruff	2025-09-03T08:34:15.9870978Z    |
@@ -994,7 +994,7 @@ lint	Run ruff	2025-09-03T08:34:15.9871905Z    |     ^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9872199Z 55 |     db_user = db.query(models.User).filter(models.User.email == user.email).first()
 lint	Run ruff	2025-09-03T08:34:15.9872548Z 56 |     if db_user:
 lint	Run ruff	2025-09-03T08:34:15.9872711Z    |
-lint	Run ruff	2025-09-03T08:34:15.9872799Z 
+lint	Run ruff	2025-09-03T08:34:15.9872799Z
 lint	Run ruff	2025-09-03T08:34:15.9873254Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:15.9873870Z   --> vpn_api/auth.py:54:54
 lint	Run ruff	2025-09-03T08:34:15.9874051Z    |
@@ -1004,7 +1004,7 @@ lint	Run ruff	2025-09-03T08:34:15.9874992Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9875359Z 55 |     db_user = db.query(models.User).filter(models.User.email == user.email).first()
 lint	Run ruff	2025-09-03T08:34:15.9875697Z 56 |     if db_user:
 lint	Run ruff	2025-09-03T08:34:15.9875864Z    |
-lint	Run ruff	2025-09-03T08:34:15.9875943Z 
+lint	Run ruff	2025-09-03T08:34:15.9875943Z
 lint	Run ruff	2025-09-03T08:34:15.9876317Z B904 Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling
 lint	Run ruff	2025-09-03T08:34:15.9876849Z   --> vpn_api/auth.py:67:9
 lint	Run ruff	2025-09-03T08:34:15.9877034Z    |
@@ -1015,7 +1015,7 @@ lint	Run ruff	2025-09-03T08:34:15.9878246Z    |         ^^^^^^^^^^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9878620Z 68 |     db.refresh(new_user)
 lint	Run ruff	2025-09-03T08:34:15.9878824Z 69 |     return new_user
 lint	Run ruff	2025-09-03T08:34:15.9878995Z    |
-lint	Run ruff	2025-09-03T08:34:15.9879082Z 
+lint	Run ruff	2025-09-03T08:34:15.9879082Z
 lint	Run ruff	2025-09-03T08:34:15.9879172Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:15.9879407Z   --> vpn_api/auth.py:73:5
 lint	Run ruff	2025-09-03T08:34:15.9879589Z    |
@@ -1025,7 +1025,7 @@ lint	Run ruff	2025-09-03T08:34:15.9880333Z    |     ^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9880612Z 74 |     db_user = db.query(models.User).filter(models.User.email == user.email).first()
 lint	Run ruff	2025-09-03T08:34:15.9881073Z 75 |     if not db_user or not verify_password(user.password, db_user.hashed_password):
 lint	Run ruff	2025-09-03T08:34:15.9881396Z    |
-lint	Run ruff	2025-09-03T08:34:15.9881487Z 
+lint	Run ruff	2025-09-03T08:34:15.9881487Z
 lint	Run ruff	2025-09-03T08:34:15.9881928Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:15.9882539Z   --> vpn_api/auth.py:73:50
 lint	Run ruff	2025-09-03T08:34:15.9882721Z    |
@@ -1035,7 +1035,7 @@ lint	Run ruff	2025-09-03T08:34:15.9883473Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9883818Z 74 |     db_user = db.query(models.User).filter(models.User.email == user.email).first()
 lint	Run ruff	2025-09-03T08:34:15.9884270Z 75 |     if not db_user or not verify_password(user.password, db_user.hashed_password):
 lint	Run ruff	2025-09-03T08:34:15.9884593Z    |
-lint	Run ruff	2025-09-03T08:34:15.9884675Z 
+lint	Run ruff	2025-09-03T08:34:15.9884675Z
 lint	Run ruff	2025-09-03T08:34:15.9884890Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:15.9885145Z   --> vpn_api/auth.py:81:5
 lint	Run ruff	2025-09-03T08:34:15.9885332Z    |
@@ -1043,7 +1043,7 @@ lint	Run ruff	2025-09-03T08:34:15.9885518Z 81 | def get_user_by_email(db: Sessio
 lint	Run ruff	2025-09-03T08:34:15.9885767Z    |     ^^^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9886059Z 82 |     return db.query(models.User).filter(models.User.email == email).first()
 lint	Run ruff	2025-09-03T08:34:15.9886378Z    |
-lint	Run ruff	2025-09-03T08:34:15.9886468Z 
+lint	Run ruff	2025-09-03T08:34:15.9886468Z
 lint	Run ruff	2025-09-03T08:34:15.9886559Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:15.9886805Z   --> vpn_api/auth.py:85:5
 lint	Run ruff	2025-09-03T08:34:15.9886987Z    |
@@ -1052,7 +1052,7 @@ lint	Run ruff	2025-09-03T08:34:15.9887744Z    |     ^^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9888118Z 86 |     credentials_exception = HTTPException(status_code=401, detail="Could not validate credentials")
 lint	Run ruff	2025-09-03T08:34:15.9888517Z 87 |     try:
 lint	Run ruff	2025-09-03T08:34:15.9888672Z    |
-lint	Run ruff	2025-09-03T08:34:15.9888758Z 
+lint	Run ruff	2025-09-03T08:34:15.9888758Z
 lint	Run ruff	2025-09-03T08:34:15.9889202Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:15.9889801Z   --> vpn_api/auth.py:85:73
 lint	Run ruff	2025-09-03T08:34:15.9889986Z    |
@@ -1061,7 +1061,7 @@ lint	Run ruff	2025-09-03T08:34:15.9890657Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9891078Z 86 |     credentials_exception = HTTPException(status_code=401, detail="Could not validate credentials")
 lint	Run ruff	2025-09-03T08:34:15.9891477Z 87 |     try:
 lint	Run ruff	2025-09-03T08:34:15.9891629Z    |
-lint	Run ruff	2025-09-03T08:34:15.9891709Z 
+lint	Run ruff	2025-09-03T08:34:15.9891709Z
 lint	Run ruff	2025-09-03T08:34:15.9891782Z E501 Line too long (89 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9891991Z   --> vpn_api/auth.py:85:89
 lint	Run ruff	2025-09-03T08:34:15.9892171Z    |
@@ -1070,7 +1070,7 @@ lint	Run ruff	2025-09-03T08:34:15.9892834Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9893260Z 86 |     credentials_exception = HTTPException(status_code=401, detail="Could not validate credentials")
 lint	Run ruff	2025-09-03T08:34:15.9893788Z 87 |     try:
 lint	Run ruff	2025-09-03T08:34:15.9893937Z    |
-lint	Run ruff	2025-09-03T08:34:15.9894017Z 
+lint	Run ruff	2025-09-03T08:34:15.9894017Z
 lint	Run ruff	2025-09-03T08:34:15.9894096Z E501 Line too long (99 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9894296Z   --> vpn_api/auth.py:86:89
 lint	Run ruff	2025-09-03T08:34:15.9894482Z    |
@@ -1080,7 +1080,7 @@ lint	Run ruff	2025-09-03T08:34:15.9895712Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9895950Z 87 |     try:
 lint	Run ruff	2025-09-03T08:34:15.9896204Z 88 |         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
 lint	Run ruff	2025-09-03T08:34:15.9896532Z    |
-lint	Run ruff	2025-09-03T08:34:15.9896612Z 
+lint	Run ruff	2025-09-03T08:34:15.9896612Z
 lint	Run ruff	2025-09-03T08:34:15.9896988Z B904 Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling
 lint	Run ruff	2025-09-03T08:34:15.9897629Z   --> vpn_api/auth.py:93:9
 lint	Run ruff	2025-09-03T08:34:15.9897815Z    |
@@ -1091,7 +1091,7 @@ lint	Run ruff	2025-09-03T08:34:15.9898670Z    |         ^^^^^^^^^^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9898903Z 94 |     user = get_user_by_email(db, email)
 lint	Run ruff	2025-09-03T08:34:15.9899127Z 95 |     if user is None:
 lint	Run ruff	2025-09-03T08:34:15.9899306Z    |
-lint	Run ruff	2025-09-03T08:34:15.9899386Z 
+lint	Run ruff	2025-09-03T08:34:15.9899386Z
 lint	Run ruff	2025-09-03T08:34:15.9899459Z E501 Line too long (93 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9899667Z    --> vpn_api/auth.py:99:89
 lint	Run ruff	2025-09-03T08:34:15.9915419Z     |
@@ -1102,7 +1102,7 @@ lint	Run ruff	2025-09-03T08:34:15.9916781Z     |                                
 lint	Run ruff	2025-09-03T08:34:15.9917053Z 100 |     except Exception:
 lint	Run ruff	2025-09-03T08:34:15.9917284Z 101 |         status_val = str(user.status)
 lint	Run ruff	2025-09-03T08:34:15.9917642Z     |
-lint	Run ruff	2025-09-03T08:34:15.9917740Z 
+lint	Run ruff	2025-09-03T08:34:15.9917740Z
 lint	Run ruff	2025-09-03T08:34:15.9917820Z E501 Line too long (114 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9918037Z    --> vpn_api/auth.py:107:89
 lint	Run ruff	2025-09-03T08:34:15.9918236Z     |
@@ -1111,7 +1111,7 @@ lint	Run ruff	2025-09-03T08:34:15.9919091Z     |                                
 lint	Run ruff	2025-09-03T08:34:15.9919459Z 108 |     """Return user if token provided and valid, otherwise return None."""
 lint	Run ruff	2025-09-03T08:34:15.9919776Z 109 |     if not token:
 lint	Run ruff	2025-09-03T08:34:15.9919957Z     |
-lint	Run ruff	2025-09-03T08:34:15.9920044Z 
+lint	Run ruff	2025-09-03T08:34:15.9920044Z
 lint	Run ruff	2025-09-03T08:34:15.9920495Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:15.9921114Z    --> vpn_api/auth.py:107:98
 lint	Run ruff	2025-09-03T08:34:15.9921316Z     |
@@ -1120,7 +1120,7 @@ lint	Run ruff	2025-09-03T08:34:15.9922158Z     |                                
 lint	Run ruff	2025-09-03T08:34:15.9922500Z 108 |     """Return user if token provided and valid, otherwise return None."""
 lint	Run ruff	2025-09-03T08:34:15.9922816Z 109 |     if not token:
 lint	Run ruff	2025-09-03T08:34:15.9922997Z     |
-lint	Run ruff	2025-09-03T08:34:15.9923080Z 
+lint	Run ruff	2025-09-03T08:34:15.9923080Z
 lint	Run ruff	2025-09-03T08:34:15.9923176Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:15.9923430Z    --> vpn_api/auth.py:123:5
 lint	Run ruff	2025-09-03T08:34:15.9923633Z     |
@@ -1129,7 +1129,7 @@ lint	Run ruff	2025-09-03T08:34:15.9924365Z 123 | def me(current_user: models.Use
 lint	Run ruff	2025-09-03T08:34:15.9924654Z     |     ^^
 lint	Run ruff	2025-09-03T08:34:15.9924818Z 124 |     return current_user
 lint	Run ruff	2025-09-03T08:34:15.9925007Z     |
-lint	Run ruff	2025-09-03T08:34:15.9925088Z 
+lint	Run ruff	2025-09-03T08:34:15.9925088Z
 lint	Run ruff	2025-09-03T08:34:15.9925540Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:15.9926139Z    --> vpn_api/auth.py:123:36
 lint	Run ruff	2025-09-03T08:34:15.9926330Z     |
@@ -1138,7 +1138,7 @@ lint	Run ruff	2025-09-03T08:34:15.9926871Z 123 | def me(current_user: models.Use
 lint	Run ruff	2025-09-03T08:34:15.9927181Z     |                                    ^^^^^^^^^^^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9927529Z 124 |     return current_user
 lint	Run ruff	2025-09-03T08:34:15.9927721Z     |
-lint	Run ruff	2025-09-03T08:34:15.9927800Z 
+lint	Run ruff	2025-09-03T08:34:15.9927800Z
 lint	Run ruff	2025-09-03T08:34:15.9927896Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:15.9928151Z    --> vpn_api/auth.py:128:5
 lint	Run ruff	2025-09-03T08:34:15.9928339Z     |
@@ -1148,7 +1148,7 @@ lint	Run ruff	2025-09-03T08:34:15.9929788Z     |     ^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9930067Z 129 |     # ╨┐╤А╨╛╨▓╨╡╤А╨║╨░ ╨┐╤А╨░╨▓: ╤В╨╛╨╗╤М╨║╨╛ ╨░╨┤╨╝╨╕╨╜ ╨╝╨╛╨╢╨╡╤В ╨╜╨░╨╖╨╜╨░╤З╨░╤В╤М ╤В╨░╤А╨╕╤Д╤Л
 lint	Run ruff	2025-09-03T08:34:15.9930364Z 130 |     if not getattr(current_user, "is_admin", False):
 lint	Run ruff	2025-09-03T08:34:15.9930620Z     |
-lint	Run ruff	2025-09-03T08:34:15.9930704Z 
+lint	Run ruff	2025-09-03T08:34:15.9930704Z
 lint	Run ruff	2025-09-03T08:34:15.9931157Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:15.9931914Z    --> vpn_api/auth.py:128:77
 lint	Run ruff	2025-09-03T08:34:15.9932108Z     |
@@ -1158,7 +1158,7 @@ lint	Run ruff	2025-09-03T08:34:15.9933373Z     |                                
 lint	Run ruff	2025-09-03T08:34:15.9933718Z 129 |     # ╨┐╤А╨╛╨▓╨╡╤А╨║╨░ ╨┐╤А╨░╨▓: ╤В╨╛╨╗╤М╨║╨╛ ╨░╨┤╨╝╨╕╨╜ ╨╝╨╛╨╢╨╡╤В ╨╜╨░╨╖╨╜╨░╤З╨░╤В╤М ╤В╨░╤А╨╕╤Д╤Л
 lint	Run ruff	2025-09-03T08:34:15.9934003Z 130 |     if not getattr(current_user, "is_admin", False):
 lint	Run ruff	2025-09-03T08:34:15.9934256Z     |
-lint	Run ruff	2025-09-03T08:34:15.9934338Z 
+lint	Run ruff	2025-09-03T08:34:15.9934338Z
 lint	Run ruff	2025-09-03T08:34:15.9934413Z E501 Line too long (148 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9934625Z    --> vpn_api/auth.py:128:89
 lint	Run ruff	2025-09-03T08:34:15.9934825Z     |
@@ -1168,7 +1168,7 @@ lint	Run ruff	2025-09-03T08:34:15.9935813Z     |                                
 lint	Run ruff	2025-09-03T08:34:15.9936085Z 129 | тАж╤А╨╕╤Д╤Л
 lint	Run ruff	2025-09-03T08:34:15.9936243Z 130 | тАж
 lint	Run ruff	2025-09-03T08:34:15.9936398Z     |
-lint	Run ruff	2025-09-03T08:34:15.9936478Z 
+lint	Run ruff	2025-09-03T08:34:15.9936478Z
 lint	Run ruff	2025-09-03T08:34:15.9936924Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:15.9937651Z    --> vpn_api/auth.py:128:122
 lint	Run ruff	2025-09-03T08:34:15.9937844Z     |
@@ -1178,7 +1178,7 @@ lint	Run ruff	2025-09-03T08:34:15.9938692Z     |                                
 lint	Run ruff	2025-09-03T08:34:15.9938933Z 129 | тАж
 lint	Run ruff	2025-09-03T08:34:15.9939077Z 130 | тАж
 lint	Run ruff	2025-09-03T08:34:15.9939223Z     |
-lint	Run ruff	2025-09-03T08:34:15.9939333Z 
+lint	Run ruff	2025-09-03T08:34:15.9939333Z
 lint	Run ruff	2025-09-03T08:34:15.9939474Z E501 Line too long (92 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9939745Z    --> vpn_api/auth.py:136:89
 lint	Run ruff	2025-09-03T08:34:15.9939937Z     |
@@ -1189,7 +1189,7 @@ lint	Run ruff	2025-09-03T08:34:15.9941345Z     |                                
 lint	Run ruff	2025-09-03T08:34:15.9941593Z 137 |     if not db_tariff:
 lint	Run ruff	2025-09-03T08:34:15.9941872Z 138 |         raise HTTPException(status_code=404, detail="Tariff not found")
 lint	Run ruff	2025-09-03T08:34:15.9942174Z     |
-lint	Run ruff	2025-09-03T08:34:15.9942255Z 
+lint	Run ruff	2025-09-03T08:34:15.9942255Z
 lint	Run ruff	2025-09-03T08:34:15.9942327Z E501 Line too long (105 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9942529Z    --> vpn_api/auth.py:140:89
 lint	Run ruff	2025-09-03T08:34:15.9942711Z     |
@@ -1200,7 +1200,7 @@ lint	Run ruff	2025-09-03T08:34:15.9944209Z     |                                
 lint	Run ruff	2025-09-03T08:34:15.9944452Z 141 |     if existing:
 lint	Run ruff	2025-09-03T08:34:15.9944767Z 142 |         raise HTTPException(status_code=400, detail="Tariff already assigned to user")
 lint	Run ruff	2025-09-03T08:34:15.9945108Z     |
-lint	Run ruff	2025-09-03T08:34:15.9945194Z 
+lint	Run ruff	2025-09-03T08:34:15.9945194Z
 lint	Run ruff	2025-09-03T08:34:15.9945296Z RUF013 PEP 484 prohibits implicit `Optional`
 lint	Run ruff	2025-09-03T08:34:15.9945541Z    --> vpn_api/auth.py:153:40
 lint	Run ruff	2025-09-03T08:34:15.9945732Z     |
@@ -1210,7 +1210,7 @@ lint	Run ruff	2025-09-03T08:34:15.9947042Z     |                                
 lint	Run ruff	2025-09-03T08:34:15.9947276Z 154 |     """Promote a user to admin.
 lint	Run ruff	2025-09-03T08:34:15.9947601Z     |
 lint	Run ruff	2025-09-03T08:34:15.9947760Z help: Convert to `Optional[T]`
-lint	Run ruff	2025-09-03T08:34:15.9947911Z 
+lint	Run ruff	2025-09-03T08:34:15.9947911Z
 lint	Run ruff	2025-09-03T08:34:15.9948359Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:15.9948968Z    --> vpn_api/auth.py:153:66
 lint	Run ruff	2025-09-03T08:34:15.9949158Z     |
@@ -1219,7 +1219,7 @@ lint	Run ruff	2025-09-03T08:34:15.9949849Z 153 | def promote_user(user_id: int, 
 lint	Run ruff	2025-09-03T08:34:15.9950338Z     |                                                                  ^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9950599Z 154 |     """Promote a user to admin.
 lint	Run ruff	2025-09-03T08:34:15.9950810Z     |
-lint	Run ruff	2025-09-03T08:34:15.9950890Z 
+lint	Run ruff	2025-09-03T08:34:15.9950890Z
 lint	Run ruff	2025-09-03T08:34:15.9950969Z E501 Line too long (153 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9951165Z    --> vpn_api/auth.py:153:89
 lint	Run ruff	2025-09-03T08:34:15.9951352Z     |
@@ -1228,7 +1228,7 @@ lint	Run ruff	2025-09-03T08:34:15.9951913Z 153 | тАжSession = Depends(get_db)
 lint	Run ruff	2025-09-03T08:34:15.9952332Z     |                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9952581Z 154 | тАж
 lint	Run ruff	2025-09-03T08:34:15.9952723Z     |
-lint	Run ruff	2025-09-03T08:34:15.9952806Z 
+lint	Run ruff	2025-09-03T08:34:15.9952806Z
 lint	Run ruff	2025-09-03T08:34:15.9953252Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:15.9953856Z    --> vpn_api/auth.py:153:118
 lint	Run ruff	2025-09-03T08:34:15.9954046Z     |
@@ -1237,7 +1237,7 @@ lint	Run ruff	2025-09-03T08:34:15.9954543Z 153 | тАжends(get_db), current_use
 lint	Run ruff	2025-09-03T08:34:15.9954923Z     |                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9955172Z 154 | тАж
 lint	Run ruff	2025-09-03T08:34:15.9955307Z     |
-lint	Run ruff	2025-09-03T08:34:15.9955387Z 
+lint	Run ruff	2025-09-03T08:34:15.9955387Z
 lint	Run ruff	2025-09-03T08:34:15.9955870Z RUF002 Docstring contains ambiguous `╤Б` (CYRILLIC SMALL LETTER ES). Did you mean `c` (LATIN SMALL LETTER C)?
 lint	Run ruff	2025-09-03T08:34:15.9956299Z    --> vpn_api/auth.py:156:43
 lint	Run ruff	2025-09-03T08:34:15.9956513Z     |
@@ -1248,7 +1248,7 @@ lint	Run ruff	2025-09-03T08:34:15.9957681Z     |                                
 lint	Run ruff	2025-09-03T08:34:15.9957995Z 157 |     ╨Т ╨╛╤Б╤В╨░╨╗╤М╨╜╤Л╤Е ╤Б╨╗╤Г╤З╨░╤П╤Е тАФ ╤В╨╛╨╗╤М╨║╨╛ ╨░╨┤╨╝╨╕╨╜ ╨╝╨╛╨╢╨╡╤В ╨┐╤А╨╛╨╝╨╛╤Г╤В╨╕╤В╤М.
 lint	Run ruff	2025-09-03T08:34:15.9958234Z 158 |     """
 lint	Run ruff	2025-09-03T08:34:15.9958402Z     |
-lint	Run ruff	2025-09-03T08:34:15.9958479Z 
+lint	Run ruff	2025-09-03T08:34:15.9958479Z
 lint	Run ruff	2025-09-03T08:34:15.9958553Z E501 Line too long (108 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9958755Z    --> vpn_api/auth.py:156:89
 lint	Run ruff	2025-09-03T08:34:15.9958937Z     |
@@ -1259,7 +1259,7 @@ lint	Run ruff	2025-09-03T08:34:15.9960015Z     |                                
 lint	Run ruff	2025-09-03T08:34:15.9960334Z 157 |     ╨Т ╨╛╤Б╤В╨░╨╗╤М╨╜╤Л╤Е ╤Б╨╗╤Г╤З╨░╤П╤Е тАФ ╤В╨╛╨╗╤М╨║╨╛ ╨░╨┤╨╝╨╕╨╜ ╨╝╨╛╨╢╨╡╤В ╨┐╤А╨╛╨╝╨╛╤Г╤В╨╕╤В╤М.
 lint	Run ruff	2025-09-03T08:34:15.9960572Z 158 |     """
 lint	Run ruff	2025-09-03T08:34:15.9960719Z     |
-lint	Run ruff	2025-09-03T08:34:15.9960803Z 
+lint	Run ruff	2025-09-03T08:34:15.9960803Z
 lint	Run ruff	2025-09-03T08:34:15.9961160Z RUF002 Docstring contains ambiguous `╨Т` (CYRILLIC CAPITAL LETTER VE). Did you mean `B` (LATIN CAPITAL LETTER B)?
 lint	Run ruff	2025-09-03T08:34:15.9961606Z    --> vpn_api/auth.py:157:5
 lint	Run ruff	2025-09-03T08:34:15.9961927Z     |
@@ -1269,7 +1269,7 @@ lint	Run ruff	2025-09-03T08:34:15.9962914Z     |     ^
 lint	Run ruff	2025-09-03T08:34:15.9963059Z 158 |     """
 lint	Run ruff	2025-09-03T08:34:15.9963277Z 159 |     if PROMOTE_SECRET and secret == PROMOTE_SECRET:
 lint	Run ruff	2025-09-03T08:34:15.9963526Z     |
-lint	Run ruff	2025-09-03T08:34:15.9963612Z 
+lint	Run ruff	2025-09-03T08:34:15.9963612Z
 lint	Run ruff	2025-09-03T08:34:15.9963686Z E501 Line too long (95 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9963892Z    --> vpn_api/auth.py:166:89
 lint	Run ruff	2025-09-03T08:34:15.9964077Z     |
@@ -1280,7 +1280,7 @@ lint	Run ruff	2025-09-03T08:34:15.9965236Z     |                                
 lint	Run ruff	2025-09-03T08:34:15.9965489Z 167 |
 lint	Run ruff	2025-09-03T08:34:15.9965739Z 168 |     db_user = db.query(models.User).filter(models.User.id == user_id).first()
 lint	Run ruff	2025-09-03T08:34:15.9966060Z     |
-lint	Run ruff	2025-09-03T08:34:15.9966140Z 
+lint	Run ruff	2025-09-03T08:34:15.9966140Z
 lint	Run ruff	2025-09-03T08:34:15.9966225Z E401 [*] Multiple imports on one line
 lint	Run ruff	2025-09-03T08:34:15.9966452Z  --> vpn_api/conftest.py:1:1
 lint	Run ruff	2025-09-03T08:34:15.9966767Z   |
@@ -1290,10 +1290,10 @@ lint	Run ruff	2025-09-03T08:34:15.9967235Z 2 | import tempfile
 lint	Run ruff	2025-09-03T08:34:15.9967519Z 3 | from pathlib import Path
 lint	Run ruff	2025-09-03T08:34:15.9967709Z   |
 lint	Run ruff	2025-09-03T08:34:15.9967854Z help: Split imports
-lint	Run ruff	2025-09-03T08:34:15.9967956Z 
+lint	Run ruff	2025-09-03T08:34:15.9967956Z
 lint	Run ruff	2025-09-03T08:34:15.9968050Z D100 Missing docstring in public module
 lint	Run ruff	2025-09-03T08:34:15.9968284Z --> vpn_api/conftest.py:1:1
-lint	Run ruff	2025-09-03T08:34:15.9968416Z 
+lint	Run ruff	2025-09-03T08:34:15.9968416Z
 lint	Run ruff	2025-09-03T08:34:15.9968523Z I001 [*] Import block is un-sorted or un-formatted
 lint	Run ruff	2025-09-03T08:34:15.9968781Z  --> vpn_api/conftest.py:1:1
 lint	Run ruff	2025-09-03T08:34:15.9968968Z   |
@@ -1305,7 +1305,7 @@ lint	Run ruff	2025-09-03T08:34:15.9969846Z 4 |
 lint	Run ruff	2025-09-03T08:34:15.9970104Z 5 |   # Ensure test environment has a SECRET_KEY so importing the app doesn't fail
 lint	Run ruff	2025-09-03T08:34:15.9970428Z   |
 lint	Run ruff	2025-09-03T08:34:15.9970581Z help: Organize imports
-lint	Run ruff	2025-09-03T08:34:15.9970698Z 
+lint	Run ruff	2025-09-03T08:34:15.9970698Z
 lint	Run ruff	2025-09-03T08:34:15.9970769Z E501 Line too long (89 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9970971Z  --> vpn_api/conftest.py:7:89
 lint	Run ruff	2025-09-03T08:34:15.9971164Z   |
@@ -1315,7 +1315,7 @@ lint	Run ruff	2025-09-03T08:34:15.9972019Z 7 | # set PROMOTE_SECRET so tests can
 lint	Run ruff	2025-09-03T08:34:15.9972108Z   |                                                                                         ^
 lint	Run ruff	2025-09-03T08:34:15.9972263Z 8 | os.environ.setdefault("PROMOTE_SECRET", "bootstrap-secret")
 lint	Run ruff	2025-09-03T08:34:15.9972322Z   |
-lint	Run ruff	2025-09-03T08:34:15.9972327Z 
+lint	Run ruff	2025-09-03T08:34:15.9972327Z
 lint	Run ruff	2025-09-03T08:34:15.9972397Z E501 Line too long (91 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9972479Z   --> vpn_api/conftest.py:13:89
 lint	Run ruff	2025-09-03T08:34:15.9972544Z    |
@@ -1326,7 +1326,7 @@ lint	Run ruff	2025-09-03T08:34:15.9973110Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9973281Z 14 | tmp_db = Path(tempfile.gettempdir()) / f"vpn_api_test_{os.getpid()}.db"
 lint	Run ruff	2025-09-03T08:34:15.9973445Z 15 | # Use posix path to avoid backslash issues inside f-strings on Windows
 lint	Run ruff	2025-09-03T08:34:15.9973504Z    |
-lint	Run ruff	2025-09-03T08:34:15.9973629Z 
+lint	Run ruff	2025-09-03T08:34:15.9973629Z
 lint	Run ruff	2025-09-03T08:34:15.9973714Z W191 Indentation contains tabs
 lint	Run ruff	2025-09-03T08:34:15.9973800Z   --> vpn_api/conftest.py:21:1
 lint	Run ruff	2025-09-03T08:34:15.9973856Z    |
@@ -1337,7 +1337,7 @@ lint	Run ruff	2025-09-03T08:34:15.9974152Z    | ^^^^
 lint	Run ruff	2025-09-03T08:34:15.9974220Z 22 |         tmp_db.unlink()
 lint	Run ruff	2025-09-03T08:34:15.9974293Z 23 | except Exception:
 lint	Run ruff	2025-09-03T08:34:15.9974349Z    |
-lint	Run ruff	2025-09-03T08:34:15.9974355Z 
+lint	Run ruff	2025-09-03T08:34:15.9974355Z
 lint	Run ruff	2025-09-03T08:34:15.9974432Z W191 Indentation contains tabs
 lint	Run ruff	2025-09-03T08:34:15.9974508Z   --> vpn_api/conftest.py:22:1
 lint	Run ruff	2025-09-03T08:34:15.9974570Z    |
@@ -1348,7 +1348,7 @@ lint	Run ruff	2025-09-03T08:34:15.9974829Z    | ^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9974898Z 23 | except Exception:
 lint	Run ruff	2025-09-03T08:34:15.9974961Z 24 |     pass
 lint	Run ruff	2025-09-03T08:34:15.9975030Z    |
-lint	Run ruff	2025-09-03T08:34:15.9975035Z 
+lint	Run ruff	2025-09-03T08:34:15.9975035Z
 lint	Run ruff	2025-09-03T08:34:15.9975114Z W191 Indentation contains tabs
 lint	Run ruff	2025-09-03T08:34:15.9975192Z   --> vpn_api/conftest.py:24:1
 lint	Run ruff	2025-09-03T08:34:15.9975252Z    |
@@ -1357,10 +1357,10 @@ lint	Run ruff	2025-09-03T08:34:15.9975390Z 23 | except Exception:
 lint	Run ruff	2025-09-03T08:34:15.9975600Z 24 |     pass
 lint	Run ruff	2025-09-03T08:34:15.9975661Z    | ^^^^
 lint	Run ruff	2025-09-03T08:34:15.9975717Z    |
-lint	Run ruff	2025-09-03T08:34:15.9975722Z 
+lint	Run ruff	2025-09-03T08:34:15.9975722Z
 lint	Run ruff	2025-09-03T08:34:15.9975810Z D100 Missing docstring in public module
 lint	Run ruff	2025-09-03T08:34:15.9975891Z --> vpn_api/database.py:1:1
-lint	Run ruff	2025-09-03T08:34:15.9975897Z 
+lint	Run ruff	2025-09-03T08:34:15.9975897Z
 lint	Run ruff	2025-09-03T08:34:15.9976001Z I001 [*] Import block is un-sorted or un-formatted
 lint	Run ruff	2025-09-03T08:34:15.9976080Z  --> vpn_api/database.py:1:1
 lint	Run ruff	2025-09-03T08:34:15.9976139Z   |
@@ -1373,7 +1373,7 @@ lint	Run ruff	2025-09-03T08:34:15.9976641Z 5 |
 lint	Run ruff	2025-09-03T08:34:15.9976795Z 6 |   # ╨Х╨┤╨╕╨╜╤Л╨╣ ╨┐╤Г╤В╤М ╨║ ╤В╨╡╤Б╤В╨╛╨▓╨╛╨╣ ╨╗╨╛╨║╨░╨╗╤М╨╜╨╛╨╣ ╨С╨Ф ╨▓╨╜╤Г╤В╤А╨╕ ╨┐╨░╨║╨╡╤В╨░
 lint	Run ruff	2025-09-03T08:34:15.9976853Z   |
 lint	Run ruff	2025-09-03T08:34:15.9976925Z help: Organize imports
-lint	Run ruff	2025-09-03T08:34:15.9976931Z 
+lint	Run ruff	2025-09-03T08:34:15.9976931Z
 lint	Run ruff	2025-09-03T08:34:15.9977032Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:15.9977109Z   --> vpn_api/database.py:22:5
 lint	Run ruff	2025-09-03T08:34:15.9977166Z    |
@@ -1383,20 +1383,20 @@ lint	Run ruff	2025-09-03T08:34:15.9977395Z    |     ^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9977570Z 23 |     db = SessionLocal()
 lint	Run ruff	2025-09-03T08:34:15.9977639Z 24 |     try:
 lint	Run ruff	2025-09-03T08:34:15.9977696Z    |
-lint	Run ruff	2025-09-03T08:34:15.9977702Z 
+lint	Run ruff	2025-09-03T08:34:15.9977702Z
 lint	Run ruff	2025-09-03T08:34:15.9977787Z W293 [*] Blank line contains whitespace
 lint	Run ruff	2025-09-03T08:34:15.9977866Z   --> vpn_api/database.py:28:1
 lint	Run ruff	2025-09-03T08:34:15.9977927Z    |
 lint	Run ruff	2025-09-03T08:34:15.9977989Z 26 |     finally:
 lint	Run ruff	2025-09-03T08:34:15.9978062Z 27 |         db.close()
-lint	Run ruff	2025-09-03T08:34:15.9978124Z 28 |         
+lint	Run ruff	2025-09-03T08:34:15.9978124Z 28 |
 lint	Run ruff	2025-09-03T08:34:15.9978183Z    | ^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9978240Z    |
 lint	Run ruff	2025-09-03T08:34:15.9978327Z help: Remove whitespace from blank line
-lint	Run ruff	2025-09-03T08:34:15.9978333Z 
+lint	Run ruff	2025-09-03T08:34:15.9978333Z
 lint	Run ruff	2025-09-03T08:34:15.9978423Z D100 Missing docstring in public module
 lint	Run ruff	2025-09-03T08:34:15.9978511Z --> vpn_api/fix_schema.py:1:1
-lint	Run ruff	2025-09-03T08:34:15.9978517Z 
+lint	Run ruff	2025-09-03T08:34:15.9978517Z
 lint	Run ruff	2025-09-03T08:34:15.9978619Z I001 [*] Import block is un-sorted or un-formatted
 lint	Run ruff	2025-09-03T08:34:15.9978713Z  --> vpn_api/fix_schema.py:1:1
 lint	Run ruff	2025-09-03T08:34:15.9978787Z   |
@@ -1408,7 +1408,7 @@ lint	Run ruff	2025-09-03T08:34:15.9979109Z 4 |
 lint	Run ruff	2025-09-03T08:34:15.9979228Z 5 |   db_path = Path(__file__).resolve().parent / 'test.db'
 lint	Run ruff	2025-09-03T08:34:15.9979287Z   |
 lint	Run ruff	2025-09-03T08:34:15.9979356Z help: Organize imports
-lint	Run ruff	2025-09-03T08:34:15.9979483Z 
+lint	Run ruff	2025-09-03T08:34:15.9979483Z
 lint	Run ruff	2025-09-03T08:34:15.9979579Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:15.9979660Z   --> vpn_api/fix_schema.py:14:5
 lint	Run ruff	2025-09-03T08:34:15.9979718Z    |
@@ -1419,13 +1419,13 @@ lint	Run ruff	2025-09-03T08:34:15.9979994Z    |     ^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9980097Z 15 |     cur.execute(f"PRAGMA table_info({table})")
 lint	Run ruff	2025-09-03T08:34:15.9980185Z 16 |     cols = [r[1] for r in cur.fetchall()]
 lint	Run ruff	2025-09-03T08:34:15.9980243Z    |
-lint	Run ruff	2025-09-03T08:34:15.9980248Z 
+lint	Run ruff	2025-09-03T08:34:15.9980248Z
 lint	Run ruff	2025-09-03T08:34:15.9980333Z D100 Missing docstring in public module
 lint	Run ruff	2025-09-03T08:34:15.9980408Z --> vpn_api/inspect_db.py:1:1
-lint	Run ruff	2025-09-03T08:34:15.9980413Z 
+lint	Run ruff	2025-09-03T08:34:15.9980413Z
 lint	Run ruff	2025-09-03T08:34:15.9980495Z D100 Missing docstring in public module
 lint	Run ruff	2025-09-03T08:34:15.9980566Z --> vpn_api/main.py:1:1
-lint	Run ruff	2025-09-03T08:34:15.9980573Z 
+lint	Run ruff	2025-09-03T08:34:15.9980573Z
 lint	Run ruff	2025-09-03T08:34:15.9980670Z I001 [*] Import block is un-sorted or un-formatted
 lint	Run ruff	2025-09-03T08:34:15.9980744Z  --> vpn_api/main.py:1:1
 lint	Run ruff	2025-09-03T08:34:15.9980806Z   |
@@ -1441,7 +1441,7 @@ lint	Run ruff	2025-09-03T08:34:15.9981773Z 8 |
 lint	Run ruff	2025-09-03T08:34:15.9981856Z 9 |   app = FastAPI(title="VPN Backend")
 lint	Run ruff	2025-09-03T08:34:15.9981916Z   |
 lint	Run ruff	2025-09-03T08:34:15.9981988Z help: Organize imports
-lint	Run ruff	2025-09-03T08:34:15.9981994Z 
+lint	Run ruff	2025-09-03T08:34:15.9981994Z
 lint	Run ruff	2025-09-03T08:34:15.9982079Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:15.9982157Z   --> vpn_api/main.py:21:5
 lint	Run ruff	2025-09-03T08:34:15.9982217Z    |
@@ -1450,10 +1450,10 @@ lint	Run ruff	2025-09-03T08:34:15.9982342Z 21 | def root():
 lint	Run ruff	2025-09-03T08:34:15.9982402Z    |     ^^^^
 lint	Run ruff	2025-09-03T08:34:15.9982490Z 22 |     return {"msg": "VPN API is running"}
 lint	Run ruff	2025-09-03T08:34:15.9982548Z    |
-lint	Run ruff	2025-09-03T08:34:15.9982554Z 
+lint	Run ruff	2025-09-03T08:34:15.9982554Z
 lint	Run ruff	2025-09-03T08:34:15.9982643Z D100 Missing docstring in public module
 lint	Run ruff	2025-09-03T08:34:15.9982716Z --> vpn_api/models.py:1:1
-lint	Run ruff	2025-09-03T08:34:15.9982722Z 
+lint	Run ruff	2025-09-03T08:34:15.9982722Z
 lint	Run ruff	2025-09-03T08:34:15.9982819Z I001 [*] Import block is un-sorted or un-formatted
 lint	Run ruff	2025-09-03T08:34:15.9982893Z  --> vpn_api/models.py:1:1
 lint	Run ruff	2025-09-03T08:34:15.9982955Z   |
@@ -1467,7 +1467,7 @@ lint	Run ruff	2025-09-03T08:34:15.9983652Z 7 | | from vpn_api.database import Ba
 lint	Run ruff	2025-09-03T08:34:15.9983718Z   | |_________________________________^
 lint	Run ruff	2025-09-03T08:34:15.9983774Z   |
 lint	Run ruff	2025-09-03T08:34:15.9983848Z help: Organize imports
-lint	Run ruff	2025-09-03T08:34:15.9983854Z 
+lint	Run ruff	2025-09-03T08:34:15.9983854Z
 lint	Run ruff	2025-09-03T08:34:15.9983927Z E501 Line too long (91 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9984009Z  --> vpn_api/models.py:2:89
 lint	Run ruff	2025-09-03T08:34:15.9984070Z   |
@@ -1477,7 +1477,7 @@ lint	Run ruff	2025-09-03T08:34:15.9984445Z   |                                  
 lint	Run ruff	2025-09-03T08:34:15.9984508Z 3 | )
 lint	Run ruff	2025-09-03T08:34:15.9984588Z 4 | from sqlalchemy.sql import func
 lint	Run ruff	2025-09-03T08:34:15.9984646Z   |
-lint	Run ruff	2025-09-03T08:34:15.9984652Z 
+lint	Run ruff	2025-09-03T08:34:15.9984652Z
 lint	Run ruff	2025-09-03T08:34:15.9984743Z D101 Missing docstring in public class
 lint	Run ruff	2025-09-03T08:34:15.9984817Z   --> vpn_api/models.py:10:7
 lint	Run ruff	2025-09-03T08:34:15.9984959Z    |
@@ -1486,7 +1486,7 @@ lint	Run ruff	2025-09-03T08:34:15.9985113Z    |       ^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9985184Z 11 |     pending = "pending"
 lint	Run ruff	2025-09-03T08:34:15.9985253Z 12 |     active = "active"
 lint	Run ruff	2025-09-03T08:34:15.9985316Z    |
-lint	Run ruff	2025-09-03T08:34:15.9985322Z 
+lint	Run ruff	2025-09-03T08:34:15.9985322Z
 lint	Run ruff	2025-09-03T08:34:15.9985408Z D101 Missing docstring in public class
 lint	Run ruff	2025-09-03T08:34:15.9985482Z   --> vpn_api/models.py:16:7
 lint	Run ruff	2025-09-03T08:34:15.9985543Z    |
@@ -1495,7 +1495,7 @@ lint	Run ruff	2025-09-03T08:34:15.9985694Z    |       ^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9985765Z 17 |     pending = "pending"
 lint	Run ruff	2025-09-03T08:34:15.9985846Z 18 |     completed = "completed"
 lint	Run ruff	2025-09-03T08:34:15.9985904Z    |
-lint	Run ruff	2025-09-03T08:34:15.9985910Z 
+lint	Run ruff	2025-09-03T08:34:15.9985910Z
 lint	Run ruff	2025-09-03T08:34:15.9985991Z D101 Missing docstring in public class
 lint	Run ruff	2025-09-03T08:34:15.9986069Z   --> vpn_api/models.py:23:7
 lint	Run ruff	2025-09-03T08:34:15.9986125Z    |
@@ -1503,7 +1503,7 @@ lint	Run ruff	2025-09-03T08:34:15.9986194Z 23 | class User(Base):
 lint	Run ruff	2025-09-03T08:34:15.9986261Z    |       ^^^^
 lint	Run ruff	2025-09-03T08:34:15.9986332Z 24 |     __tablename__ = "users"
 lint	Run ruff	2025-09-03T08:34:15.9986390Z    |
-lint	Run ruff	2025-09-03T08:34:15.9986395Z 
+lint	Run ruff	2025-09-03T08:34:15.9986395Z
 lint	Run ruff	2025-09-03T08:34:15.9986466Z E501 Line too long (91 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9986547Z   --> vpn_api/models.py:32:89
 lint	Run ruff	2025-09-03T08:34:15.9986604Z    |
@@ -1514,7 +1514,7 @@ lint	Run ruff	2025-09-03T08:34:15.9987338Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9987398Z 33 |
 lint	Run ruff	2025-09-03T08:34:15.9987722Z 34 |     tariffs = relationship("UserTariff", back_populates="user", cascade="all, delete-orphan")
 lint	Run ruff	2025-09-03T08:34:15.9987782Z    |
-lint	Run ruff	2025-09-03T08:34:15.9987788Z 
+lint	Run ruff	2025-09-03T08:34:15.9987788Z
 lint	Run ruff	2025-09-03T08:34:15.9987859Z E501 Line too long (93 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9987944Z   --> vpn_api/models.py:34:89
 lint	Run ruff	2025-09-03T08:34:15.9988001Z    |
@@ -1525,7 +1525,7 @@ lint	Run ruff	2025-09-03T08:34:15.9988577Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9988794Z 35 |     vpn_peers = relationship("VpnPeer", back_populates="user", cascade="all, delete-orphan")
 lint	Run ruff	2025-09-03T08:34:15.9989006Z 36 |     payments = relationship("Payment", back_populates="user", cascade="all, delete-orphan")
 lint	Run ruff	2025-09-03T08:34:15.9989064Z    |
-lint	Run ruff	2025-09-03T08:34:15.9989069Z 
+lint	Run ruff	2025-09-03T08:34:15.9989069Z
 lint	Run ruff	2025-09-03T08:34:15.9989143Z E501 Line too long (92 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9989217Z   --> vpn_api/models.py:35:89
 lint	Run ruff	2025-09-03T08:34:15.9989275Z    |
@@ -1534,7 +1534,7 @@ lint	Run ruff	2025-09-03T08:34:15.9989699Z 35 |     vpn_peers = relationship("Vp
 lint	Run ruff	2025-09-03T08:34:15.9989784Z    |                                                                                         ^^^^
 lint	Run ruff	2025-09-03T08:34:15.9989994Z 36 |     payments = relationship("Payment", back_populates="user", cascade="all, delete-orphan")
 lint	Run ruff	2025-09-03T08:34:15.9990054Z    |
-lint	Run ruff	2025-09-03T08:34:15.9990059Z 
+lint	Run ruff	2025-09-03T08:34:15.9990059Z
 lint	Run ruff	2025-09-03T08:34:15.9990128Z E501 Line too long (91 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9990202Z   --> vpn_api/models.py:36:89
 lint	Run ruff	2025-09-03T08:34:15.9990263Z    |
@@ -1543,7 +1543,7 @@ lint	Run ruff	2025-09-03T08:34:15.9990685Z 35 |     vpn_peers = relationship("Vp
 lint	Run ruff	2025-09-03T08:34:15.9990896Z 36 |     payments = relationship("Payment", back_populates="user", cascade="all, delete-orphan")
 lint	Run ruff	2025-09-03T08:34:15.9991107Z    |                                                                                         ^^^
 lint	Run ruff	2025-09-03T08:34:15.9991166Z    |
-lint	Run ruff	2025-09-03T08:34:15.9991171Z 
+lint	Run ruff	2025-09-03T08:34:15.9991171Z
 lint	Run ruff	2025-09-03T08:34:15.9991263Z D101 Missing docstring in public class
 lint	Run ruff	2025-09-03T08:34:15.9991344Z   --> vpn_api/models.py:39:7
 lint	Run ruff	2025-09-03T08:34:15.9991401Z    |
@@ -1551,7 +1551,7 @@ lint	Run ruff	2025-09-03T08:34:15.9991471Z 39 | class Tariff(Base):
 lint	Run ruff	2025-09-03T08:34:15.9991535Z    |       ^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9991610Z 40 |     __tablename__ = "tariffs"
 lint	Run ruff	2025-09-03T08:34:15.9991667Z    |
-lint	Run ruff	2025-09-03T08:34:15.9991672Z 
+lint	Run ruff	2025-09-03T08:34:15.9991672Z
 lint	Run ruff	2025-09-03T08:34:15.9991743Z E501 Line too long (91 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9991817Z   --> vpn_api/models.py:47:89
 lint	Run ruff	2025-09-03T08:34:15.9991874Z    |
@@ -1562,7 +1562,7 @@ lint	Run ruff	2025-09-03T08:34:15.9992413Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9992474Z 48 |
 lint	Run ruff	2025-09-03T08:34:15.9992714Z 49 |     user_tariffs = relationship("UserTariff", back_populates="tariff", cascade="all, delete-orphan")
 lint	Run ruff	2025-09-03T08:34:15.9992883Z    |
-lint	Run ruff	2025-09-03T08:34:15.9992889Z 
+lint	Run ruff	2025-09-03T08:34:15.9992889Z
 lint	Run ruff	2025-09-03T08:34:15.9992965Z E501 Line too long (100 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9993046Z   --> vpn_api/models.py:49:89
 lint	Run ruff	2025-09-03T08:34:15.9993102Z    |
@@ -1571,7 +1571,7 @@ lint	Run ruff	2025-09-03T08:34:15.9993371Z 48 |
 lint	Run ruff	2025-09-03T08:34:15.9993612Z 49 |     user_tariffs = relationship("UserTariff", back_populates="tariff", cascade="all, delete-orphan")
 lint	Run ruff	2025-09-03T08:34:15.9993700Z    |                                                                                         ^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9993767Z    |
-lint	Run ruff	2025-09-03T08:34:15.9993772Z 
+lint	Run ruff	2025-09-03T08:34:15.9993772Z
 lint	Run ruff	2025-09-03T08:34:15.9993857Z D101 Missing docstring in public class
 lint	Run ruff	2025-09-03T08:34:15.9993932Z   --> vpn_api/models.py:52:7
 lint	Run ruff	2025-09-03T08:34:15.9993993Z    |
@@ -1580,7 +1580,7 @@ lint	Run ruff	2025-09-03T08:34:15.9994128Z    |       ^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9994213Z 53 |     __tablename__ = "user_tariffs"
 lint	Run ruff	2025-09-03T08:34:15.9994287Z 54 |     __table_args__ = (
 lint	Run ruff	2025-09-03T08:34:15.9994344Z    |
-lint	Run ruff	2025-09-03T08:34:15.9994349Z 
+lint	Run ruff	2025-09-03T08:34:15.9994349Z
 lint	Run ruff	2025-09-03T08:34:15.9994418Z E501 Line too long (93 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9994497Z   --> vpn_api/models.py:55:89
 lint	Run ruff	2025-09-03T08:34:15.9994556Z    |
@@ -1590,7 +1590,7 @@ lint	Run ruff	2025-09-03T08:34:15.9994904Z 55 |         UniqueConstraint("user_i
 lint	Run ruff	2025-09-03T08:34:15.9994991Z    |                                                                                         ^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9995055Z 56 |     )
 lint	Run ruff	2025-09-03T08:34:15.9995117Z    |
-lint	Run ruff	2025-09-03T08:34:15.9995122Z 
+lint	Run ruff	2025-09-03T08:34:15.9995122Z
 lint	Run ruff	2025-09-03T08:34:15.9995191Z E501 Line too long (101 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9995264Z   --> vpn_api/models.py:59:89
 lint	Run ruff	2025-09-03T08:34:15.9995325Z    |
@@ -1600,7 +1600,7 @@ lint	Run ruff	2025-09-03T08:34:15.9995775Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9996027Z 60 |     tariff_id = Column(Integer, ForeignKey("tariffs.id", ondelete="RESTRICT"), nullable=False, index=True)
 lint	Run ruff	2025-09-03T08:34:15.9996232Z 61 |     started_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
 lint	Run ruff	2025-09-03T08:34:15.9996291Z    |
-lint	Run ruff	2025-09-03T08:34:15.9996297Z 
+lint	Run ruff	2025-09-03T08:34:15.9996297Z
 lint	Run ruff	2025-09-03T08:34:15.9996366Z E501 Line too long (106 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9996560Z   --> vpn_api/models.py:60:89
 lint	Run ruff	2025-09-03T08:34:15.9996616Z    |
@@ -1611,7 +1611,7 @@ lint	Run ruff	2025-09-03T08:34:15.9997299Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9997606Z 61 |     started_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
 lint	Run ruff	2025-09-03T08:34:15.9997738Z 62 |     ended_at = Column(DateTime(timezone=True), nullable=True)
 lint	Run ruff	2025-09-03T08:34:15.9997799Z    |
-lint	Run ruff	2025-09-03T08:34:15.9997804Z 
+lint	Run ruff	2025-09-03T08:34:15.9997804Z
 lint	Run ruff	2025-09-03T08:34:15.9997876Z E501 Line too long (91 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9997952Z   --> vpn_api/models.py:61:89
 lint	Run ruff	2025-09-03T08:34:15.9998018Z    |
@@ -1622,7 +1622,7 @@ lint	Run ruff	2025-09-03T08:34:15.9998901Z    |                                 
 lint	Run ruff	2025-09-03T08:34:15.9999031Z 62 |     ended_at = Column(DateTime(timezone=True), nullable=True)
 lint	Run ruff	2025-09-03T08:34:15.9999161Z 63 |     status = Column(String, nullable=False, default="active")
 lint	Run ruff	2025-09-03T08:34:15.9999223Z    |
-lint	Run ruff	2025-09-03T08:34:15.9999228Z 
+lint	Run ruff	2025-09-03T08:34:15.9999228Z
 lint	Run ruff	2025-09-03T08:34:15.9999313Z D101 Missing docstring in public class
 lint	Run ruff	2025-09-03T08:34:15.9999390Z   --> vpn_api/models.py:69:7
 lint	Run ruff	2025-09-03T08:34:15.9999449Z    |
@@ -1630,7 +1630,7 @@ lint	Run ruff	2025-09-03T08:34:15.9999521Z 69 | class VpnPeer(Base):
 lint	Run ruff	2025-09-03T08:34:15.9999585Z    |       ^^^^^^^
 lint	Run ruff	2025-09-03T08:34:15.9999663Z 70 |     __tablename__ = "vpn_peers"
 lint	Run ruff	2025-09-03T08:34:15.9999725Z    |
-lint	Run ruff	2025-09-03T08:34:15.9999730Z 
+lint	Run ruff	2025-09-03T08:34:15.9999730Z
 lint	Run ruff	2025-09-03T08:34:15.9999801Z E501 Line too long (101 > 88)
 lint	Run ruff	2025-09-03T08:34:15.9999875Z   --> vpn_api/models.py:73:89
 lint	Run ruff	2025-09-03T08:34:15.9999936Z    |
@@ -1640,7 +1640,7 @@ lint	Run ruff	2025-09-03T08:34:16.0000366Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0000476Z 74 |     wg_private_key = Column(String, nullable=False)
 lint	Run ruff	2025-09-03T08:34:16.0000610Z 75 |     wg_public_key = Column(String, nullable=False, unique=True)
 lint	Run ruff	2025-09-03T08:34:16.0000672Z    |
-lint	Run ruff	2025-09-03T08:34:16.0000678Z 
+lint	Run ruff	2025-09-03T08:34:16.0000678Z
 lint	Run ruff	2025-09-03T08:34:16.0000747Z E501 Line too long (91 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0000819Z   --> vpn_api/models.py:79:89
 lint	Run ruff	2025-09-03T08:34:16.0000883Z    |
@@ -1651,7 +1651,7 @@ lint	Run ruff	2025-09-03T08:34:16.0001405Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0001463Z 80 |
 lint	Run ruff	2025-09-03T08:34:16.0001587Z 81 |     user = relationship("User", back_populates="vpn_peers")
 lint	Run ruff	2025-09-03T08:34:16.0001647Z    |
-lint	Run ruff	2025-09-03T08:34:16.0001653Z 
+lint	Run ruff	2025-09-03T08:34:16.0001653Z
 lint	Run ruff	2025-09-03T08:34:16.0001737Z D101 Missing docstring in public class
 lint	Run ruff	2025-09-03T08:34:16.0001811Z   --> vpn_api/models.py:84:7
 lint	Run ruff	2025-09-03T08:34:16.0001868Z    |
@@ -1659,7 +1659,7 @@ lint	Run ruff	2025-09-03T08:34:16.0001949Z 84 | class Payment(Base):
 lint	Run ruff	2025-09-03T08:34:16.0002008Z    |       ^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0002084Z 85 |     __tablename__ = "payments"
 lint	Run ruff	2025-09-03T08:34:16.0002262Z    |
-lint	Run ruff	2025-09-03T08:34:16.0002268Z 
+lint	Run ruff	2025-09-03T08:34:16.0002268Z
 lint	Run ruff	2025-09-03T08:34:16.0002340Z E501 Line too long (101 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0002415Z   --> vpn_api/models.py:88:89
 lint	Run ruff	2025-09-03T08:34:16.0002473Z    |
@@ -1669,7 +1669,7 @@ lint	Run ruff	2025-09-03T08:34:16.0002898Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0003005Z 89 |     amount = Column(Numeric(10, 2), nullable=False)
 lint	Run ruff	2025-09-03T08:34:16.0003140Z 90 |     currency = Column(String(8), nullable=False, default="USD")
 lint	Run ruff	2025-09-03T08:34:16.0003196Z    |
-lint	Run ruff	2025-09-03T08:34:16.0003202Z 
+lint	Run ruff	2025-09-03T08:34:16.0003202Z
 lint	Run ruff	2025-09-03T08:34:16.0003275Z E501 Line too long (91 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0003349Z   --> vpn_api/models.py:94:89
 lint	Run ruff	2025-09-03T08:34:16.0003405Z    |
@@ -1680,10 +1680,10 @@ lint	Run ruff	2025-09-03T08:34:16.0003941Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0004079Z 95 |
 lint	Run ruff	2025-09-03T08:34:16.0004204Z 96 |     user = relationship("User", back_populates="payments")
 lint	Run ruff	2025-09-03T08:34:16.0004260Z    |
-lint	Run ruff	2025-09-03T08:34:16.0004265Z 
+lint	Run ruff	2025-09-03T08:34:16.0004265Z
 lint	Run ruff	2025-09-03T08:34:16.0004351Z D100 Missing docstring in public module
 lint	Run ruff	2025-09-03T08:34:16.0004429Z --> vpn_api/payments.py:1:1
-lint	Run ruff	2025-09-03T08:34:16.0004435Z 
+lint	Run ruff	2025-09-03T08:34:16.0004435Z
 lint	Run ruff	2025-09-03T08:34:16.0004535Z I001 [*] Import block is un-sorted or un-formatted
 lint	Run ruff	2025-09-03T08:34:16.0004614Z  --> vpn_api/payments.py:1:1
 lint	Run ruff	2025-09-03T08:34:16.0004672Z   |
@@ -1699,7 +1699,7 @@ lint	Run ruff	2025-09-03T08:34:16.0005453Z 8 |
 lint	Run ruff	2025-09-03T08:34:16.0005585Z 9 |   router = APIRouter(prefix="/payments", tags=["payments"])
 lint	Run ruff	2025-09-03T08:34:16.0005643Z   |
 lint	Run ruff	2025-09-03T08:34:16.0005718Z help: Organize imports
-lint	Run ruff	2025-09-03T08:34:16.0005724Z 
+lint	Run ruff	2025-09-03T08:34:16.0005724Z
 lint	Run ruff	2025-09-03T08:34:16.0005814Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:16.0005893Z   --> vpn_api/payments.py:13:5
 lint	Run ruff	2025-09-03T08:34:16.0005951Z    |
@@ -1709,7 +1709,7 @@ lint	Run ruff	2025-09-03T08:34:16.0006576Z    |     ^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0006672Z 14 |     # Only admin or owner can create payment
 lint	Run ruff	2025-09-03T08:34:16.0006932Z 15 |     if payload.user_id and not getattr(current_user, 'is_admin', False) and current_user.id != payload.user_id:
 lint	Run ruff	2025-09-03T08:34:16.0006997Z    |
-lint	Run ruff	2025-09-03T08:34:16.0007002Z 
+lint	Run ruff	2025-09-03T08:34:16.0007002Z
 lint	Run ruff	2025-09-03T08:34:16.0007550Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:16.0007639Z   --> vpn_api/payments.py:13:66
 lint	Run ruff	2025-09-03T08:34:16.0007696Z    |
@@ -1719,7 +1719,7 @@ lint	Run ruff	2025-09-03T08:34:16.0008318Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0008535Z 14 |     # Only admin or owner can create payment
 lint	Run ruff	2025-09-03T08:34:16.0008797Z 15 |     if payload.user_id and not getattr(current_user, 'is_admin', False) and current_user.id != payload.user_id:
 lint	Run ruff	2025-09-03T08:34:16.0008854Z    |
-lint	Run ruff	2025-09-03T08:34:16.0008867Z 
+lint	Run ruff	2025-09-03T08:34:16.0008867Z
 lint	Run ruff	2025-09-03T08:34:16.0008939Z E501 Line too long (137 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0009020Z   --> vpn_api/payments.py:13:89
 lint	Run ruff	2025-09-03T08:34:16.0009084Z    |
@@ -1729,7 +1729,7 @@ lint	Run ruff	2025-09-03T08:34:16.0009554Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0009626Z 14 | тАж
 lint	Run ruff	2025-09-03T08:34:16.0009827Z 15 | тАж_user, 'is_admin', False) and current_user.id != payload.user_id:
 lint	Run ruff	2025-09-03T08:34:16.0009893Z    |
-lint	Run ruff	2025-09-03T08:34:16.0009899Z 
+lint	Run ruff	2025-09-03T08:34:16.0009899Z
 lint	Run ruff	2025-09-03T08:34:16.0010344Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:16.0010441Z   --> vpn_api/payments.py:13:111
 lint	Run ruff	2025-09-03T08:34:16.0010506Z    |
@@ -1739,7 +1739,7 @@ lint	Run ruff	2025-09-03T08:34:16.0011046Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0011119Z 14 | тАж
 lint	Run ruff	2025-09-03T08:34:16.0011296Z 15 | тАж_admin', False) and current_user.id != payload.user_id:
 lint	Run ruff	2025-09-03T08:34:16.0011353Z    |
-lint	Run ruff	2025-09-03T08:34:16.0011363Z 
+lint	Run ruff	2025-09-03T08:34:16.0011363Z
 lint	Run ruff	2025-09-03T08:34:16.0011436Z E501 Line too long (111 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0011518Z   --> vpn_api/payments.py:15:89
 lint	Run ruff	2025-09-03T08:34:16.0011576Z    |
@@ -1750,7 +1750,7 @@ lint	Run ruff	2025-09-03T08:34:16.0012443Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0012596Z 16 |         raise HTTPException(status_code=403, detail='Not allowed')
 lint	Run ruff	2025-09-03T08:34:16.0012942Z 17 |     payment = models.Payment(user_id=payload.user_id, amount=payload.amount, currency=payload.currency, provider=payload.provider)
 lint	Run ruff	2025-09-03T08:34:16.0013006Z    |
-lint	Run ruff	2025-09-03T08:34:16.0013011Z 
+lint	Run ruff	2025-09-03T08:34:16.0013011Z
 lint	Run ruff	2025-09-03T08:34:16.0013083Z E501 Line too long (130 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0013161Z   --> vpn_api/payments.py:17:89
 lint	Run ruff	2025-09-03T08:34:16.0013225Z    |
@@ -1761,7 +1761,7 @@ lint	Run ruff	2025-09-03T08:34:16.0014062Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0014140Z 18 |     db.add(payment)
 lint	Run ruff	2025-09-03T08:34:16.0014204Z 19 |     db.commit()
 lint	Run ruff	2025-09-03T08:34:16.0014266Z    |
-lint	Run ruff	2025-09-03T08:34:16.0014271Z 
+lint	Run ruff	2025-09-03T08:34:16.0014271Z
 lint	Run ruff	2025-09-03T08:34:16.0014359Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:16.0014439Z   --> vpn_api/payments.py:25:5
 lint	Run ruff	2025-09-03T08:34:16.0014501Z    |
@@ -1771,7 +1771,7 @@ lint	Run ruff	2025-09-03T08:34:16.0015254Z    |     ^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0015340Z 26 |     q = db.query(models.Payment)
 lint	Run ruff	2025-09-03T08:34:16.0015405Z 27 |     if user_id:
 lint	Run ruff	2025-09-03T08:34:16.0015463Z    |
-lint	Run ruff	2025-09-03T08:34:16.0015469Z 
+lint	Run ruff	2025-09-03T08:34:16.0015469Z
 lint	Run ruff	2025-09-03T08:34:16.0015546Z E501 Line too long (168 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0015630Z   --> vpn_api/payments.py:25:89
 lint	Run ruff	2025-09-03T08:34:16.0015696Z    |
@@ -1781,7 +1781,7 @@ lint	Run ruff	2025-09-03T08:34:16.0016191Z    |                            ^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0016264Z 26 | тАж
 lint	Run ruff	2025-09-03T08:34:16.0016335Z 27 | тАж
 lint	Run ruff	2025-09-03T08:34:16.0016392Z    |
-lint	Run ruff	2025-09-03T08:34:16.0016397Z 
+lint	Run ruff	2025-09-03T08:34:16.0016397Z
 lint	Run ruff	2025-09-03T08:34:16.0016844Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:16.0016940Z   --> vpn_api/payments.py:25:97
 lint	Run ruff	2025-09-03T08:34:16.0016996Z    |
@@ -1791,7 +1791,7 @@ lint	Run ruff	2025-09-03T08:34:16.0017833Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0017919Z 26 |     q = db.query(models.Payment)
 lint	Run ruff	2025-09-03T08:34:16.0017989Z 27 |     if user_id:
 lint	Run ruff	2025-09-03T08:34:16.0018047Z    |
-lint	Run ruff	2025-09-03T08:34:16.0018053Z 
+lint	Run ruff	2025-09-03T08:34:16.0018053Z
 lint	Run ruff	2025-09-03T08:34:16.0018495Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:16.0018585Z   --> vpn_api/payments.py:25:142
 lint	Run ruff	2025-09-03T08:34:16.0018643Z    |
@@ -1801,7 +1801,7 @@ lint	Run ruff	2025-09-03T08:34:16.0019080Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0019151Z 26 | тАж
 lint	Run ruff	2025-09-03T08:34:16.0019219Z 27 | тАж
 lint	Run ruff	2025-09-03T08:34:16.0019291Z    |
-lint	Run ruff	2025-09-03T08:34:16.0019297Z 
+lint	Run ruff	2025-09-03T08:34:16.0019297Z
 lint	Run ruff	2025-09-03T08:34:16.0019389Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:16.0019471Z   --> vpn_api/payments.py:37:5
 lint	Run ruff	2025-09-03T08:34:16.0019534Z    |
@@ -1811,7 +1811,7 @@ lint	Run ruff	2025-09-03T08:34:16.0020039Z    |     ^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0020257Z 38 |     payment = db.query(models.Payment).filter(models.Payment.id == payment_id).first()
 lint	Run ruff	2025-09-03T08:34:16.0020330Z 39 |     if not payment:
 lint	Run ruff	2025-09-03T08:34:16.0020396Z    |
-lint	Run ruff	2025-09-03T08:34:16.0020401Z 
+lint	Run ruff	2025-09-03T08:34:16.0020401Z
 lint	Run ruff	2025-09-03T08:34:16.0020848Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:16.0020930Z   --> vpn_api/payments.py:37:48
 lint	Run ruff	2025-09-03T08:34:16.0020996Z    |
@@ -1821,7 +1821,7 @@ lint	Run ruff	2025-09-03T08:34:16.0021515Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0021727Z 38 |     payment = db.query(models.Payment).filter(models.Payment.id == payment_id).first()
 lint	Run ruff	2025-09-03T08:34:16.0021797Z 39 |     if not payment:
 lint	Run ruff	2025-09-03T08:34:16.0021854Z    |
-lint	Run ruff	2025-09-03T08:34:16.0021859Z 
+lint	Run ruff	2025-09-03T08:34:16.0021859Z
 lint	Run ruff	2025-09-03T08:34:16.0021931Z E501 Line too long (119 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0022140Z   --> vpn_api/payments.py:37:89
 lint	Run ruff	2025-09-03T08:34:16.0022199Z    |
@@ -1831,7 +1831,7 @@ lint	Run ruff	2025-09-03T08:34:16.0022733Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0022936Z 38 |     payment = db.query(models.Payment).filter(models.Payment.id == payment_id).first()
 lint	Run ruff	2025-09-03T08:34:16.0023012Z 39 |     if not payment:
 lint	Run ruff	2025-09-03T08:34:16.0023070Z    |
-lint	Run ruff	2025-09-03T08:34:16.0023075Z 
+lint	Run ruff	2025-09-03T08:34:16.0023075Z
 lint	Run ruff	2025-09-03T08:34:16.0023513Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:16.0023597Z   --> vpn_api/payments.py:37:93
 lint	Run ruff	2025-09-03T08:34:16.0023653Z    |
@@ -1841,7 +1841,7 @@ lint	Run ruff	2025-09-03T08:34:16.0024182Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0024498Z 38 |     payment = db.query(models.Payment).filter(models.Payment.id == payment_id).first()
 lint	Run ruff	2025-09-03T08:34:16.0024568Z 39 |     if not payment:
 lint	Run ruff	2025-09-03T08:34:16.0024630Z    |
-lint	Run ruff	2025-09-03T08:34:16.0024635Z 
+lint	Run ruff	2025-09-03T08:34:16.0024635Z
 lint	Run ruff	2025-09-03T08:34:16.0024707Z E501 Line too long (91 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0024783Z   --> vpn_api/payments.py:41:89
 lint	Run ruff	2025-09-03T08:34:16.0024845Z    |
@@ -1852,7 +1852,7 @@ lint	Run ruff	2025-09-03T08:34:16.0025371Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0025513Z 42 |         raise HTTPException(status_code=403, detail='Not allowed')
 lint	Run ruff	2025-09-03T08:34:16.0025582Z 43 |     return payment
 lint	Run ruff	2025-09-03T08:34:16.0025648Z    |
-lint	Run ruff	2025-09-03T08:34:16.0025654Z 
+lint	Run ruff	2025-09-03T08:34:16.0025654Z
 lint	Run ruff	2025-09-03T08:34:16.0025743Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:16.0025823Z   --> vpn_api/payments.py:47:5
 lint	Run ruff	2025-09-03T08:34:16.0025885Z    |
@@ -1862,7 +1862,7 @@ lint	Run ruff	2025-09-03T08:34:16.0026515Z    |     ^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0026718Z 48 |     payment = db.query(models.Payment).filter(models.Payment.id == payment_id).first()
 lint	Run ruff	2025-09-03T08:34:16.0026795Z 49 |     if not payment:
 lint	Run ruff	2025-09-03T08:34:16.0026852Z    |
-lint	Run ruff	2025-09-03T08:34:16.0026863Z 
+lint	Run ruff	2025-09-03T08:34:16.0026863Z
 lint	Run ruff	2025-09-03T08:34:16.0027302Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:16.0027382Z   --> vpn_api/payments.py:47:83
 lint	Run ruff	2025-09-03T08:34:16.0027548Z    |
@@ -1872,7 +1872,7 @@ lint	Run ruff	2025-09-03T08:34:16.0028211Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0028421Z 48 |     payment = db.query(models.Payment).filter(models.Payment.id == payment_id).first()
 lint	Run ruff	2025-09-03T08:34:16.0028492Z 49 |     if not payment:
 lint	Run ruff	2025-09-03T08:34:16.0028549Z    |
-lint	Run ruff	2025-09-03T08:34:16.0028680Z 
+lint	Run ruff	2025-09-03T08:34:16.0028680Z
 lint	Run ruff	2025-09-03T08:34:16.0028763Z E501 Line too long (154 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0028847Z   --> vpn_api/payments.py:47:89
 lint	Run ruff	2025-09-03T08:34:16.0028905Z    |
@@ -1882,7 +1882,7 @@ lint	Run ruff	2025-09-03T08:34:16.0029423Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0029546Z 48 | тАжyment.id == payment_id).first()
 lint	Run ruff	2025-09-03T08:34:16.0029621Z 49 | тАж
 lint	Run ruff	2025-09-03T08:34:16.0029678Z    |
-lint	Run ruff	2025-09-03T08:34:16.0029683Z 
+lint	Run ruff	2025-09-03T08:34:16.0029683Z
 lint	Run ruff	2025-09-03T08:34:16.0030129Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:16.0030220Z   --> vpn_api/payments.py:47:128
 lint	Run ruff	2025-09-03T08:34:16.0030279Z    |
@@ -1892,7 +1892,7 @@ lint	Run ruff	2025-09-03T08:34:16.0030702Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0030793Z 48 | тАжt_id).first()
 lint	Run ruff	2025-09-03T08:34:16.0030865Z 49 | тАж
 lint	Run ruff	2025-09-03T08:34:16.0030928Z    |
-lint	Run ruff	2025-09-03T08:34:16.0031050Z 
+lint	Run ruff	2025-09-03T08:34:16.0031050Z
 lint	Run ruff	2025-09-03T08:34:16.0031127Z E501 Line too long (91 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0031209Z   --> vpn_api/payments.py:51:89
 lint	Run ruff	2025-09-03T08:34:16.0031273Z    |
@@ -1903,7 +1903,7 @@ lint	Run ruff	2025-09-03T08:34:16.0031802Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0031945Z 52 |         raise HTTPException(status_code=403, detail='Not allowed')
 lint	Run ruff	2025-09-03T08:34:16.0032047Z 53 |     payment.amount = payload.amount
 lint	Run ruff	2025-09-03T08:34:16.0032109Z    |
-lint	Run ruff	2025-09-03T08:34:16.0032115Z 
+lint	Run ruff	2025-09-03T08:34:16.0032115Z
 lint	Run ruff	2025-09-03T08:34:16.0032205Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:16.0032287Z   --> vpn_api/payments.py:62:5
 lint	Run ruff	2025-09-03T08:34:16.0032352Z    |
@@ -1913,7 +1913,7 @@ lint	Run ruff	2025-09-03T08:34:16.0032809Z    |     ^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0033019Z 63 |     payment = db.query(models.Payment).filter(models.Payment.id == payment_id).first()
 lint	Run ruff	2025-09-03T08:34:16.0033090Z 64 |     if not payment:
 lint	Run ruff	2025-09-03T08:34:16.0033148Z    |
-lint	Run ruff	2025-09-03T08:34:16.0033158Z 
+lint	Run ruff	2025-09-03T08:34:16.0033158Z
 lint	Run ruff	2025-09-03T08:34:16.0033596Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:16.0033676Z   --> vpn_api/payments.py:62:51
 lint	Run ruff	2025-09-03T08:34:16.0033739Z    |
@@ -1923,7 +1923,7 @@ lint	Run ruff	2025-09-03T08:34:16.0034207Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0034421Z 63 |     payment = db.query(models.Payment).filter(models.Payment.id == payment_id).first()
 lint	Run ruff	2025-09-03T08:34:16.0034491Z 64 |     if not payment:
 lint	Run ruff	2025-09-03T08:34:16.0034548Z    |
-lint	Run ruff	2025-09-03T08:34:16.0034554Z 
+lint	Run ruff	2025-09-03T08:34:16.0034554Z
 lint	Run ruff	2025-09-03T08:34:16.0034633Z E501 Line too long (122 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0034714Z   --> vpn_api/payments.py:62:89
 lint	Run ruff	2025-09-03T08:34:16.0034774Z    |
@@ -1933,7 +1933,7 @@ lint	Run ruff	2025-09-03T08:34:16.0035332Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0035536Z 63 |     payment = db.query(models.Payment).filter(models.Payment.id == payment_id).first()
 lint	Run ruff	2025-09-03T08:34:16.0035608Z 64 |     if not payment:
 lint	Run ruff	2025-09-03T08:34:16.0035670Z    |
-lint	Run ruff	2025-09-03T08:34:16.0035675Z 
+lint	Run ruff	2025-09-03T08:34:16.0035675Z
 lint	Run ruff	2025-09-03T08:34:16.0036112Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:16.0036194Z   --> vpn_api/payments.py:62:96
 lint	Run ruff	2025-09-03T08:34:16.0036250Z    |
@@ -1943,7 +1943,7 @@ lint	Run ruff	2025-09-03T08:34:16.0036720Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0036927Z 63 |     payment = db.query(models.Payment).filter(models.Payment.id == payment_id).first()
 lint	Run ruff	2025-09-03T08:34:16.0037004Z 64 |     if not payment:
 lint	Run ruff	2025-09-03T08:34:16.0037062Z    |
-lint	Run ruff	2025-09-03T08:34:16.0037067Z 
+lint	Run ruff	2025-09-03T08:34:16.0037067Z
 lint	Run ruff	2025-09-03T08:34:16.0037141Z E501 Line too long (91 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0037301Z   --> vpn_api/payments.py:66:89
 lint	Run ruff	2025-09-03T08:34:16.0037364Z    |
@@ -1954,10 +1954,10 @@ lint	Run ruff	2025-09-03T08:34:16.0037988Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0038127Z 67 |         raise HTTPException(status_code=403, detail='Not allowed')
 lint	Run ruff	2025-09-03T08:34:16.0038205Z 68 |     db.delete(payment)
 lint	Run ruff	2025-09-03T08:34:16.0038263Z    |
-lint	Run ruff	2025-09-03T08:34:16.0038277Z 
+lint	Run ruff	2025-09-03T08:34:16.0038277Z
 lint	Run ruff	2025-09-03T08:34:16.0038364Z D100 Missing docstring in public module
 lint	Run ruff	2025-09-03T08:34:16.0038445Z --> vpn_api/peers.py:1:1
-lint	Run ruff	2025-09-03T08:34:16.0038450Z 
+lint	Run ruff	2025-09-03T08:34:16.0038450Z
 lint	Run ruff	2025-09-03T08:34:16.0038556Z I001 [*] Import block is un-sorted or un-formatted
 lint	Run ruff	2025-09-03T08:34:16.0038634Z   --> vpn_api/peers.py:1:1
 lint	Run ruff	2025-09-03T08:34:16.0038696Z    |
@@ -1974,7 +1974,7 @@ lint	Run ruff	2025-09-03T08:34:16.0039545Z  9 |
 lint	Run ruff	2025-09-03T08:34:16.0039698Z 10 |   router = APIRouter(prefix="/vpn_peers", tags=["vpn_peers"])
 lint	Run ruff	2025-09-03T08:34:16.0039756Z    |
 lint	Run ruff	2025-09-03T08:34:16.0039828Z help: Organize imports
-lint	Run ruff	2025-09-03T08:34:16.0039833Z 
+lint	Run ruff	2025-09-03T08:34:16.0039833Z
 lint	Run ruff	2025-09-03T08:34:16.0039924Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:16.0040004Z   --> vpn_api/peers.py:14:5
 lint	Run ruff	2025-09-03T08:34:16.0040070Z    |
@@ -1984,7 +1984,7 @@ lint	Run ruff	2025-09-03T08:34:16.0040621Z    |     ^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0040729Z 15 |     # only admin or the same user can create peer
 lint	Run ruff	2025-09-03T08:34:16.0040940Z 16 |     if not getattr(current_user, "is_admin", False) and current_user.id != payload.user_id:
 lint	Run ruff	2025-09-03T08:34:16.0040997Z    |
-lint	Run ruff	2025-09-03T08:34:16.0041003Z 
+lint	Run ruff	2025-09-03T08:34:16.0041003Z
 lint	Run ruff	2025-09-03T08:34:16.0041446Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:16.0041661Z   --> vpn_api/peers.py:14:63
 lint	Run ruff	2025-09-03T08:34:16.0041720Z    |
@@ -1994,7 +1994,7 @@ lint	Run ruff	2025-09-03T08:34:16.0042293Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0042394Z 15 |     # only admin or the same user can create peer
 lint	Run ruff	2025-09-03T08:34:16.0042592Z 16 |     if not getattr(current_user, "is_admin", False) and current_user.id != payload.user_id:
 lint	Run ruff	2025-09-03T08:34:16.0042657Z    |
-lint	Run ruff	2025-09-03T08:34:16.0042662Z 
+lint	Run ruff	2025-09-03T08:34:16.0042662Z
 lint	Run ruff	2025-09-03T08:34:16.0042736Z E501 Line too long (134 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0042815Z   --> vpn_api/peers.py:14:89
 lint	Run ruff	2025-09-03T08:34:16.0042877Z    |
@@ -2004,7 +2004,7 @@ lint	Run ruff	2025-09-03T08:34:16.0043449Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0043659Z 15 |     # only admin or the same user can create peer
 lint	Run ruff	2025-09-03T08:34:16.0043864Z 16 |     if not getattr(current_user, "is_admin", False) and current_user.id != payload.user_id:
 lint	Run ruff	2025-09-03T08:34:16.0043928Z    |
-lint	Run ruff	2025-09-03T08:34:16.0043934Z 
+lint	Run ruff	2025-09-03T08:34:16.0043934Z
 lint	Run ruff	2025-09-03T08:34:16.0044377Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:16.0044458Z   --> vpn_api/peers.py:14:108
 lint	Run ruff	2025-09-03T08:34:16.0044522Z    |
@@ -2014,7 +2014,7 @@ lint	Run ruff	2025-09-03T08:34:16.0045099Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0045202Z 15 |     # only admin or the same user can create peer
 lint	Run ruff	2025-09-03T08:34:16.0045399Z 16 |     if not getattr(current_user, "is_admin", False) and current_user.id != payload.user_id:
 lint	Run ruff	2025-09-03T08:34:16.0045458Z    |
-lint	Run ruff	2025-09-03T08:34:16.0045468Z 
+lint	Run ruff	2025-09-03T08:34:16.0045468Z
 lint	Run ruff	2025-09-03T08:34:16.0045544Z E501 Line too long (91 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0045621Z   --> vpn_api/peers.py:16:89
 lint	Run ruff	2025-09-03T08:34:16.0045680Z    |
@@ -2025,7 +2025,7 @@ lint	Run ruff	2025-09-03T08:34:16.0046413Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0046557Z 17 |         raise HTTPException(status_code=403, detail="Not allowed")
 lint	Run ruff	2025-09-03T08:34:16.0046656Z 18 |     # generate private key placeholder
 lint	Run ruff	2025-09-03T08:34:16.0046722Z    |
-lint	Run ruff	2025-09-03T08:34:16.0046727Z 
+lint	Run ruff	2025-09-03T08:34:16.0046727Z
 lint	Run ruff	2025-09-03T08:34:16.0046800Z E501 Line too long (165 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0046878Z   --> vpn_api/peers.py:20:89
 lint	Run ruff	2025-09-03T08:34:16.0046937Z    |
@@ -2036,7 +2036,7 @@ lint	Run ruff	2025-09-03T08:34:16.0047641Z    |                              ^^^
 lint	Run ruff	2025-09-03T08:34:16.0047841Z 21 | тАж
 lint	Run ruff	2025-09-03T08:34:16.0047909Z 22 | тАж
 lint	Run ruff	2025-09-03T08:34:16.0047972Z    |
-lint	Run ruff	2025-09-03T08:34:16.0047978Z 
+lint	Run ruff	2025-09-03T08:34:16.0047978Z
 lint	Run ruff	2025-09-03T08:34:16.0048073Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:16.0048153Z   --> vpn_api/peers.py:28:5
 lint	Run ruff	2025-09-03T08:34:16.0048211Z    |
@@ -2046,7 +2046,7 @@ lint	Run ruff	2025-09-03T08:34:16.0048789Z    |     ^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0048879Z 29 |     q = db.query(models.VpnPeer)
 lint	Run ruff	2025-09-03T08:34:16.0048945Z 30 |     if user_id:
 lint	Run ruff	2025-09-03T08:34:16.0049003Z    |
-lint	Run ruff	2025-09-03T08:34:16.0049009Z 
+lint	Run ruff	2025-09-03T08:34:16.0049009Z
 lint	Run ruff	2025-09-03T08:34:16.0049085Z E501 Line too long (165 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0049163Z   --> vpn_api/peers.py:28:89
 lint	Run ruff	2025-09-03T08:34:16.0049220Z    |
@@ -2056,7 +2056,7 @@ lint	Run ruff	2025-09-03T08:34:16.0049700Z    |                              ^^^
 lint	Run ruff	2025-09-03T08:34:16.0049769Z 29 | тАж
 lint	Run ruff	2025-09-03T08:34:16.0049840Z 30 | тАж
 lint	Run ruff	2025-09-03T08:34:16.0049899Z    |
-lint	Run ruff	2025-09-03T08:34:16.0050020Z 
+lint	Run ruff	2025-09-03T08:34:16.0050020Z
 lint	Run ruff	2025-09-03T08:34:16.0050474Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:16.0050558Z   --> vpn_api/peers.py:28:94
 lint	Run ruff	2025-09-03T08:34:16.0050616Z    |
@@ -2066,7 +2066,7 @@ lint	Run ruff	2025-09-03T08:34:16.0051203Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0051297Z 29 |     q = db.query(models.VpnPeer)
 lint	Run ruff	2025-09-03T08:34:16.0051361Z 30 |     if user_id:
 lint	Run ruff	2025-09-03T08:34:16.0051423Z    |
-lint	Run ruff	2025-09-03T08:34:16.0051429Z 
+lint	Run ruff	2025-09-03T08:34:16.0051429Z
 lint	Run ruff	2025-09-03T08:34:16.0051868Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:16.0051955Z   --> vpn_api/peers.py:28:139
 lint	Run ruff	2025-09-03T08:34:16.0052019Z    |
@@ -2076,7 +2076,7 @@ lint	Run ruff	2025-09-03T08:34:16.0052436Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0052505Z 29 | тАж
 lint	Run ruff	2025-09-03T08:34:16.0052572Z 30 | тАж
 lint	Run ruff	2025-09-03T08:34:16.0052629Z    |
-lint	Run ruff	2025-09-03T08:34:16.0052635Z 
+lint	Run ruff	2025-09-03T08:34:16.0052635Z
 lint	Run ruff	2025-09-03T08:34:16.0052728Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:16.0052804Z   --> vpn_api/peers.py:41:5
 lint	Run ruff	2025-09-03T08:34:16.0052954Z    |
@@ -2086,7 +2086,7 @@ lint	Run ruff	2025-09-03T08:34:16.0053423Z    |     ^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0053621Z 42 |     peer = db.query(models.VpnPeer).filter(models.VpnPeer.id == peer_id).first()
 lint	Run ruff	2025-09-03T08:34:16.0053688Z 43 |     if not peer:
 lint	Run ruff	2025-09-03T08:34:16.0053746Z    |
-lint	Run ruff	2025-09-03T08:34:16.0053751Z 
+lint	Run ruff	2025-09-03T08:34:16.0053751Z
 lint	Run ruff	2025-09-03T08:34:16.0054188Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:16.0054271Z   --> vpn_api/peers.py:41:42
 lint	Run ruff	2025-09-03T08:34:16.0054330Z    |
@@ -2096,7 +2096,7 @@ lint	Run ruff	2025-09-03T08:34:16.0054821Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0055003Z 42 |     peer = db.query(models.VpnPeer).filter(models.VpnPeer.id == peer_id).first()
 lint	Run ruff	2025-09-03T08:34:16.0055076Z 43 |     if not peer:
 lint	Run ruff	2025-09-03T08:34:16.0055139Z    |
-lint	Run ruff	2025-09-03T08:34:16.0055145Z 
+lint	Run ruff	2025-09-03T08:34:16.0055145Z
 lint	Run ruff	2025-09-03T08:34:16.0055584Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:16.0055665Z   --> vpn_api/peers.py:41:87
 lint	Run ruff	2025-09-03T08:34:16.0055723Z    |
@@ -2106,7 +2106,7 @@ lint	Run ruff	2025-09-03T08:34:16.0056212Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0056396Z 42 |     peer = db.query(models.VpnPeer).filter(models.VpnPeer.id == peer_id).first()
 lint	Run ruff	2025-09-03T08:34:16.0056463Z 43 |     if not peer:
 lint	Run ruff	2025-09-03T08:34:16.0056524Z    |
-lint	Run ruff	2025-09-03T08:34:16.0056530Z 
+lint	Run ruff	2025-09-03T08:34:16.0056530Z
 lint	Run ruff	2025-09-03T08:34:16.0056602Z E501 Line too long (113 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0056762Z   --> vpn_api/peers.py:41:89
 lint	Run ruff	2025-09-03T08:34:16.0056824Z    |
@@ -2116,7 +2116,7 @@ lint	Run ruff	2025-09-03T08:34:16.0057302Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0057580Z 42 |     peer = db.query(models.VpnPeer).filter(models.VpnPeer.id == peer_id).first()
 lint	Run ruff	2025-09-03T08:34:16.0057647Z 43 |     if not peer:
 lint	Run ruff	2025-09-03T08:34:16.0057709Z    |
-lint	Run ruff	2025-09-03T08:34:16.0057719Z 
+lint	Run ruff	2025-09-03T08:34:16.0057719Z
 lint	Run ruff	2025-09-03T08:34:16.0057807Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:16.0057883Z   --> vpn_api/peers.py:51:5
 lint	Run ruff	2025-09-03T08:34:16.0057940Z    |
@@ -2126,7 +2126,7 @@ lint	Run ruff	2025-09-03T08:34:16.0058552Z    |     ^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0058734Z 52 |     peer = db.query(models.VpnPeer).filter(models.VpnPeer.id == peer_id).first()
 lint	Run ruff	2025-09-03T08:34:16.0058800Z 53 |     if not peer:
 lint	Run ruff	2025-09-03T08:34:16.0058857Z    |
-lint	Run ruff	2025-09-03T08:34:16.0058862Z 
+lint	Run ruff	2025-09-03T08:34:16.0058862Z
 lint	Run ruff	2025-09-03T08:34:16.0059307Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:16.0059383Z   --> vpn_api/peers.py:51:77
 lint	Run ruff	2025-09-03T08:34:16.0059563Z    |
@@ -2136,7 +2136,7 @@ lint	Run ruff	2025-09-03T08:34:16.0060205Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0060398Z 52 |     peer = db.query(models.VpnPeer).filter(models.VpnPeer.id == peer_id).first()
 lint	Run ruff	2025-09-03T08:34:16.0060473Z 53 |     if not peer:
 lint	Run ruff	2025-09-03T08:34:16.0060534Z    |
-lint	Run ruff	2025-09-03T08:34:16.0060540Z 
+lint	Run ruff	2025-09-03T08:34:16.0060540Z
 lint	Run ruff	2025-09-03T08:34:16.0060612Z E501 Line too long (148 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0060698Z   --> vpn_api/peers.py:51:89
 lint	Run ruff	2025-09-03T08:34:16.0060756Z    |
@@ -2146,7 +2146,7 @@ lint	Run ruff	2025-09-03T08:34:16.0061247Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0061371Z 52 | тАжnPeer.id == peer_id).first()
 lint	Run ruff	2025-09-03T08:34:16.0061441Z 53 | тАж
 lint	Run ruff	2025-09-03T08:34:16.0061504Z    |
-lint	Run ruff	2025-09-03T08:34:16.0061509Z 
+lint	Run ruff	2025-09-03T08:34:16.0061509Z
 lint	Run ruff	2025-09-03T08:34:16.0061947Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:16.0062031Z   --> vpn_api/peers.py:51:122
 lint	Run ruff	2025-09-03T08:34:16.0062093Z    |
@@ -2156,7 +2156,7 @@ lint	Run ruff	2025-09-03T08:34:16.0062498Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0062590Z 52 | тАжr_id).first()
 lint	Run ruff	2025-09-03T08:34:16.0062660Z 53 | тАж
 lint	Run ruff	2025-09-03T08:34:16.0062723Z    |
-lint	Run ruff	2025-09-03T08:34:16.0062731Z 
+lint	Run ruff	2025-09-03T08:34:16.0062731Z
 lint	Run ruff	2025-09-03T08:34:16.0062822Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:16.0062907Z   --> vpn_api/peers.py:66:5
 lint	Run ruff	2025-09-03T08:34:16.0062964Z    |
@@ -2166,7 +2166,7 @@ lint	Run ruff	2025-09-03T08:34:16.0063382Z    |     ^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0063691Z 67 |     peer = db.query(models.VpnPeer).filter(models.VpnPeer.id == peer_id).first()
 lint	Run ruff	2025-09-03T08:34:16.0063756Z 68 |     if not peer:
 lint	Run ruff	2025-09-03T08:34:16.0063815Z    |
-lint	Run ruff	2025-09-03T08:34:16.0063821Z 
+lint	Run ruff	2025-09-03T08:34:16.0063821Z
 lint	Run ruff	2025-09-03T08:34:16.0064260Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:16.0064335Z   --> vpn_api/peers.py:66:45
 lint	Run ruff	2025-09-03T08:34:16.0064393Z    |
@@ -2176,7 +2176,7 @@ lint	Run ruff	2025-09-03T08:34:16.0064830Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0065008Z 67 |     peer = db.query(models.VpnPeer).filter(models.VpnPeer.id == peer_id).first()
 lint	Run ruff	2025-09-03T08:34:16.0065078Z 68 |     if not peer:
 lint	Run ruff	2025-09-03T08:34:16.0065144Z    |
-lint	Run ruff	2025-09-03T08:34:16.0065150Z 
+lint	Run ruff	2025-09-03T08:34:16.0065150Z
 lint	Run ruff	2025-09-03T08:34:16.0065220Z E501 Line too long (116 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0065300Z   --> vpn_api/peers.py:66:89
 lint	Run ruff	2025-09-03T08:34:16.0065358Z    |
@@ -2186,7 +2186,7 @@ lint	Run ruff	2025-09-03T08:34:16.0065791Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0065971Z 67 |     peer = db.query(models.VpnPeer).filter(models.VpnPeer.id == peer_id).first()
 lint	Run ruff	2025-09-03T08:34:16.0066120Z 68 |     if not peer:
 lint	Run ruff	2025-09-03T08:34:16.0066181Z    |
-lint	Run ruff	2025-09-03T08:34:16.0066187Z 
+lint	Run ruff	2025-09-03T08:34:16.0066187Z
 lint	Run ruff	2025-09-03T08:34:16.0066629Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:16.0066712Z   --> vpn_api/peers.py:66:90
 lint	Run ruff	2025-09-03T08:34:16.0066770Z    |
@@ -2196,10 +2196,10 @@ lint	Run ruff	2025-09-03T08:34:16.0067211Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0067390Z 67 |     peer = db.query(models.VpnPeer).filter(models.VpnPeer.id == peer_id).first()
 lint	Run ruff	2025-09-03T08:34:16.0067555Z 68 |     if not peer:
 lint	Run ruff	2025-09-03T08:34:16.0067618Z    |
-lint	Run ruff	2025-09-03T08:34:16.0067623Z 
+lint	Run ruff	2025-09-03T08:34:16.0067623Z
 lint	Run ruff	2025-09-03T08:34:16.0067707Z D100 Missing docstring in public module
 lint	Run ruff	2025-09-03T08:34:16.0067793Z --> vpn_api/schemas.py:1:1
-lint	Run ruff	2025-09-03T08:34:16.0067799Z 
+lint	Run ruff	2025-09-03T08:34:16.0067799Z
 lint	Run ruff	2025-09-03T08:34:16.0067905Z I001 [*] Import block is un-sorted or un-formatted
 lint	Run ruff	2025-09-03T08:34:16.0067986Z  --> vpn_api/schemas.py:1:1
 lint	Run ruff	2025-09-03T08:34:16.0068045Z   |
@@ -2211,7 +2211,7 @@ lint	Run ruff	2025-09-03T08:34:16.0068461Z 5 | | from enum import Enum
 lint	Run ruff	2025-09-03T08:34:16.0068523Z   | |_____________________^
 lint	Run ruff	2025-09-03T08:34:16.0068578Z   |
 lint	Run ruff	2025-09-03T08:34:16.0068648Z help: Organize imports
-lint	Run ruff	2025-09-03T08:34:16.0068654Z 
+lint	Run ruff	2025-09-03T08:34:16.0068654Z
 lint	Run ruff	2025-09-03T08:34:16.0068741Z D101 Missing docstring in public class
 lint	Run ruff	2025-09-03T08:34:16.0068818Z   --> vpn_api/schemas.py:8:7
 lint	Run ruff	2025-09-03T08:34:16.0068877Z    |
@@ -2220,7 +2220,7 @@ lint	Run ruff	2025-09-03T08:34:16.0069032Z    |       ^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0069104Z  9 |     pending = "pending"
 lint	Run ruff	2025-09-03T08:34:16.0069174Z 10 |     active = "active"
 lint	Run ruff	2025-09-03T08:34:16.0069238Z    |
-lint	Run ruff	2025-09-03T08:34:16.0069243Z 
+lint	Run ruff	2025-09-03T08:34:16.0069243Z
 lint	Run ruff	2025-09-03T08:34:16.0069327Z D101 Missing docstring in public class
 lint	Run ruff	2025-09-03T08:34:16.0069406Z   --> vpn_api/schemas.py:14:7
 lint	Run ruff	2025-09-03T08:34:16.0069601Z    |
@@ -2229,7 +2229,7 @@ lint	Run ruff	2025-09-03T08:34:16.0069747Z    |       ^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0069825Z 15 |     email: EmailStr
 lint	Run ruff	2025-09-03T08:34:16.0069898Z 16 |     password: str
 lint	Run ruff	2025-09-03T08:34:16.0069957Z    |
-lint	Run ruff	2025-09-03T08:34:16.0069962Z 
+lint	Run ruff	2025-09-03T08:34:16.0069962Z
 lint	Run ruff	2025-09-03T08:34:16.0070048Z D101 Missing docstring in public class
 lint	Run ruff	2025-09-03T08:34:16.0070134Z   --> vpn_api/schemas.py:19:7
 lint	Run ruff	2025-09-03T08:34:16.0070195Z    |
@@ -2238,7 +2238,7 @@ lint	Run ruff	2025-09-03T08:34:16.0070346Z    |       ^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0070411Z 20 |     id: int
 lint	Run ruff	2025-09-03T08:34:16.0070474Z 21 |     email: str
 lint	Run ruff	2025-09-03T08:34:16.0070540Z    |
-lint	Run ruff	2025-09-03T08:34:16.0070545Z 
+lint	Run ruff	2025-09-03T08:34:16.0070545Z
 lint	Run ruff	2025-09-03T08:34:16.0070631Z D101 Missing docstring in public class
 lint	Run ruff	2025-09-03T08:34:16.0070711Z   --> vpn_api/schemas.py:30:7
 lint	Run ruff	2025-09-03T08:34:16.0070770Z    |
@@ -2247,7 +2247,7 @@ lint	Run ruff	2025-09-03T08:34:16.0070921Z    |       ^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0070997Z 31 |     email: EmailStr
 lint	Run ruff	2025-09-03T08:34:16.0071068Z 32 |     password: str
 lint	Run ruff	2025-09-03T08:34:16.0071135Z    |
-lint	Run ruff	2025-09-03T08:34:16.0071140Z 
+lint	Run ruff	2025-09-03T08:34:16.0071140Z
 lint	Run ruff	2025-09-03T08:34:16.0071223Z D101 Missing docstring in public class
 lint	Run ruff	2025-09-03T08:34:16.0071300Z   --> vpn_api/schemas.py:35:7
 lint	Run ruff	2025-09-03T08:34:16.0071365Z    |
@@ -2256,7 +2256,7 @@ lint	Run ruff	2025-09-03T08:34:16.0071515Z    |       ^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0071583Z 36 |     name: str
 lint	Run ruff	2025-09-03T08:34:16.0071674Z 37 |     description: Optional[str] = None
 lint	Run ruff	2025-09-03T08:34:16.0071738Z    |
-lint	Run ruff	2025-09-03T08:34:16.0071744Z 
+lint	Run ruff	2025-09-03T08:34:16.0071744Z
 lint	Run ruff	2025-09-03T08:34:16.0071827Z D101 Missing docstring in public class
 lint	Run ruff	2025-09-03T08:34:16.0072064Z   --> vpn_api/schemas.py:42:7
 lint	Run ruff	2025-09-03T08:34:16.0072125Z    |
@@ -2265,7 +2265,7 @@ lint	Run ruff	2025-09-03T08:34:16.0072276Z    |       ^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0072339Z 43 |     id: int
 lint	Run ruff	2025-09-03T08:34:16.0072401Z 44 |     name: str
 lint	Run ruff	2025-09-03T08:34:16.0072465Z    |
-lint	Run ruff	2025-09-03T08:34:16.0072471Z 
+lint	Run ruff	2025-09-03T08:34:16.0072471Z
 lint	Run ruff	2025-09-03T08:34:16.0072559Z D101 Missing docstring in public class
 lint	Run ruff	2025-09-03T08:34:16.0072636Z   --> vpn_api/schemas.py:51:7
 lint	Run ruff	2025-09-03T08:34:16.0072695Z    |
@@ -2273,7 +2273,7 @@ lint	Run ruff	2025-09-03T08:34:16.0072785Z 51 | class AssignTariff(BaseModel):
 lint	Run ruff	2025-09-03T08:34:16.0072850Z    |       ^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0072917Z 52 |     tariff_id: int
 lint	Run ruff	2025-09-03T08:34:16.0072975Z    |
-lint	Run ruff	2025-09-03T08:34:16.0072986Z 
+lint	Run ruff	2025-09-03T08:34:16.0072986Z
 lint	Run ruff	2025-09-03T08:34:16.0073072Z D101 Missing docstring in public class
 lint	Run ruff	2025-09-03T08:34:16.0073149Z   --> vpn_api/schemas.py:55:7
 lint	Run ruff	2025-09-03T08:34:16.0073208Z    |
@@ -2282,7 +2282,7 @@ lint	Run ruff	2025-09-03T08:34:16.0073370Z    |       ^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0073437Z 56 |     user_id: int
 lint	Run ruff	2025-09-03T08:34:16.0073515Z 57 |     wg_public_key: str
 lint	Run ruff	2025-09-03T08:34:16.0073574Z    |
-lint	Run ruff	2025-09-03T08:34:16.0073579Z 
+lint	Run ruff	2025-09-03T08:34:16.0073579Z
 lint	Run ruff	2025-09-03T08:34:16.0073662Z D101 Missing docstring in public class
 lint	Run ruff	2025-09-03T08:34:16.0073738Z   --> vpn_api/schemas.py:62:7
 lint	Run ruff	2025-09-03T08:34:16.0073807Z    |
@@ -2291,7 +2291,7 @@ lint	Run ruff	2025-09-03T08:34:16.0073949Z    |       ^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0074020Z 63 |     id: int
 lint	Run ruff	2025-09-03T08:34:16.0074086Z 64 |     user_id: int
 lint	Run ruff	2025-09-03T08:34:16.0074144Z    |
-lint	Run ruff	2025-09-03T08:34:16.0074150Z 
+lint	Run ruff	2025-09-03T08:34:16.0074150Z
 lint	Run ruff	2025-09-03T08:34:16.0074232Z D101 Missing docstring in public class
 lint	Run ruff	2025-09-03T08:34:16.0074313Z   --> vpn_api/schemas.py:74:7
 lint	Run ruff	2025-09-03T08:34:16.0074372Z    |
@@ -2300,7 +2300,7 @@ lint	Run ruff	2025-09-03T08:34:16.0074530Z    |       ^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0074605Z 75 |     user_id: Optional[int]
 lint	Run ruff	2025-09-03T08:34:16.0074673Z 76 |     amount: Decimal
 lint	Run ruff	2025-09-03T08:34:16.0074741Z    |
-lint	Run ruff	2025-09-03T08:34:16.0074751Z 
+lint	Run ruff	2025-09-03T08:34:16.0074751Z
 lint	Run ruff	2025-09-03T08:34:16.0074832Z D101 Missing docstring in public class
 lint	Run ruff	2025-09-03T08:34:16.0074907Z   --> vpn_api/schemas.py:81:7
 lint	Run ruff	2025-09-03T08:34:16.0074966Z    |
@@ -2309,10 +2309,10 @@ lint	Run ruff	2025-09-03T08:34:16.0075117Z    |       ^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0075266Z 82 |     id: int
 lint	Run ruff	2025-09-03T08:34:16.0075348Z 83 |     user_id: Optional[int]
 lint	Run ruff	2025-09-03T08:34:16.0075406Z    |
-lint	Run ruff	2025-09-03T08:34:16.0075411Z 
+lint	Run ruff	2025-09-03T08:34:16.0075411Z
 lint	Run ruff	2025-09-03T08:34:16.0075497Z D100 Missing docstring in public module
 lint	Run ruff	2025-09-03T08:34:16.0075573Z --> vpn_api/tariffs.py:1:1
-lint	Run ruff	2025-09-03T08:34:16.0075585Z 
+lint	Run ruff	2025-09-03T08:34:16.0075585Z
 lint	Run ruff	2025-09-03T08:34:16.0075692Z I001 [*] Import block is un-sorted or un-formatted
 lint	Run ruff	2025-09-03T08:34:16.0075770Z  --> vpn_api/tariffs.py:1:1
 lint	Run ruff	2025-09-03T08:34:16.0075828Z   |
@@ -2326,7 +2326,7 @@ lint	Run ruff	2025-09-03T08:34:16.0076488Z 6 |
 lint	Run ruff	2025-09-03T08:34:16.0076574Z 7 |   router = APIRouter()
 lint	Run ruff	2025-09-03T08:34:16.0076633Z   |
 lint	Run ruff	2025-09-03T08:34:16.0076705Z help: Organize imports
-lint	Run ruff	2025-09-03T08:34:16.0076711Z 
+lint	Run ruff	2025-09-03T08:34:16.0076711Z
 lint	Run ruff	2025-09-03T08:34:16.0076802Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:16.0076879Z   --> vpn_api/tariffs.py:10:5
 lint	Run ruff	2025-09-03T08:34:16.0076937Z    |
@@ -2336,7 +2336,7 @@ lint	Run ruff	2025-09-03T08:34:16.0077322Z    |     ^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0077606Z 11 |     db_t = db.query(models.Tariff).filter(models.Tariff.name == t.name).first()
 lint	Run ruff	2025-09-03T08:34:16.0077799Z 12 |     if db_t:
 lint	Run ruff	2025-09-03T08:34:16.0077856Z    |
-lint	Run ruff	2025-09-03T08:34:16.0077862Z 
+lint	Run ruff	2025-09-03T08:34:16.0077862Z
 lint	Run ruff	2025-09-03T08:34:16.0078314Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:16.0078400Z   --> vpn_api/tariffs.py:10:58
 lint	Run ruff	2025-09-03T08:34:16.0078465Z    |
@@ -2346,7 +2346,7 @@ lint	Run ruff	2025-09-03T08:34:16.0078867Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0079039Z 11 |     db_t = db.query(models.Tariff).filter(models.Tariff.name == t.name).first()
 lint	Run ruff	2025-09-03T08:34:16.0079101Z 12 |     if db_t:
 lint	Run ruff	2025-09-03T08:34:16.0079165Z    |
-lint	Run ruff	2025-09-03T08:34:16.0079170Z 
+lint	Run ruff	2025-09-03T08:34:16.0079170Z
 lint	Run ruff	2025-09-03T08:34:16.0079544Z B904 Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling
 lint	Run ruff	2025-09-03T08:34:16.0079628Z   --> vpn_api/tariffs.py:20:9
 lint	Run ruff	2025-09-03T08:34:16.0079691Z    |
@@ -2357,7 +2357,7 @@ lint	Run ruff	2025-09-03T08:34:16.0080144Z    |         ^^^^^^^^^^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0080216Z 21 |     db.refresh(new)
 lint	Run ruff	2025-09-03T08:34:16.0080285Z 22 |     return new
 lint	Run ruff	2025-09-03T08:34:16.0080340Z    |
-lint	Run ruff	2025-09-03T08:34:16.0080346Z 
+lint	Run ruff	2025-09-03T08:34:16.0080346Z
 lint	Run ruff	2025-09-03T08:34:16.0080434Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:16.0080510Z   --> vpn_api/tariffs.py:25:5
 lint	Run ruff	2025-09-03T08:34:16.0080575Z    |
@@ -2367,7 +2367,7 @@ lint	Run ruff	2025-09-03T08:34:16.0080779Z    |     ^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0080867Z 26 |     db: Session = Depends(get_db),
 lint	Run ruff	2025-09-03T08:34:16.0080944Z 27 |     skip: int = Query(0, ge=0),
 lint	Run ruff	2025-09-03T08:34:16.0081003Z    |
-lint	Run ruff	2025-09-03T08:34:16.0081008Z 
+lint	Run ruff	2025-09-03T08:34:16.0081008Z
 lint	Run ruff	2025-09-03T08:34:16.0081462Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:16.0081667Z   --> vpn_api/tariffs.py:26:19
 lint	Run ruff	2025-09-03T08:34:16.0081726Z    |
@@ -2378,7 +2378,7 @@ lint	Run ruff	2025-09-03T08:34:16.0082032Z    |                   ^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0082109Z 27 |     skip: int = Query(0, ge=0),
 lint	Run ruff	2025-09-03T08:34:16.0082198Z 28 |     limit: int = Query(10, ge=1, le=100)
 lint	Run ruff	2025-09-03T08:34:16.0082260Z    |
-lint	Run ruff	2025-09-03T08:34:16.0082265Z 
+lint	Run ruff	2025-09-03T08:34:16.0082265Z
 lint	Run ruff	2025-09-03T08:34:16.0082361Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:16.0082443Z   --> vpn_api/tariffs.py:35:5
 lint	Run ruff	2025-09-03T08:34:16.0082503Z    |
@@ -2389,7 +2389,7 @@ lint	Run ruff	2025-09-03T08:34:16.0083001Z    |     ^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0083194Z 36 |     tariff = db.query(models.Tariff).filter(models.Tariff.id == tariff_id).first()
 lint	Run ruff	2025-09-03T08:34:16.0083264Z 37 |     if not tariff:
 lint	Run ruff	2025-09-03T08:34:16.0083325Z    |
-lint	Run ruff	2025-09-03T08:34:16.0083330Z 
+lint	Run ruff	2025-09-03T08:34:16.0083330Z
 lint	Run ruff	2025-09-03T08:34:16.0083775Z B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
 lint	Run ruff	2025-09-03T08:34:16.0083856Z   --> vpn_api/tariffs.py:35:49
 lint	Run ruff	2025-09-03T08:34:16.0083916Z    |
@@ -2400,7 +2400,7 @@ lint	Run ruff	2025-09-03T08:34:16.0084499Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0084688Z 36 |     tariff = db.query(models.Tariff).filter(models.Tariff.id == tariff_id).first()
 lint	Run ruff	2025-09-03T08:34:16.0084768Z 37 |     if not tariff:
 lint	Run ruff	2025-09-03T08:34:16.0084833Z    |
-lint	Run ruff	2025-09-03T08:34:16.0084839Z 
+lint	Run ruff	2025-09-03T08:34:16.0084839Z
 lint	Run ruff	2025-09-03T08:34:16.0084913Z E501 Line too long (99 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0084994Z   --> vpn_api/tariffs.py:39:89
 lint	Run ruff	2025-09-03T08:34:16.0085054Z    |
@@ -2411,7 +2411,7 @@ lint	Run ruff	2025-09-03T08:34:16.0085635Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0085711Z 40 |     if assigned:
 lint	Run ruff	2025-09-03T08:34:16.0085957Z 41 |         raise HTTPException(status_code=400, detail="Tariff is assigned to users and cannot be deleted")
 lint	Run ruff	2025-09-03T08:34:16.0086022Z    |
-lint	Run ruff	2025-09-03T08:34:16.0086027Z 
+lint	Run ruff	2025-09-03T08:34:16.0086027Z
 lint	Run ruff	2025-09-03T08:34:16.0086099Z E501 Line too long (104 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0086182Z   --> vpn_api/tariffs.py:41:89
 lint	Run ruff	2025-09-03T08:34:16.0086241Z    |
@@ -2422,10 +2422,10 @@ lint	Run ruff	2025-09-03T08:34:16.0086893Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0086963Z 42 |     db.delete(tariff)
 lint	Run ruff	2025-09-03T08:34:16.0087030Z 43 |     db.commit()
 lint	Run ruff	2025-09-03T08:34:16.0087096Z    |
-lint	Run ruff	2025-09-03T08:34:16.0087101Z 
+lint	Run ruff	2025-09-03T08:34:16.0087101Z
 lint	Run ruff	2025-09-03T08:34:16.0087185Z D100 Missing docstring in public module
 lint	Run ruff	2025-09-03T08:34:16.0087268Z --> vpn_api/test_admin_flow.py:1:1
-lint	Run ruff	2025-09-03T08:34:16.0087275Z 
+lint	Run ruff	2025-09-03T08:34:16.0087275Z
 lint	Run ruff	2025-09-03T08:34:16.0087385Z I001 [*] Import block is un-sorted or un-formatted
 lint	Run ruff	2025-09-03T08:34:16.0087572Z  --> vpn_api/test_admin_flow.py:1:1
 lint	Run ruff	2025-09-03T08:34:16.0087756Z   |
@@ -2436,7 +2436,7 @@ lint	Run ruff	2025-09-03T08:34:16.0088221Z 3 |   # make sure project root is on 
 lint	Run ruff	2025-09-03T08:34:16.0088428Z 4 |   sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 lint	Run ruff	2025-09-03T08:34:16.0088486Z   |
 lint	Run ruff	2025-09-03T08:34:16.0088558Z help: Organize imports
-lint	Run ruff	2025-09-03T08:34:16.0088564Z 
+lint	Run ruff	2025-09-03T08:34:16.0088564Z
 lint	Run ruff	2025-09-03T08:34:16.0088654Z E401 [*] Multiple imports on one line
 lint	Run ruff	2025-09-03T08:34:16.0088735Z  --> vpn_api/test_admin_flow.py:2:1
 lint	Run ruff	2025-09-03T08:34:16.0088800Z   |
@@ -2447,7 +2447,7 @@ lint	Run ruff	2025-09-03T08:34:16.0089248Z 3 | # make sure project root is on sy
 lint	Run ruff	2025-09-03T08:34:16.0089461Z 4 | sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 lint	Run ruff	2025-09-03T08:34:16.0089521Z   |
 lint	Run ruff	2025-09-03T08:34:16.0089592Z help: Split imports
-lint	Run ruff	2025-09-03T08:34:16.0089598Z 
+lint	Run ruff	2025-09-03T08:34:16.0089598Z
 lint	Run ruff	2025-09-03T08:34:16.0089678Z E501 Line too long (91 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0089762Z  --> vpn_api/test_admin_flow.py:3:89
 lint	Run ruff	2025-09-03T08:34:16.0089823Z   |
@@ -2458,7 +2458,7 @@ lint	Run ruff	2025-09-03T08:34:16.0090287Z   |                                  
 lint	Run ruff	2025-09-03T08:34:16.0090603Z 4 | sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 lint	Run ruff	2025-09-03T08:34:16.0090685Z 5 | from vpn_api.main import app
 lint	Run ruff	2025-09-03T08:34:16.0090742Z   |
-lint	Run ruff	2025-09-03T08:34:16.0090752Z 
+lint	Run ruff	2025-09-03T08:34:16.0090752Z
 lint	Run ruff	2025-09-03T08:34:16.0090846Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:16.0090929Z   --> vpn_api/test_admin_flow.py:8:5
 lint	Run ruff	2025-09-03T08:34:16.0090988Z    |
@@ -2467,7 +2467,7 @@ lint	Run ruff	2025-09-03T08:34:16.0091131Z    |     ^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0091257Z  9 |     os.environ.setdefault("SECRET_KEY", "test-secret")
 lint	Run ruff	2025-09-03T08:34:16.0091336Z 10 |     client = TestClient(app)
 lint	Run ruff	2025-09-03T08:34:16.0091399Z    |
-lint	Run ruff	2025-09-03T08:34:16.0091404Z 
+lint	Run ruff	2025-09-03T08:34:16.0091404Z
 lint	Run ruff	2025-09-03T08:34:16.0091478Z E501 Line too long (100 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0091564Z   --> vpn_api/test_admin_flow.py:13:89
 lint	Run ruff	2025-09-03T08:34:16.0091623Z    |
@@ -2477,7 +2477,7 @@ lint	Run ruff	2025-09-03T08:34:16.0092049Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0092145Z 14 |     assert r.status_code in (200, 201)
 lint	Run ruff	2025-09-03T08:34:16.0092377Z 15 |     r = client.post('/auth/register', json={'email': 'admin@example.com', 'password': 'password123'})
 lint	Run ruff	2025-09-03T08:34:16.0092436Z    |
-lint	Run ruff	2025-09-03T08:34:16.0092441Z 
+lint	Run ruff	2025-09-03T08:34:16.0092441Z
 lint	Run ruff	2025-09-03T08:34:16.0092518Z E501 Line too long (101 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0092601Z   --> vpn_api/test_admin_flow.py:15:89
 lint	Run ruff	2025-09-03T08:34:16.0092661Z    |
@@ -2488,7 +2488,7 @@ lint	Run ruff	2025-09-03T08:34:16.0093293Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0093380Z 16 |     assert r.status_code in (200, 201)
 lint	Run ruff	2025-09-03T08:34:16.0093457Z 17 |     admin_id = r.json().get('id')
 lint	Run ruff	2025-09-03T08:34:16.0093608Z    |
-lint	Run ruff	2025-09-03T08:34:16.0093614Z 
+lint	Run ruff	2025-09-03T08:34:16.0093614Z
 lint	Run ruff	2025-09-03T08:34:16.0093692Z E501 Line too long (109 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0093776Z   --> vpn_api/test_admin_flow.py:21:89
 lint	Run ruff	2025-09-03T08:34:16.0093836Z    |
@@ -2498,7 +2498,7 @@ lint	Run ruff	2025-09-03T08:34:16.0094394Z 21 |     promote_resp = client.post('
 lint	Run ruff	2025-09-03T08:34:16.0094494Z    |                                                                                         ^^^^^^^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0094628Z 22 |     assert promote_resp.status_code in (200, 201, 400, 403)
 lint	Run ruff	2025-09-03T08:34:16.0094689Z    |
-lint	Run ruff	2025-09-03T08:34:16.0094694Z 
+lint	Run ruff	2025-09-03T08:34:16.0094694Z
 lint	Run ruff	2025-09-03T08:34:16.0094767Z E501 Line too long (97 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0094855Z   --> vpn_api/test_admin_flow.py:25:89
 lint	Run ruff	2025-09-03T08:34:16.0094915Z    |
@@ -2508,7 +2508,7 @@ lint	Run ruff	2025-09-03T08:34:16.0095295Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0095391Z 26 |     user_token = r.json().get('access_token')
 lint	Run ruff	2025-09-03T08:34:16.0095607Z 27 |     r = client.post('/auth/login', json={'email': 'admin@example.com', 'password': 'password123'})
 lint	Run ruff	2025-09-03T08:34:16.0095666Z    |
-lint	Run ruff	2025-09-03T08:34:16.0095671Z 
+lint	Run ruff	2025-09-03T08:34:16.0095671Z
 lint	Run ruff	2025-09-03T08:34:16.0095743Z E501 Line too long (98 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0095828Z   --> vpn_api/test_admin_flow.py:27:89
 lint	Run ruff	2025-09-03T08:34:16.0095975Z    |
@@ -2518,7 +2518,7 @@ lint	Run ruff	2025-09-03T08:34:16.0096537Z 27 |     r = client.post('/auth/login
 lint	Run ruff	2025-09-03T08:34:16.0096632Z    |                                                                                         ^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0096729Z 28 |     admin_token = r.json().get('access_token')
 lint	Run ruff	2025-09-03T08:34:16.0096794Z    |
-lint	Run ruff	2025-09-03T08:34:16.0096800Z 
+lint	Run ruff	2025-09-03T08:34:16.0096800Z
 lint	Run ruff	2025-09-03T08:34:16.0096872Z E501 Line too long (91 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0096956Z   --> vpn_api/test_admin_flow.py:34:89
 lint	Run ruff	2025-09-03T08:34:16.0097019Z    |
@@ -2527,7 +2527,7 @@ lint	Run ruff	2025-09-03T08:34:16.0097284Z 34 |     r = client.post('/tariffs/',
 lint	Run ruff	2025-09-03T08:34:16.0097380Z    |                                                                                         ^^^
 lint	Run ruff	2025-09-03T08:34:16.0097562Z 35 |     assert r.status_code in (200, 201)
 lint	Run ruff	2025-09-03T08:34:16.0097623Z    |
-lint	Run ruff	2025-09-03T08:34:16.0097628Z 
+lint	Run ruff	2025-09-03T08:34:16.0097628Z
 lint	Run ruff	2025-09-03T08:34:16.0097701Z E501 Line too long (97 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0097794Z   --> vpn_api/test_admin_flow.py:38:89
 lint	Run ruff	2025-09-03T08:34:16.0097853Z    |
@@ -2536,7 +2536,7 @@ lint	Run ruff	2025-09-03T08:34:16.0098204Z 38 |     r = client.post('/auth/assig
 lint	Run ruff	2025-09-03T08:34:16.0098292Z    |                                                                                         ^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0098383Z 39 |     assert r.status_code in (200, 401, 403)
 lint	Run ruff	2025-09-03T08:34:16.0098447Z    |
-lint	Run ruff	2025-09-03T08:34:16.0098453Z 
+lint	Run ruff	2025-09-03T08:34:16.0098453Z
 lint	Run ruff	2025-09-03T08:34:16.0098525Z E501 Line too long (98 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0098611Z   --> vpn_api/test_admin_flow.py:42:89
 lint	Run ruff	2025-09-03T08:34:16.0098677Z    |
@@ -2545,10 +2545,10 @@ lint	Run ruff	2025-09-03T08:34:16.0098976Z 42 |     r = client.post('/auth/assig
 lint	Run ruff	2025-09-03T08:34:16.0099065Z    |                                                                                         ^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0099283Z 43 |     assert r.status_code in (200, 201)
 lint	Run ruff	2025-09-03T08:34:16.0099343Z    |
-lint	Run ruff	2025-09-03T08:34:16.0099348Z 
+lint	Run ruff	2025-09-03T08:34:16.0099348Z
 lint	Run ruff	2025-09-03T08:34:16.0099438Z D100 Missing docstring in public module
 lint	Run ruff	2025-09-03T08:34:16.0099522Z --> vpn_api/test_flow.py:1:1
-lint	Run ruff	2025-09-03T08:34:16.0099527Z 
+lint	Run ruff	2025-09-03T08:34:16.0099527Z
 lint	Run ruff	2025-09-03T08:34:16.0099630Z I001 [*] Import block is un-sorted or un-formatted
 lint	Run ruff	2025-09-03T08:34:16.0099712Z  --> vpn_api/test_flow.py:1:1
 lint	Run ruff	2025-09-03T08:34:16.0099767Z   |
@@ -2559,7 +2559,7 @@ lint	Run ruff	2025-09-03T08:34:16.0100225Z 3 |   # make sure project root is on 
 lint	Run ruff	2025-09-03T08:34:16.0100428Z 4 |   sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 lint	Run ruff	2025-09-03T08:34:16.0100487Z   |
 lint	Run ruff	2025-09-03T08:34:16.0100565Z help: Organize imports
-lint	Run ruff	2025-09-03T08:34:16.0100576Z 
+lint	Run ruff	2025-09-03T08:34:16.0100576Z
 lint	Run ruff	2025-09-03T08:34:16.0100658Z E401 [*] Multiple imports on one line
 lint	Run ruff	2025-09-03T08:34:16.0100737Z  --> vpn_api/test_flow.py:2:1
 lint	Run ruff	2025-09-03T08:34:16.0100796Z   |
@@ -2570,7 +2570,7 @@ lint	Run ruff	2025-09-03T08:34:16.0101237Z 3 | # make sure project root is on sy
 lint	Run ruff	2025-09-03T08:34:16.0101437Z 4 | sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 lint	Run ruff	2025-09-03T08:34:16.0101495Z   |
 lint	Run ruff	2025-09-03T08:34:16.0101570Z help: Split imports
-lint	Run ruff	2025-09-03T08:34:16.0101688Z 
+lint	Run ruff	2025-09-03T08:34:16.0101688Z
 lint	Run ruff	2025-09-03T08:34:16.0101761Z E501 Line too long (91 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0101840Z  --> vpn_api/test_flow.py:3:89
 lint	Run ruff	2025-09-03T08:34:16.0101897Z   |
@@ -2581,7 +2581,7 @@ lint	Run ruff	2025-09-03T08:34:16.0102357Z   |                                  
 lint	Run ruff	2025-09-03T08:34:16.0102562Z 4 | sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 lint	Run ruff	2025-09-03T08:34:16.0102644Z 5 | from vpn_api.main import app
 lint	Run ruff	2025-09-03T08:34:16.0102711Z   |
-lint	Run ruff	2025-09-03T08:34:16.0102717Z 
+lint	Run ruff	2025-09-03T08:34:16.0102717Z
 lint	Run ruff	2025-09-03T08:34:16.0102807Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:16.0102888Z   --> vpn_api/test_flow.py:8:5
 lint	Run ruff	2025-09-03T08:34:16.0102946Z    |
@@ -2590,7 +2590,7 @@ lint	Run ruff	2025-09-03T08:34:16.0103094Z    |     ^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0103221Z  9 |     os.environ.setdefault("SECRET_KEY", "test-secret")
 lint	Run ruff	2025-09-03T08:34:16.0103302Z 10 |     client = TestClient(app)
 lint	Run ruff	2025-09-03T08:34:16.0103359Z    |
-lint	Run ruff	2025-09-03T08:34:16.0103365Z 
+lint	Run ruff	2025-09-03T08:34:16.0103365Z
 lint	Run ruff	2025-09-03T08:34:16.0103436Z E501 Line too long (99 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0103528Z   --> vpn_api/test_flow.py:13:89
 lint	Run ruff	2025-09-03T08:34:16.0103584Z    |
@@ -2599,7 +2599,7 @@ lint	Run ruff	2025-09-03T08:34:16.0103944Z 13 |     r = client.post('/auth/regis
 lint	Run ruff	2025-09-03T08:34:16.0104111Z    |                                                                                         ^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0104230Z 14 |     assert r.status_code in (200, 201)
 lint	Run ruff	2025-09-03T08:34:16.0104320Z    |
-lint	Run ruff	2025-09-03T08:34:16.0104326Z 
+lint	Run ruff	2025-09-03T08:34:16.0104326Z
 lint	Run ruff	2025-09-03T08:34:16.0104501Z E501 Line too long (96 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0104578Z   --> vpn_api/test_flow.py:17:89
 lint	Run ruff	2025-09-03T08:34:16.0104872Z    |
@@ -2609,7 +2609,7 @@ lint	Run ruff	2025-09-03T08:34:16.0105379Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0105578Z 18 |     assert r.status_code == 200
 lint	Run ruff	2025-09-03T08:34:16.0105685Z 19 |     token = r.json().get('access_token')
 lint	Run ruff	2025-09-03T08:34:16.0105883Z    |
-lint	Run ruff	2025-09-03T08:34:16.0105890Z 
+lint	Run ruff	2025-09-03T08:34:16.0105890Z
 lint	Run ruff	2025-09-03T08:34:16.0105994Z E501 Line too long (93 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0106104Z   --> vpn_api/test_flow.py:29:89
 lint	Run ruff	2025-09-03T08:34:16.0106226Z    |
@@ -2618,10 +2618,10 @@ lint	Run ruff	2025-09-03T08:34:16.0106663Z 29 |     r3 = client.post('/auth/assi
 lint	Run ruff	2025-09-03T08:34:16.0106830Z    |                                                                                         ^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0107007Z 30 |     assert r3.status_code == 403
 lint	Run ruff	2025-09-03T08:34:16.0107098Z    |
-lint	Run ruff	2025-09-03T08:34:16.0107105Z 
+lint	Run ruff	2025-09-03T08:34:16.0107105Z
 lint	Run ruff	2025-09-03T08:34:16.0107223Z D100 Missing docstring in public module
 lint	Run ruff	2025-09-03T08:34:16.0107373Z --> vpn_api/test_payments.py:1:1
-lint	Run ruff	2025-09-03T08:34:16.0107379Z 
+lint	Run ruff	2025-09-03T08:34:16.0107379Z
 lint	Run ruff	2025-09-03T08:34:16.0107749Z I001 [*] Import block is un-sorted or un-formatted
 lint	Run ruff	2025-09-03T08:34:16.0108007Z  --> vpn_api/test_payments.py:1:1
 lint	Run ruff	2025-09-03T08:34:16.0108156Z   |
@@ -2632,7 +2632,7 @@ lint	Run ruff	2025-09-03T08:34:16.0108654Z 3 |
 lint	Run ruff	2025-09-03T08:34:16.0108811Z 4 |   client = TestClient(app)
 lint	Run ruff	2025-09-03T08:34:16.0114225Z   |
 lint	Run ruff	2025-09-03T08:34:16.0114344Z help: Organize imports
-lint	Run ruff	2025-09-03T08:34:16.0114353Z 
+lint	Run ruff	2025-09-03T08:34:16.0114353Z
 lint	Run ruff	2025-09-03T08:34:16.0114465Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:16.0114563Z  --> vpn_api/test_payments.py:7:5
 lint	Run ruff	2025-09-03T08:34:16.0114798Z   |
@@ -2641,7 +2641,7 @@ lint	Run ruff	2025-09-03T08:34:16.0114963Z   |     ^^^^^^^^^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0115036Z 8 |     # register a user
 lint	Run ruff	2025-09-03T08:34:16.0115281Z 9 |     r = client.post('/auth/register', json={'email':'pay@example.com','password':'strongpass'})
 lint	Run ruff	2025-09-03T08:34:16.0115354Z   |
-lint	Run ruff	2025-09-03T08:34:16.0115360Z 
+lint	Run ruff	2025-09-03T08:34:16.0115360Z
 lint	Run ruff	2025-09-03T08:34:16.0115438Z E501 Line too long (95 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0115532Z   --> vpn_api/test_payments.py:9:89
 lint	Run ruff	2025-09-03T08:34:16.0115599Z    |
@@ -2652,7 +2652,7 @@ lint	Run ruff	2025-09-03T08:34:16.0116076Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0116155Z 10 |     assert r.status_code == 200
 lint	Run ruff	2025-09-03T08:34:16.0116223Z 11 |     user = r.json()
 lint	Run ruff	2025-09-03T08:34:16.0116290Z    |
-lint	Run ruff	2025-09-03T08:34:16.0116296Z 
+lint	Run ruff	2025-09-03T08:34:16.0116296Z
 lint	Run ruff	2025-09-03T08:34:16.0116369Z E501 Line too long (104 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0116454Z   --> vpn_api/test_payments.py:13:89
 lint	Run ruff	2025-09-03T08:34:16.0116518Z    |
@@ -2663,7 +2663,7 @@ lint	Run ruff	2025-09-03T08:34:16.0117031Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0117126Z 14 |     assert r.status_code in (200,201,204,403)
 lint	Run ruff	2025-09-03T08:34:16.0117190Z 15 |     # login
 lint	Run ruff	2025-09-03T08:34:16.0117253Z    |
-lint	Run ruff	2025-09-03T08:34:16.0117259Z 
+lint	Run ruff	2025-09-03T08:34:16.0117259Z
 lint	Run ruff	2025-09-03T08:34:16.0117330Z E501 Line too long (92 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0117417Z   --> vpn_api/test_payments.py:16:89
 lint	Run ruff	2025-09-03T08:34:16.0117652Z    |
@@ -2674,7 +2674,7 @@ lint	Run ruff	2025-09-03T08:34:16.0118125Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0118330Z 17 |     assert r.status_code == 200
 lint	Run ruff	2025-09-03T08:34:16.0118415Z 18 |     token = r.json()['access_token']
 lint	Run ruff	2025-09-03T08:34:16.0118479Z    |
-lint	Run ruff	2025-09-03T08:34:16.0118485Z 
+lint	Run ruff	2025-09-03T08:34:16.0118485Z
 lint	Run ruff	2025-09-03T08:34:16.0118558Z E501 Line too long (92 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0118640Z   --> vpn_api/test_payments.py:22:89
 lint	Run ruff	2025-09-03T08:34:16.0118703Z    |
@@ -2684,7 +2684,7 @@ lint	Run ruff	2025-09-03T08:34:16.0119068Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0119217Z 23 |     r = client.post('/payments/', json=payload, headers=headers)
 lint	Run ruff	2025-09-03T08:34:16.0119293Z 24 |     assert r.status_code == 200
 lint	Run ruff	2025-09-03T08:34:16.0119352Z    |
-lint	Run ruff	2025-09-03T08:34:16.0119357Z 
+lint	Run ruff	2025-09-03T08:34:16.0119357Z
 lint	Run ruff	2025-09-03T08:34:16.0119432Z E501 Line too long (89 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0119514Z   --> vpn_api/test_payments.py:37:89
 lint	Run ruff	2025-09-03T08:34:16.0119580Z    |
@@ -2694,10 +2694,10 @@ lint	Run ruff	2025-09-03T08:34:16.0119910Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0120078Z 38 |     r = client.put(f"/payments/{payment['id']}", json=upd, headers=headers)
 lint	Run ruff	2025-09-03T08:34:16.0120154Z 39 |     assert r.status_code == 200
 lint	Run ruff	2025-09-03T08:34:16.0120214Z    |
-lint	Run ruff	2025-09-03T08:34:16.0120219Z 
+lint	Run ruff	2025-09-03T08:34:16.0120219Z
 lint	Run ruff	2025-09-03T08:34:16.0120306Z D100 Missing docstring in public module
 lint	Run ruff	2025-09-03T08:34:16.0120506Z --> vpn_api/test_peers.py:1:1
-lint	Run ruff	2025-09-03T08:34:16.0120512Z 
+lint	Run ruff	2025-09-03T08:34:16.0120512Z
 lint	Run ruff	2025-09-03T08:34:16.0120617Z I001 [*] Import block is un-sorted or un-formatted
 lint	Run ruff	2025-09-03T08:34:16.0120702Z  --> vpn_api/test_peers.py:1:1
 lint	Run ruff	2025-09-03T08:34:16.0120764Z   |
@@ -2709,7 +2709,7 @@ lint	Run ruff	2025-09-03T08:34:16.0121176Z 4 |
 lint	Run ruff	2025-09-03T08:34:16.0121252Z 5 |   client = TestClient(app)
 lint	Run ruff	2025-09-03T08:34:16.0121315Z   |
 lint	Run ruff	2025-09-03T08:34:16.0121388Z help: Organize imports
-lint	Run ruff	2025-09-03T08:34:16.0121393Z 
+lint	Run ruff	2025-09-03T08:34:16.0121393Z
 lint	Run ruff	2025-09-03T08:34:16.0121493Z F401 [*] `vpn_api.schemas` imported but unused
 lint	Run ruff	2025-09-03T08:34:16.0121575Z  --> vpn_api/test_peers.py:3:21
 lint	Run ruff	2025-09-03T08:34:16.0121633Z   |
@@ -2721,7 +2721,7 @@ lint	Run ruff	2025-09-03T08:34:16.0122026Z 4 |
 lint	Run ruff	2025-09-03T08:34:16.0122107Z 5 | client = TestClient(app)
 lint	Run ruff	2025-09-03T08:34:16.0122163Z   |
 lint	Run ruff	2025-09-03T08:34:16.0122261Z help: Remove unused import: `vpn_api.schemas`
-lint	Run ruff	2025-09-03T08:34:16.0122272Z 
+lint	Run ruff	2025-09-03T08:34:16.0122272Z
 lint	Run ruff	2025-09-03T08:34:16.0122369Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:16.0122449Z   --> vpn_api/test_peers.py:8:5
 lint	Run ruff	2025-09-03T08:34:16.0122506Z    |
@@ -2730,7 +2730,7 @@ lint	Run ruff	2025-09-03T08:34:16.0122652Z    |     ^^^^^^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0122723Z  9 |     # register a user
 lint	Run ruff	2025-09-03T08:34:16.0122952Z 10 |     r = client.post('/auth/register', json={'email':'peer@example.com','password':'strongpass'})
 lint	Run ruff	2025-09-03T08:34:16.0123015Z    |
-lint	Run ruff	2025-09-03T08:34:16.0123020Z 
+lint	Run ruff	2025-09-03T08:34:16.0123020Z
 lint	Run ruff	2025-09-03T08:34:16.0123091Z E501 Line too long (96 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0123171Z   --> vpn_api/test_peers.py:10:89
 lint	Run ruff	2025-09-03T08:34:16.0123243Z    |
@@ -2741,7 +2741,7 @@ lint	Run ruff	2025-09-03T08:34:16.0123695Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0123864Z 11 |     assert r.status_code == 200
 lint	Run ruff	2025-09-03T08:34:16.0123933Z 12 |     user = r.json()
 lint	Run ruff	2025-09-03T08:34:16.0123995Z    |
-lint	Run ruff	2025-09-03T08:34:16.0124000Z 
+lint	Run ruff	2025-09-03T08:34:16.0124000Z
 lint	Run ruff	2025-09-03T08:34:16.0124075Z E501 Line too long (104 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0124158Z   --> vpn_api/test_peers.py:14:89
 lint	Run ruff	2025-09-03T08:34:16.0124224Z    |
@@ -2752,7 +2752,7 @@ lint	Run ruff	2025-09-03T08:34:16.0124726Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0124818Z 15 |     assert r.status_code in (200,201,204,403)
 lint	Run ruff	2025-09-03T08:34:16.0124880Z 16 |     # login
 lint	Run ruff	2025-09-03T08:34:16.0124942Z    |
-lint	Run ruff	2025-09-03T08:34:16.0124947Z 
+lint	Run ruff	2025-09-03T08:34:16.0124947Z
 lint	Run ruff	2025-09-03T08:34:16.0125024Z E501 Line too long (93 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0125106Z   --> vpn_api/test_peers.py:17:89
 lint	Run ruff	2025-09-03T08:34:16.0125170Z    |
@@ -2763,7 +2763,7 @@ lint	Run ruff	2025-09-03T08:34:16.0125620Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0125696Z 18 |     assert r.status_code == 200
 lint	Run ruff	2025-09-03T08:34:16.0125779Z 19 |     token = r.json()['access_token']
 lint	Run ruff	2025-09-03T08:34:16.0125842Z    |
-lint	Run ruff	2025-09-03T08:34:16.0125926Z 
+lint	Run ruff	2025-09-03T08:34:16.0125926Z
 lint	Run ruff	2025-09-03T08:34:16.0125997Z E501 Line too long (117 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0126077Z   --> vpn_api/test_peers.py:23:89
 lint	Run ruff	2025-09-03T08:34:16.0126138Z    |
@@ -2773,10 +2773,10 @@ lint	Run ruff	2025-09-03T08:34:16.0126664Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0126727Z 24 |
 lint	Run ruff	2025-09-03T08:34:16.0126801Z 25 |     # create peer for user
 lint	Run ruff	2025-09-03T08:34:16.0126858Z    |
-lint	Run ruff	2025-09-03T08:34:16.0126864Z 
+lint	Run ruff	2025-09-03T08:34:16.0126864Z
 lint	Run ruff	2025-09-03T08:34:16.0126953Z D100 Missing docstring in public module
 lint	Run ruff	2025-09-03T08:34:16.0127030Z --> vpn_api/test_unit.py:1:1
-lint	Run ruff	2025-09-03T08:34:16.0127036Z 
+lint	Run ruff	2025-09-03T08:34:16.0127036Z
 lint	Run ruff	2025-09-03T08:34:16.0127135Z I001 [*] Import block is un-sorted or un-formatted
 lint	Run ruff	2025-09-03T08:34:16.0127216Z  --> vpn_api/test_unit.py:2:1
 lint	Run ruff	2025-09-03T08:34:16.0127277Z   |
@@ -2786,7 +2786,7 @@ lint	Run ruff	2025-09-03T08:34:16.0127615Z 3 | os.environ["SECRET_KEY"] = "tests
 lint	Run ruff	2025-09-03T08:34:16.0127684Z 4 | import pytest
 lint	Run ruff	2025-09-03T08:34:16.0127741Z   |
 lint	Run ruff	2025-09-03T08:34:16.0127815Z help: Organize imports
-lint	Run ruff	2025-09-03T08:34:16.0127829Z 
+lint	Run ruff	2025-09-03T08:34:16.0127829Z
 lint	Run ruff	2025-09-03T08:34:16.0127915Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:16.0127992Z   --> vpn_api/test_unit.py:10:5
 lint	Run ruff	2025-09-03T08:34:16.0128051Z    |
@@ -2797,7 +2797,7 @@ lint	Run ruff	2025-09-03T08:34:16.0128328Z    |     ^^^^^^^^^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0128408Z 11 |     email = "unituser@example.com"
 lint	Run ruff	2025-09-03T08:34:16.0128486Z 12 |     password = "unitpass123"
 lint	Run ruff	2025-09-03T08:34:16.0128546Z    |
-lint	Run ruff	2025-09-03T08:34:16.0128551Z 
+lint	Run ruff	2025-09-03T08:34:16.0128551Z
 lint	Run ruff	2025-09-03T08:34:16.0128625Z E501 Line too long (92 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0128708Z   --> vpn_api/test_unit.py:15:89
 lint	Run ruff	2025-09-03T08:34:16.0128764Z    |
@@ -2808,7 +2808,7 @@ lint	Run ruff	2025-09-03T08:34:16.0129526Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0129616Z 16 |     # ╨Ы╨╛╨│╨╕╨╜
 lint	Run ruff	2025-09-03T08:34:16.0129807Z 17 |     r = client.post("/auth/login", json={"email": email, "password": password})
 lint	Run ruff	2025-09-03T08:34:16.0129869Z    |
-lint	Run ruff	2025-09-03T08:34:16.0129874Z 
+lint	Run ruff	2025-09-03T08:34:16.0129874Z
 lint	Run ruff	2025-09-03T08:34:16.0129968Z D103 Missing docstring in public function
 lint	Run ruff	2025-09-03T08:34:16.0130048Z   --> vpn_api/test_unit.py:22:5
 lint	Run ruff	2025-09-03T08:34:16.0130105Z    |
@@ -2819,7 +2819,7 @@ lint	Run ruff	2025-09-03T08:34:16.0130384Z    |     ^^^^^^^^^^^^^^^^
 lint	Run ruff	2025-09-03T08:34:16.0130520Z 23 |     # ╨Ы╨╛╨│╨╕╨╜ ╨░╨┤╨╝╨╕╨╜╨░ (╨┤╨╛╨╗╨╢╨╡╨╜ ╨▒╤Л╤В╤М ╤Б╨╛╨╖╨┤╨░╨╜ ╨╖╨░╤А╨░╨╜╨╡╨╡)
 lint	Run ruff	2025-09-03T08:34:16.0130603Z 24 |     email = "admin@example.com"
 lint	Run ruff	2025-09-03T08:34:16.0130660Z    |
-lint	Run ruff	2025-09-03T08:34:16.0130670Z 
+lint	Run ruff	2025-09-03T08:34:16.0130670Z
 lint	Run ruff	2025-09-03T08:34:16.0130740Z E501 Line too long (93 > 88)
 lint	Run ruff	2025-09-03T08:34:16.0130832Z   --> vpn_api/test_unit.py:32:89
 lint	Run ruff	2025-09-03T08:34:16.0130888Z    |
@@ -2830,7 +2830,7 @@ lint	Run ruff	2025-09-03T08:34:16.0131859Z    |                                 
 lint	Run ruff	2025-09-03T08:34:16.0132051Z 33 |     assert r.status_code == 200 or (r.status_code == 400 and "already exists" in r.text)
 lint	Run ruff	2025-09-03T08:34:16.0132142Z 34 |     # ╨Я╨░╨│╨╕╨╜╨░╤Ж╨╕╤П
 lint	Run ruff	2025-09-03T08:34:16.0132340Z    |
-lint	Run ruff	2025-09-03T08:34:16.0132347Z 
+lint	Run ruff	2025-09-03T08:34:16.0132347Z
 lint	Run ruff	2025-09-03T08:34:16.0132414Z Found 269 errors.
 lint	Run ruff	2025-09-03T08:34:16.0132664Z [*] 36 fixable with the `--fix` option (4 hidden fixes can be enabled with the `--unsafe-fixes` option).
 lint	Run ruff	2025-09-03T08:34:16.0142350Z ##[error]Process completed with exit code 1.
