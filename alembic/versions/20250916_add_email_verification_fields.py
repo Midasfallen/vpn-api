@@ -1,6 +1,6 @@
 """add email verification fields to users
 
-Revision ID: 20250916_add_email_verification_fields
+Revision ID: 20250916_email_verif
 Revises:
 Create Date: 2025-09-16
 """
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 from alembic import op
 
 # revision identifiers, used by Alembic.
-revision = "20250916_add_email_verification_fields"
+revision = "20250916_email_verif"
 down_revision = "881faf8bfb76"
 branch_labels = None
 depends_on = None
