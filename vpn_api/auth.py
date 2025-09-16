@@ -17,7 +17,8 @@ from sqlalchemy.orm import Session
 
 from vpn_api import models, schemas
 from vpn_api.database import get_db
-from vpn_api.mail_service import send_verification_email_background
+
+# email verification flow removed: no external email sending
 
 router = APIRouter()
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -80,7 +81,7 @@ def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
     return new_user
 
 
-@router.post("/auth/register")
+@router.post("/register/email")
 def email_register(
     payload: schemas.RegisterIn, background_tasks: BackgroundTasks, db: Session = Depends(get_db)
 ):
@@ -88,24 +89,18 @@ def email_register(
 
     Returns a generic success message to avoid leaking account existence.
     """
+    # Simplified flow: create user if missing and mark as verified immediately
     db_user = db.query(models.User).filter(models.User.email == payload.email).first()
-    if db_user and db_user.is_verified:
-        return {"status": "ok", "message": "Email already verified"}
     if not db_user:
         db_user = models.User(email=payload.email)
         db.add(db_user)
-    # generate 6-digit code
-    import random
-
-    code = f"{random.randint(0, 999999):06d}"
-    db_user.verification_code = code
-    from datetime import datetime, timedelta
-
-    db_user.verification_expires_at = datetime.utcnow() + timedelta(minutes=10)
+    db_user.is_verified = True
+    db_user.status = "active"
     db.commit()
-    # send email in background
-    send_verification_email_background(background_tasks, payload.email, code)
-    return {"status": "ok", "message": "Check your email"}
+    db.refresh(db_user)
+    # return access token for convenience
+    token = create_access_token({"sub": db_user.email})
+    return {"access_token": token, "token_type": "bearer"}
 
 
 @router.post("/login")
@@ -117,26 +112,7 @@ def login(user: schemas.UserLogin, db: Session = Depends(get_db)):
     return {"access_token": token, "token_type": "bearer"}
 
 
-@router.post("/auth/verify", response_model=schemas.TokenOut)
-def email_verify(payload: schemas.VerifyIn, db: Session = Depends(get_db)):
-    db_user = db.query(models.User).filter(models.User.email == payload.email).first()
-    if not db_user or not db_user.verification_code:
-        raise HTTPException(status_code=400, detail="No verification in progress for this email")
-    from datetime import datetime
-
-    if db_user.verification_expires_at and db_user.verification_expires_at < datetime.utcnow():
-        raise HTTPException(status_code=400, detail="Verification code expired")
-    if db_user.verification_code != payload.code:
-        raise HTTPException(status_code=400, detail="Invalid verification code")
-    # mark verified, clear code
-    db_user.is_verified = True
-    db_user.verification_code = None
-    db_user.verification_expires_at = None
-    # set status active
-    db_user.status = "active"
-    db.commit()
-    token = create_access_token({"sub": db_user.email})
-    return {"access_token": token, "token_type": "bearer"}
+# /verify endpoint removed (email verification not used)
 
 
 def get_user_by_email(db: Session, email: str):
