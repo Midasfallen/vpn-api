@@ -60,8 +60,10 @@ Write-Host ".env.production written to: $envPath" -ForegroundColor Green
 if ($IsWindows) {
     try {
         icacls $envPath /inheritance:r | Out-Null
-        $user = "$env:USERNAME"
-        icacls $envPath /grant:r "$user:(R,W)" | Out-Null
+    # Current user name from environment; do not wrap in quotes to avoid nested interpolation issues
+    $user = $env:USERNAME
+    # Use ${user} when interpolating with a following ':' so PowerShell doesn't try to parse it as part of the variable name
+    icacls $envPath /grant:r "${user}:(R,W)" | Out-Null
         Write-Host "Restricted file ACLs (Windows): inheritance removed, granted R/W to current user." -ForegroundColor Green
     } catch {
         Write-Warning "Failed to adjust ACLs with icacls. Ensure the file is protected manually if necessary."
