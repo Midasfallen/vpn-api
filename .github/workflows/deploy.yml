@@ -321,7 +321,9 @@ jobs:
         run: |
           if [ -n "${ENV_PRODUCTION}" ]; then
             echo "Writing .env.production to remote host before migrations"
-            ssh -o StrictHostKeyChecking=no "${DEPLOY_USER}@${DEPLOY_HOST}" "printf '%s' \"${ENV_PRODUCTION}\" > '${DEPLOY_PATH}/.env.production' && chmod 600 '${DEPLOY_PATH}/.env.production'"
+            # encode content to base64 locally to avoid any quoting/escape issues, then decode on remote
+            B64_ENV=$(printf '%s' "${ENV_PRODUCTION}" | base64 -w0)
+            ssh -o StrictHostKeyChecking=no "${DEPLOY_USER}@${DEPLOY_HOST}" "printf '%s' '${B64_ENV}' | base64 -d > '${DEPLOY_PATH}/.env.production' && chmod 600 '${DEPLOY_PATH}/.env.production'"
           else
             echo "ENV_PRODUCTION not set, skipping .env.production creation"
           fi
@@ -346,7 +348,9 @@ jobs:
           # build content with required keys; add UVICORN_WORKERS default
           ENV_CONTENT="DATABASE_URL=${DATABASE_URL}\nUVICORN_WORKERS=2\nSECRET_KEY=${SECRET_KEY}"
           echo "Writing synthesized .env.production to remote"
-          ssh -o StrictHostKeyChecking=no "${DEPLOY_USER}@${DEPLOY_HOST}" "printf '%s' \"${ENV_CONTENT}\" > '${DEPLOY_PATH}/.env.production' && chmod 600 '${DEPLOY_PATH}/.env.production'"
+          # encode to base64 locally to avoid escape/quoting issues and decode on remote
+          B64_ENV_CONTENT=$(printf '%s' "${ENV_CONTENT}" | base64 -w0)
+          ssh -o StrictHostKeyChecking=no "${DEPLOY_USER}@${DEPLOY_HOST}" "printf '%s' '${B64_ENV_CONTENT}' | base64 -d > '${DEPLOY_PATH}/.env.production' && chmod 600 '${DEPLOY_PATH}/.env.production'"
 
 
       - name: SSH run migrations on server
@@ -366,7 +370,9 @@ jobs:
           echo "Preparing remote deploy: login (if provided) and write env file"
           # write env file on server if secret provided
           if [ -n "${ENV_PRODUCTION}" ]; then
-            ssh -o StrictHostKeyChecking=no "${DEPLOY_USER}@${DEPLOY_HOST}" "printf '%s' \"${ENV_PRODUCTION}\" > '${DEPLOY_PATH}/.env.production' && chmod 600 '${DEPLOY_PATH}/.env.production'"
+            # ensure any '\n' sequences stored in the secret become real newlines by base64 roundtrip
+            B64_ENV=$(printf '%s' "${ENV_PRODUCTION}" | base64 -w0)
+            ssh -o StrictHostKeyChecking=no "${DEPLOY_USER}@${DEPLOY_HOST}" "printf '%s' '${B64_ENV}' | base64 -d > '${DEPLOY_PATH}/.env.production' && chmod 600 '${DEPLOY_PATH}/.env.production'"
           fi
           # determine image name to pull (short sha tag) with sanitization
           IMAGE_TAG=${GITHUB_SHA::8}
