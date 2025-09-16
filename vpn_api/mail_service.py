@@ -1,6 +1,7 @@
 import os
-from email.message import EmailMessage
 import smtplib
+from email.message import EmailMessage
+
 from fastapi import BackgroundTasks
 
 
@@ -34,7 +35,7 @@ def send_verification_email(to_email: str, code: str):
             s = smtplib.SMTP(cfg["host"], cfg["port"], timeout=10)
             s.send_message(msg)
             s.quit()
-    except Exception as err:
+    except Exception:
         # In production, log and surface monitoring; for now re-raise
         raise
 
