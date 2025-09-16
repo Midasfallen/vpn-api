@@ -8,6 +8,10 @@ os.environ.setdefault("SECRET_KEY", "test-secret")
 # set PROMOTE_SECRET so tests can use bootstrap promote without needing an existing admin
 os.environ.setdefault("PROMOTE_SECRET", "bootstrap-secret")
 
+# During tests avoid trying to open real SMTP connections. Tests should set this to
+# false if they need to exercise real SMTP; by default we skip sending.
+os.environ.setdefault("SMTP_DRY_RUN", "1")
+
 # Ensure project package is importable when pytest changes cwd
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
