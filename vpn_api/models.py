@@ -35,7 +35,8 @@ class User(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, nullable=False, index=True)
-    hashed_password = Column(String, nullable=False)
+    # Allow nullable hashed_password to support email-only registration flows
+    hashed_password = Column(String, nullable=True)
     google_id = Column(String, unique=True, nullable=True, index=True)
     status = Column(Enum(UserStatus), default=UserStatus.pending, nullable=False)
     is_admin = Column(Boolean, default=False, nullable=False)
@@ -44,6 +45,11 @@ class User(Base):
     tariffs = relationship("UserTariff", back_populates="user", cascade="all, delete-orphan")
     vpn_peers = relationship("VpnPeer", back_populates="user", cascade="all, delete-orphan")
     payments = relationship("Payment", back_populates="user", cascade="all, delete-orphan")
+
+    # Email verification fields (for email-based signup / magic-code flows)
+    is_verified = Column(Boolean, default=False, nullable=False)
+    verification_code = Column(String, nullable=True, index=True)
+    verification_expires_at = Column(DateTime(timezone=True), nullable=True)
 
 
 class Tariff(Base):
