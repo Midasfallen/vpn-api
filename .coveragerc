@@ -1,0 +1,15 @@
+[run]
+omit =
+    alembic/*
+    scripts/*
+    fix_schema.py
+    inspect_db.py
+    ci-artifacts/*
+    artifacts/*
+    vpn_api/test.db
+
+[report]
+exclude_lines =
+    # Don't complain about these
+    pragma: no cover
+    if __name__ == .__main__.:
