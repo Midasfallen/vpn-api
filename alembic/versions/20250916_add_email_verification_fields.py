@@ -11,7 +11,7 @@ from alembic import op
 
 # revision identifiers, used by Alembic.
 revision = "20250916_add_email_verification_fields"
-down_revision = None
+down_revision = "881faf8bfb76"
 branch_labels = None
 depends_on = None
 
