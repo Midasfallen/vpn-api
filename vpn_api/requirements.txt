@@ -16,3 +16,4 @@ psycopg2-binary==2.9.7
 setuptools>=78.1.1
 # Allow Starlette to be upgraded (required to address CVE-2024-47874)
 starlette>=0.40.0
+wg-easy-api>=0.1.2

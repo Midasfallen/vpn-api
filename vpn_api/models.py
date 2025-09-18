@@ -95,6 +95,10 @@ class VpnPeer(Base):
     )
     wg_private_key = Column(String, nullable=False)
     wg_public_key = Column(String, nullable=False, unique=True)
+    # If the peer was created via an external controller (wg-easy), store the
+    # remote client id so we can remove it later if needed. Kept nullable
+    # to remain backwards-compatible with existing rows.
+    wg_client_id = Column(String, nullable=True, unique=False)
     wg_ip = Column(String, nullable=False, unique=True)
     allowed_ips = Column(String, nullable=True)
     active = Column(Boolean, default=True, nullable=False)
