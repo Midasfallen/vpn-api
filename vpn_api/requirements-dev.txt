@@ -1,5 +1,6 @@
-pytest==6.2.5
+pytest>=7.2.0
 httpx==0.28.1
 coverage==7.10.6
 pytest-cov==6.2.1
 junit-xml==1.9
+pytest-asyncio==0.21.0
