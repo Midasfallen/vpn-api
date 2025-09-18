@@ -6,6 +6,12 @@ on:
   pull_request:
     branches: [ main, master ]
 
+# Provide explicit minimal permissions required by steps that modify PRs/comments.
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
 jobs:
   test:
     name: test (matrix)
@@ -63,7 +69,10 @@ jobs:
       - name: Post coverage to PR
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
             const path = 'reports/coverage.xml';

@@ -1,2 +1,22 @@
 /.github/deploy_key
 .env.production
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.pyd
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# pytest
+.pytest_cache/
+
+# Wheels
+*.whl
+
+# mypy
+.mypy_cache/
