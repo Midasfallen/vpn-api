@@ -71,7 +71,7 @@ def test_create_peer_wg_easy_compensate_on_db_failure(monkeypatch):
 
     # monkeypatch commit to raise to simulate DB failure
     def bad_commit():
-        raise Exception("db commit failed")
+        raise RuntimeError("db commit failed")
 
     db.commit = bad_commit
 
