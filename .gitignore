@@ -20,3 +20,6 @@ venv/
 
 # mypy
 .mypy_cache/
+
+# Local SQLite used for alembic testing
+alembic_local.db
