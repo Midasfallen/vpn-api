@@ -1,4 +1,3 @@
-
 from fastapi.testclient import TestClient
 
 from vpn_api.main import app

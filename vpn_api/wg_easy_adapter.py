@@ -5,19 +5,27 @@ This adapter exposes a small async API used by the rest of the project.
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import TYPE_CHECKING, Any, Optional
 
-try:
-    from wg_easy_api import WgEasy
-except Exception:  # pragma: no cover - optional dependency
-    WgEasy = None
+if TYPE_CHECKING:
+    # Import for type checkers only. At runtime the external package may be
+    # absent, so avoid importing it unconditionally which would raise an
+    # ImportError and also confuse Pylance when a variable is used in a type
+    # expression.
+    from wg_easy_api import WgEasy  # type: ignore
+else:
+    # Runtime fallback when the optional dependency isn't installed.
+    WgEasy = Any  # type: ignore
 
 
 class WgEasyAdapter:
     def __init__(self, url: str, password: str, session=None):
         self.url = url
         self.password = password
-        self._wg: Optional[WgEasy] = None
+        # Use a forward reference-friendly annotation for the optional
+        # external client. When TYPE_CHECKING is False, WgEasy is Any which
+        # avoids runtime import errors.
+        self._wg: Optional["WgEasy"] = None
         self._session = session
 
     async def __aenter__(self):
