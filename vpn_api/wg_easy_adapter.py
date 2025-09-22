@@ -5,17 +5,11 @@ This adapter exposes a small async API used by the rest of the project.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Optional
+from typing import TYPE_CHECKING, Optional
 
 if TYPE_CHECKING:
-    # Import for type checkers only. At runtime the external package may be
-    # absent, so avoid importing it unconditionally which would raise an
-    # ImportError and also confuse Pylance when a variable is used in a type
-    # expression.
+    # Import for type checkers only.
     from wg_easy_api import WgEasy  # type: ignore
-else:
-    # Runtime fallback when the optional dependency isn't installed.
-    WgEasy = Any  # type: ignore
 
 
 class WgEasyAdapter:
@@ -29,7 +23,17 @@ class WgEasyAdapter:
         self._session = session
 
     async def __aenter__(self):
-        self._wg = WgEasy(self.url, self.password, self._session)
+        # Import the external client at runtime. If the optional dependency is
+        # missing, raise a clear RuntimeError rather than attempting to
+        # instantiate typing.Any (which results in "Any cannot be instantiated").
+        try:
+            # the package exports WGEasy (note uppercase GE) in some versions
+            from wg_easy_api import WGEasy as _WgEasy  # type: ignore
+        except Exception as e:
+            raise RuntimeError("wg-easy-api package is not installed or failed to import") from e
+
+        # instantiate with signature (base_url, password)
+        self._wg = _WgEasy(self.url, self.password)
         # some wrappers provide login inside context manager; ensure login
         if hasattr(self._wg, "login"):
             await self._wg.login()
