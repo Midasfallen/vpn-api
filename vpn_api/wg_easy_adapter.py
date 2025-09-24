@@ -61,23 +61,111 @@ class WgEasyAdapter:
         finally:
             self._wg = None
 
-    async def create_client(self, name: str) -> dict:
+    async def create_client(self, name: str) -> dict:  # noqa: C901
         """Create client and return server response (dict-like).
 
         The underlying wrapper typically returns a client model; we normalize
         to a dict with at least 'id' and 'publicKey' when available.
         """
         assert self._wg is not None, "adapter not started (use async context)"
-        await self._wg.create_client(name)
-        # get last created client by listing all and finding name
-        clients = await self._wg.get_clients()
-        for c in clients:
-            if getattr(c, "name", None) == name:
-                return {
-                    "id": getattr(c, "id", None) or getattr(c, "uid", None),
-                    "publicKey": getattr(c, "publicKey", None) or getattr(c, "public_key", None),
-                }
-        raise RuntimeError("failed to find created client")
+
+        # Try using the underlying wrapper first (if available). If it fails
+        # for any reason (network, server 500), fall back to a minimal HTTP
+        # implementation that mirrors how the UI authenticates (POST /api/session
+        # then POST /api/wireguard/client).
+        last_exc: Optional[Exception] = None
+        try:
+            await self._wg.create_client(name)
+            # get last created client by listing all and finding name
+            clients = await self._wg.get_clients()
+            for c in clients:
+                if getattr(c, "name", None) == name:
+                    return {
+                        "id": getattr(c, "id", None) or getattr(c, "uid", None),
+                        "publicKey": getattr(c, "publicKey", None)
+                        or getattr(c, "public_key", None),
+                    }
+        except Exception as e:  # pragma: no cover - runtime fallback
+            last_exc = e
+
+        # Fallback: perform minimal HTTP requests using aiohttp and ALWAYS
+        # authenticate using the Authorization header. Cookie/session-based
+        # login is fragile here (the wg-easy server uses a per-process random
+        # session secret), so prefer a header-based approach. If an API key
+        # is configured in the environment as WG_API_KEY we send it as
+        # "Bearer <key>", otherwise we send the plain password as the
+        # header value (this mirrors how the UI server accepts raw password).
+        try:
+            import json as _json
+            import os
+
+            import aiohttp  # type: ignore
+
+            base = self.url.rstrip("/")
+            session = self._session or aiohttp.ClientSession()
+            close_session = self._session is None
+
+            async def _post(sess, url, json_payload=None, headers=None):
+                resp = await sess.post(url, json=json_payload, headers=headers)
+                text = await resp.text()
+                return resp.status, text, resp
+
+            async def _get(sess, url, headers=None):
+                resp = await sess.get(url, headers=headers)
+                text = await resp.text()
+                return resp.status, text, resp
+
+            # Build Authorization header: prefer WG_API_KEY if set.
+            # NOTE: wg-easy server expects the raw key/password in the
+            # Authorization header value (the server does not strip a
+            # "Bearer " prefix), so we send the key directly.
+            headers = {"Content-Type": "application/json"}
+            api_key = os.environ.get("WG_API_KEY")
+            if api_key:
+                # send raw key (no 'Bearer ' prefix)
+                headers["Authorization"] = api_key
+            else:
+                # fall back to plain password in header
+                headers["Authorization"] = self.password
+
+            create_url = f"{base}/api/wireguard/client"
+            list_url = f"{base}/api/wireguard/client"
+
+            if close_session:
+                async with session as sess:
+                    status, text, _resp = await _post(
+                        sess, create_url, json_payload={"name": name}, headers=headers
+                    )
+                    if 200 <= status < 300:
+                        _r_status, r_text, _r_resp = await _get(sess, list_url, headers=headers)
+                        clients = _json.loads(r_text)
+                        for c in clients:
+                            if c.get("name") == name:
+                                return {
+                                    "id": c.get("id"),
+                                    "publicKey": c.get("publicKey") or c.get("public_key"),
+                                }
+            else:
+                sess = session
+                status, text, _resp = await _post(
+                    sess, create_url, json_payload={"name": name}, headers=headers
+                )
+                if 200 <= status < 300:
+                    _r_status, r_text, _r_resp = await _get(sess, list_url, headers=headers)
+                    clients = _json.loads(r_text)
+                    for c in clients:
+                        if c.get("name") == name:
+                            return {
+                                "id": c.get("id"),
+                                "publicKey": c.get("publicKey") or c.get("public_key"),
+                            }
+
+            raise RuntimeError(f"wg-easy create client failed; last status={status}; body={text}")
+        except Exception:  # pragma: no cover - runtime fallback
+            # Prefer original exception context if available
+            if last_exc is not None:
+                raise RuntimeError("both wrapper and HTTP fallback failed") from last_exc
+            raise
 
     async def delete_client(self, client_id: str) -> None:
         assert self._wg is not None, "adapter not started (use async context)"
