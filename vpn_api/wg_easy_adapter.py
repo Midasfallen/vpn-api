@@ -5,6 +5,7 @@ This adapter exposes a small async API used by the rest of the project.
 
 from __future__ import annotations
 
+import asyncio
 from typing import TYPE_CHECKING, Optional
 
 if TYPE_CHECKING:
@@ -59,6 +60,23 @@ class WgEasyAdapter:
             if self._wg is not None and hasattr(self._wg, "logout"):
                 await self._wg.logout()
         finally:
+            # If the underlying wrapper created its own aiohttp session and
+            # exposed it as `session`, attempt to close it to avoid leaked
+            # ClientSession warnings. Support both sync and async `close()`.
+            try:
+                if self._wg is not None:
+                    sess = getattr(self._wg, "session", None)
+                    if sess is not None:
+                        close_fn = getattr(sess, "close", None)
+                        if close_fn:
+                            res = close_fn()
+                            # If close() returned a coroutine, await it
+                            if asyncio.iscoroutine(res):
+                                await res
+            except Exception:
+                # best-effort: swallow any errors closing wrapper session
+                pass
+
             self._wg = None
 
     async def create_client(self, name: str) -> dict:  # noqa: C901
@@ -102,8 +120,10 @@ class WgEasyAdapter:
             import aiohttp  # type: ignore
 
             base = self.url.rstrip("/")
-            session = self._session or aiohttp.ClientSession()
-            close_session = self._session is None
+            # If a session was passed into the adapter, use it and do not close it.
+            # Otherwise use an async context manager so the session is closed
+            # automatically when the block exits.
+            session = self._session
 
             async def _post(sess, url, json_payload=None, headers=None):
                 resp = await sess.post(url, json=json_payload, headers=headers)
@@ -131,8 +151,9 @@ class WgEasyAdapter:
             create_url = f"{base}/api/wireguard/client"
             list_url = f"{base}/api/wireguard/client"
 
-            if close_session:
-                async with session as sess:
+            if session is None:
+                # adapter creates and manages its own session
+                async with aiohttp.ClientSession() as sess:
                     status, text, _resp = await _post(
                         sess, create_url, json_payload={"name": name}, headers=headers
                     )
@@ -146,6 +167,7 @@ class WgEasyAdapter:
                                     "publicKey": c.get("publicKey") or c.get("public_key"),
                                 }
             else:
+                # use externally provided session; do not close it here
                 sess = session
                 status, text, _resp = await _post(
                     sess, create_url, json_payload={"name": name}, headers=headers

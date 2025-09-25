@@ -30,3 +30,8 @@ ignore = [
 
 [tool.isort]
 profile = "black"
+
+[project]
+dependencies = [
+	"aiohttp>=3.10.7,<4.0.0",
+]

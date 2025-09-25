@@ -216,11 +216,28 @@ def _handle_wg_easy_creation(user_id: int, device_name: str | None = None):
 
 
 def _get_wg_easy_client_config(url: str, password: str, client_id: str) -> bytes:
-    async def _inner():
-        async with WgEasyAdapter(url, password) as adapter:
-            return await adapter.get_client_config(client_id)
+    # Prefer a simple synchronous HTTP GET here to avoid creating an
+    # aiohttp.ClientSession in a library (wg_easy_api) when called from
+    # synchronous code paths (tests and API helpers). The caller will
+    # treat any exception as non-fatal and fall back to a placeholder.
+    try:
+        import urllib.request
 
-    return asyncio.run(_inner())
+        base = url.rstrip("/")
+        cfg_url = f"{base}/api/wireguard/client/{client_id}/configuration"
+        # Build Authorization header: prefer WG_API_KEY if set.
+        api_key = os.environ.get("WG_API_KEY")
+        if api_key:
+            auth = api_key
+        else:
+            auth = password
+
+        req = urllib.request.Request(cfg_url, headers={"Authorization": auth})
+        with urllib.request.urlopen(req, timeout=5) as resp:
+            return resp.read()
+    except Exception:
+        # Caller handles failures; return empty bytes to indicate missing config
+        raise
 
 
 @router.get("/", response_model=List[schemas.VpnPeerOut])
