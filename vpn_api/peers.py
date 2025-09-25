@@ -16,22 +16,28 @@ router = APIRouter(prefix="/vpn_peers", tags=["vpn_peers"])
 
 
 @router.post("/", response_model=schemas.VpnPeerOut)
-def create_peer(
+def create_peer(  # noqa: C901 - function is intentionally a bit complex; refactor in follow-up
     payload: schemas.VpnPeerCreate,
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user),
 ):
+
     # only admin or the same user can create peer
-    if not getattr(current_user, "is_admin", False) and current_user.id != payload.user_id:
+    # decide target user: default to authenticated user when not provided
+    target_user = payload.user_id or current_user.id
+    # only admin or the same user can create peer
+    if not getattr(current_user, "is_admin", False) and current_user.id != target_user:
         raise HTTPException(status_code=403, detail="Not allowed")
     # decide key policy: default keep key in DB; alternative 'host' generates key on host
     key_policy = os.getenv("WG_KEY_POLICY", "db")
     private = secrets.token_urlsafe(32)
     public = payload.wg_public_key
+    # container for any metadata returned by external controllers
+    extra_metadata: dict = {}
 
     if key_policy == "host":
         # attempt to generate keypair on host; use username or timestamp as base name
-        base = f"peer_{payload.user_id}_{secrets.token_hex(6)}"
+        base = f"peer_{target_user}_{secrets.token_hex(6)}"
         gen = generate_key_on_host(base)
         if gen:
             private = f"host:{gen['private']}"
@@ -41,19 +47,30 @@ def create_peer(
         # then persist DB row. If persisting fails we attempt to delete the
         # remote client to avoid orphaned peers.
         try:
-            public, private, wg_client_id = _handle_wg_easy_creation(payload.user_id)
+            # Create client and also attempt to retrieve client config. If the
+            # incoming payload omitted wg_public_key or wg_ip we will fill them
+            # from the controller response.
+            public, private, wg_client_id, meta = _handle_wg_easy_creation(
+                target_user, payload.device_name
+            )
+            extra_metadata.update(meta or {})
+            # If wg_ip missing in payload, try to obtain from metadata
+            if not payload.wg_ip:
+                payload.wg_ip = extra_metadata.get("address")
+            if not payload.allowed_ips:
+                payload.allowed_ips = extra_metadata.get("allowed_ips")
         except Exception as e:
             raise HTTPException(
                 status_code=502, detail=f"failed to create remote wg-easy client: {e}"
             ) from e
 
     peer = models.VpnPeer(
-        user_id=payload.user_id,
+        user_id=target_user,
         wg_private_key=private,
         wg_public_key=public,
         wg_client_id=locals().get("wg_client_id"),
-        wg_ip=payload.wg_ip,
-        allowed_ips=payload.allowed_ips,
+        wg_ip=payload.wg_ip or extra_metadata.get("address"),
+        allowed_ips=payload.allowed_ips or extra_metadata.get("allowed_ips"),
     )
     db.add(peer)
     try:
@@ -81,6 +98,11 @@ def create_peer(
     except Exception:
         # apply_peer is already logging; swallow exceptions to avoid 500s
         pass
+    # Attach any extra metadata onto the returned model object for the
+    # response serializer to include (e.g. dns/endpoint). We intentionally
+    # don't persist unrelated controller fields to the DB schema here.
+    for k, v in extra_metadata.items():
+        setattr(peer, k, v)
     return peer
 
 
@@ -102,7 +124,42 @@ def _delete_wg_easy_client(url: str, password: str, client_id: str) -> None:
     return asyncio.run(_inner())
 
 
-def _handle_wg_easy_creation(user_id: int):
+def _parse_wg_quick_config(cfg_text: str) -> dict:
+    """Parse a wg-quick style client config and return metadata.
+
+    Returns keys: address, allowed_ips, dns, endpoint, private_key
+    """
+    meta = {}
+    current = None
+    for line in cfg_text.splitlines():
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        if line.startswith("["):
+            current = line.strip("[]").lower()
+            continue
+        if "=" in line:
+            k, v = line.split("=", 1)
+            meta_key = f"{current}.{k.strip().lower()}" if current else k.strip().lower()
+            meta[meta_key] = v.strip()
+
+    # Normalize common fields
+    result = {}
+    # client Address under Interface
+    result["address"] = meta.get("interface.address") or meta.get("address")
+    # AllowedIPs under Peer
+    result["allowed_ips"] = (
+        meta.get("peer.allowedips") or meta.get("allowedips") or meta.get("allowed_ips")
+    )
+    result["dns"] = meta.get("interface.dns") or meta.get("dns")
+    result["endpoint"] = meta.get("peer.endpoint") or meta.get("endpoint")
+    result["private_key"] = (
+        meta.get("interface.privatekey") or meta.get("privatekey") or meta.get("private_key")
+    )
+    return result
+
+
+def _handle_wg_easy_creation(user_id: int, device_name: str | None = None):
     """Create a wg-easy client for given user and return (public, private, id).
 
     Raises HTTPException if required env vars are missing.
@@ -112,11 +169,32 @@ def _handle_wg_easy_creation(user_id: int):
     if not wg_url or not wg_pass:
         raise HTTPException(status_code=500, detail="WG_EASY_URL or WG_EASY_PASSWORD not set")
 
-    created = _create_wg_easy_client(wg_url, wg_pass, f"peer-{user_id}-{secrets.token_hex(4)}")
+    name = device_name or f"peer-{user_id}-{secrets.token_hex(4)}"
+    created = _create_wg_easy_client(wg_url, wg_pass, name)
     public = created.get("publicKey")
     wg_client_id = created.get("id")
-    private = "wg-easy:remote"
-    return public, private, wg_client_id
+    # Attempt to fetch client config (wg-quick) to extract private key and IPs
+    try:
+        cfg_bytes = _get_wg_easy_client_config(wg_url, wg_pass, wg_client_id)
+        cfg_text = (
+            cfg_bytes.decode("utf-8")
+            if isinstance(cfg_bytes, (bytes, bytearray))
+            else str(cfg_bytes)
+        )
+        meta = _parse_wg_quick_config(cfg_text)
+        private = meta.get("private_key") or "wg-easy:remote"
+        # If public key not present try to derive from config (rare)
+        return public, private, wg_client_id, meta
+    except Exception:
+        return public, "wg-easy:remote", wg_client_id, {}
+
+
+def _get_wg_easy_client_config(url: str, password: str, client_id: str) -> bytes:
+    async def _inner():
+        async with WgEasyAdapter(url, password) as adapter:
+            return await adapter.get_client_config(client_id)
+
+    return asyncio.run(_inner())
 
 
 @router.get("/", response_model=List[schemas.VpnPeerOut])
@@ -149,6 +227,25 @@ def get_peer(
         raise HTTPException(status_code=404, detail="Peer not found")
     if not getattr(current_user, "is_admin", False) and peer.user_id != current_user.id:
         raise HTTPException(status_code=403, detail="Not allowed")
+    # For security: never return the private key via GET endpoints. Only the
+    # create endpoint will return the private key once (if available).
+    try:
+        peer.wg_private_key = None
+    except Exception:
+        pass
+    return peer
+
+
+@router.post("/self", response_model=schemas.VpnPeerOut)
+def create_peer_self(
+    payload: schemas.VpnPeerCreate,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user),
+):
+    # Force the payload user to the current user and reuse create_peer logic.
+    payload.user_id = current_user.id
+    peer = create_peer(payload, db=db, current_user=current_user)
+    # create_peer may have attached wg_private_key into the model; return as-is
     return peer
 
 

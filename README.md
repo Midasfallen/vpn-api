@@ -1,286 +1,341 @@
 # VPN API
 
-## Описание
-REST API для управления пользователями и тарифами VPN‑сервиса на FastAPI + SQLAlchemy.
+# VPN API — Пошаговая инструкция для разработчиков и деплоя
 
-## Быстрый старт
+Это практическое руководство по развёртыванию, тестированию и эксплуатации проекта VPN API (FastAPI + SQLAlchemy) с интеграцией в wg-easy. Документ рассчитан так, чтобы любой инженер, имеющий доступ к серверам и репозиторию, мог корректно настроить окружение и выполнить деплой.
+
+Содержание (быстрый обзор)
+- Требования
+- Быстрый старт (локально)
+- Конфигурация серверов (App host и wg-easy host)
+- Переменные окружения и пример `.env.production`
+- Бэкап БД и миграции (Alembic)
+- Разворачивание и перезапуск сервиса
+- Интеграция с wg-easy (auth header, PASSWORD_HASH)
+- SSH / apply_peer workflow
+- Smoke tests и проверка работоспособности
+- Откат/удаление тестовых данных
+- CI и GitHub Actions заметки
+- Troubleshooting — частые ошибки и решения
+
+---
+
+## Требования
+- Python 3.12 (локально и в CI)
+- Postgres (production); для локальной разработки можно использовать SQLite
+- Docker & docker-compose (для запуска wg-easy на отдельном хосте)
+- Доступ по SSH к wg-easy хосту (если вы используете `WG_HOST_SSH` для выполнения скриптов)
+
+---
+
+## Быстрый старт (локально)
 
 1. Клонируйте репозиторий и создайте виртуальное окружение:
 
 ```powershell
-# VPN API — краткая и актуальная инструкция
-
-REST API для управления пользователями, тарифами и WireGuard‑peer'ами на базе FastAPI + SQLAlchemy.
-
-Цель этого README — быстро ввести разработчика в проект, описать как запускать, тестировать и деплоить,
-и зафиксировать важные наблюдения из последней отладки CI/Deploy.
-
-## Быстрый старт (локально)
-
-1) Клонировать и создать виртуальное окружение:
-
-```powershell
-python -m venv venv
-.\venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip setuptools wheel
-python -m pip install -r vpn_api/requirements.txt
-```
-
-2) Запустить сервис локально:
-
-```powershell
-python -m uvicorn vpn_api.main:app --reload
-# API docs: http://127.0.0.1:8000/docs
-```
-# VPN API — Полная инструкция
-
-Это подробный и практический README для проекта VPN API — REST‑сервис на FastAPI + SQLAlchemy, управляющий пользователями, тарифами, платежами и WireGuard‑peers.
-
-Документ покрывает: быструю установку, локальную разработку на Windows (включая Python 3.12 и PostgreSQL dev tools для `psycopg2`), тестирование, CI, миграции, интеграцию с `wg-easy` (adapter), деплой и отладочные приёмы.
-
-## Содержание
-
-- О проекте
-- Быстрый старт (локально)
-- Подробная установка (Windows)
-  - Python и venv (рекомендуется 3.12)
-  - PostgreSQL (pg_config) — почему важно
-  - Установка зависимостей
-- Запуск приложения
-- Тестирование
-  - pytest, pytest-asyncio
-  - рекомендации
-- Миграции (Alembic)
-- CI (GitHub Actions)
-- Интеграция wg-easy
-- Переменные окружения
-- Troubleshooting — частые ошибки и их решения
-- Рекомендации по безопасности и продакшн
-- Полный список полезных команд
-
-
-## О проекте
-
-Проект — backend API для управления VPN‑сервисом: регистрация пользователей, управление тарифами, обработка платежей, создание WireGuard peers, генерация конфигураций клиентов. Основные технологии:
-
-- Python 3.12 (рекомендовано для локальной разработки и CI)
-- FastAPI
-- SQLAlchemy 2.x
-- Alembic для миграций
-- pytest + pytest-asyncio для тестирования
-- wg-easy API wrapper (опционально) для управления WireGuard через сторонний сервис
-
-
-## Быстрый старт (локально)
-
-Минимальный рабочий набор команд (если у вас уже есть Python 3.12 и PostgreSQL dev tools):
-
-```powershell
-# Активировать PowerShell и выполнить из корня репозитория
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip setuptools wheel
 python -m pip install -r vpn_api/requirements.txt
-python -m pip install -r vpn_api/requirements-dev.txt  # dev deps (pytest, pytest-asyncio и т.д.)
-
-# Запуск сервиса
-python -m uvicorn vpn_api.main:app --reload
-# Документация: http://127.0.0.1:8000/docs
-
-# Запуск тестов
-python -m pytest -q
-```
-
-Если у вас Windows и отсутствует `pg_config` (см. ниже), установка зависимостей может падать при сборке `psycopg2-binary`. Следуйте разделу "Windows: PostgreSQL/pg_config".
-
-
-## Подробная установка — Windows (рекомендации)
-
-Этот раздел даёт пошаговый рецепт для разработчика на Windows, чтобы избежать ошибок при установке `psycopg2` и обеспечить полную локальную среду тестирования.
-
-### 1) Установка Python 3.12
-
-- Установите Python 3.12 (рекомендуется стабильная минорная версия) через официальный установщик или winget.
-- Проверьте версию:
-
-```powershell
-py -3.12 -V
-# или
-python --version
-```
-
-- Создайте виртуальное окружение и активируйте:
-
-```powershell
-py -3.12 -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip setuptools wheel
-```
-
-> Почему 3.12: пакет `wg-easy-api>=0.1.2` и некоторые колеса в проекте таргетят Python >=3.12. CI в этом репозитории также настроен на Python 3.12.
-
-
-### 2) Установка PostgreSQL dev tools (pg_config)
-
-`pg_config` требуется при сборке некоторых Python расширений (например, `psycopg2-binary`) из исходников. На Windows проще всего установить официальную сборку PostgreSQL (включает `pg_config.exe`).
-
-Рекомендуемый способ (winget):
-
-```powershell
-# выполнить в PowerShell (если winget доступен)
-winget install --id PostgreSQL.PostgreSQL.17 -e --accept-package-agreements --accept-source-agreements
-```
-
-После установки найдите `pg_config.exe` (обычно: `C:\Program Files\PostgreSQL\<версия>\bin\pg_config.exe`).
-
-Добавьте этот bin каталог в PATH (в сессии PowerShell для текущего окна):
-
-```powershell
-$env:Path = 'C:\Program Files\PostgreSQL\17\bin;' + $env:Path
-# или актуализируйте путь под вашу версию
-```
-
-Проверьте доступность:
-
-```powershell
-where.exe pg_config
-pg_config --version
-```
-
-Если вы не хотите ставить PostgreSQL целиком, можно установить только клиентские инструменты/SDK от Postgres или использовать WSL/контейнер с Linux, где `pg_config` обычно доступен.
-
-
-### 3) Установка зависимостей
-
-С активированным `.venv` и с `pg_config` в PATH выполните:
-
-```powershell
-python -m pip install -r vpn_api/requirements.txt
 python -m pip install -r vpn_api/requirements-dev.txt
 ```
 
-Замечания:
-- Если установка падает на `psycopg2-binary` — убедитесь, что `pg_config` в PATH и вы используете ту же архитектуру (x64).
-- На некоторых Windows-системах pip может скачать уже готовый wheel и сборка не потребуется; но гарантированно работоспособный подход — наличие `pg_config`.
-
-
-## Запуск приложения
-
-Запустите локально:
+2. Запустите приложение (локально, dev):
 
 ```powershell
 python -m uvicorn vpn_api.main:app --reload
+# Откройте http://127.0.0.1:8000/docs
 ```
 
-- API документы: http://127.0.0.1:8000/docs
-- Основной модуль приложения — `vpn_api/main.py`
-
-
-## Тестирование
-
-Тесты написаны с использованием `pytest` и `FastAPI TestClient` + временной SQLite DB (на уровне `conftest.py`). Некоторые тесты используют `pytest-asyncio`.
-
-Команды:
+3. Запуск тестов
 
 ```powershell
-# В активированном venv
-python -m pip install -r vpn_api/requirements-dev.txt
 python -m pytest -q
 ```
 
-Рекомендации:
-- Всегда запускать тесты как `python -m pytest` в CI, чтобы избежать проблем с путями и `conftest.py`.
-- Если вы добавляете async‑тесты, убедитесь, что `pytest-asyncio` установлен и совместим с версией `pytest`.
+---
 
+## Конфигурация серверов
 
-## Alembic — миграции
+Мы предполагаем два логических хоста (можно быть на отдельных маши-нах или контейнерах):
 
-Работа с миграциями:
+- App host — где работает Docker Compose с сервисом `web` (FastAPI) и `db` (Postgres) — например: 146.103.99.70
+- wg-easy host — где запущен контейнер `wg-easy` и `wg` — например: 62.84.98.109
 
-```powershell
-# Создать миграцию с автогенерацией
-alembic revision --autogenerate -m "описание"
-# Применить миграции
-alembic upgrade head
-# Откат на одну ревизию
-alembic downgrade -1
+Основная идея: `web` сервер взаимодействует с wg-easy через HTTP API (wg-easy) для создания/удаления клиентов; дополнительно `web` может запускать хостовые скрипты на wg-easy host по SSH для применения/удаления конфигураций WireGuard (wg).
+
+### Подготовка wg-easy host
+
+1. Установите Docker и запустите контейнер `wg-easy` согласно официальной инструкции.
+2. Сгенерируйте `PASSWORD_HASH` и задайте его как переменную окружения контейнера (wg-easy использует bcrypt хэш, а не plaintext пароль).
+
+Пример генерации bcrypt хэша (на Linux / macOS):
+
+```bash
+python3 - <<'PY'
+from passlib.hash import bcrypt
+print(bcrypt.hash('supersecret'))
+PY
 ```
 
-Замечания:
-- `alembic/env.py` использует `vpn_api.database.DB_URL` как fallback, но в рабочих запусках рекомендуется задавать `sqlalchemy.url` в `alembic.ini` или экспортировать `DATABASE_URL`.
-- В продакшн перед миграцией делайте резервную копию БД (pg_dump).
+Скопируйте результат и задайте в `docker-compose.yml` wg-easy контейнера:
 
+```yaml
+environment:
+  - PASSWORD_HASH="$2b$12$...."
+  - WG_PORT=51820
+  # другие параметры
+```
 
-## CI (GitHub Actions)
+Если вы используете plaintext `WG_EASY_PASSWORD` в коде/adapter-е, убедитесь, что wg-easy сконфигурирован соответствующим образом (чаще используют PASSWORD_HASH).
 
-В репозитории есть workflow `ci.yml`, настроенный на Python 3.12 (матрица), устанавливающий dev зависимости и прогоняющий тесты. Важные моменты:
+3. Настройте SSH доступ для App host (если используете `WG_HOST_SSH`):
 
-- В CI используйте `python -m pip install -r vpn_api/requirements.txt` и `python -m pip install -r vpn_api/requirements-dev.txt`.
-- Запускайте `python -m pytest` (не `pytest` напрямую) для корректного разрешения `conftest.py`.
-- CI runner (Ubuntu) обычно имеет готовые колеса для psycopg2, поэтому проблемы, которые встречаются на Windows, там редки.
+- На App host создайте/получите публичный ключ (ed25519 рекомендуется):
 
+```bash
+# на App host
+ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -N ""  # если ключа нет
+cat ~/.ssh/id_ed25519.pub
+```
 
-## Интеграция wg-easy
+- Добавьте содержимое `id_ed25519.pub` в `/root/.ssh/authorized_keys` на wg-easy host (root или пользователь, который может выполнять `/srv/vpn-api/scripts/*`).
 
-Проект содержит адаптер для `wg-easy-api` и код в `vpn_api/peers.py`, который при `WG_KEY_POLICY == 'wg-easy'` вызывает `wg-easy` API для создания/удаления клиентов и использует `wg_client_id` в модели `VpnPeer`.
+- Проверьте подключение в Batch режиме:
 
-Ключевые замечания:
-- Переменные окружения для wg-easy:
-  - `WG_EASY_URL` — URL API (например, http://146.103.99.95:51821)
-  - `WG_EASY_PASSWORD` — пароль, используемый адаптером для аутентификации
-- Адаптер реализован асинхронно; для синхронных участков используется временная обёртка `asyncio.run` — рекомендуется в будущем конвертировать соответствующие обработчики в async.
-- В коде реализована компенсация: если удаление/создание клиента на wg-easy прошло, но запись в БД не удалась, код пытается удалить созданный клиент чтобы не оставить «висящие» записи.
+```bash
+ssh -o BatchMode=yes root@62.84.98.109 'echo ok'
+```
 
+Если подключение не проходит — проверьте `sshd` конфигурацию и права на `~/.ssh` и `authorized_keys`.
 
-## Переменные окружения (обязательные/рекомендуемые)
+---
 
-Общее:
-- `DATABASE_URL` — обязательна для рабочих запусков (Postgres). Формат: `postgresql://user:pass@host:5432/dbname`
-- `SECRET_KEY` — JWT/секрет приложения
-- `PROMOTE_SECRET` — bootstrap секрет для initial promote
+## Переменные окружения и пример `.env.production`
 
-Опционально (wg-easy):
-- `WG_KEY_POLICY` — установите в `wg-easy` для использования адаптера
-- `WG_EASY_URL` — URL wg-easy API
-- `WG_EASY_PASSWORD` — пароль wg-easy
+Ниже приведён пример содержимого `/.env.production` для App host (вставьте свои значения):
 
-Тестовые/локальные переменные:
-- `DEV_INIT_DB=true` — позволяет приложению автоматически создавать таблицы локально (при разработке)
+```.env
+# Database
+DATABASE_URL=postgresql://vpnuser:strongpassword@127.0.0.1:5432/vpndb
 
+# JWT
+SECRET_KEY=some-very-long-random-secret
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=60
+PROMOTE_SECRET=bootstrap-secret
 
-## Troubleshooting — частые ошибки и решения
+# WG / wg-easy
+WG_KEY_POLICY=wg-easy
+WG_EASY_URL=http://62.84.98.109:8588/   # пример URL API wg-easy
+WG_EASY_PASSWORD=supersecret              # если адаптер использует пароль
+# либо если wg-easy ожидает PASSWORD_HASH, то в контейнере wg-easy должен быть установлен PASSWORD_HASH
 
-1) Ошибка при установке `psycopg2-binary` (pg_config not found)
-- Причина: отсутствует `pg_config` в PATH на Windows.
-- Решение: установить PostgreSQL (или client SDK) и добавить `C:\Program Files\PostgreSQL\<версия>\bin` в PATH, либо использовать WSL/контейнер.
+# WG apply helper
+WG_APPLY_ENABLED=0                         # 0 — не применять автоматом, 1 — применять (только когда уверены)
+WG_HOST_SSH=root@62.84.98.109              # где запускать скрипты apply/remove
+WG_INTERFACE=wg0
+WG_APPLY_SCRIPT=/srv/vpn-api/scripts/wg_apply.sh
+WG_REMOVE_SCRIPT=/srv/vpn-api/scripts/wg_remove.sh
+WG_GEN_SCRIPT=/srv/vpn-api/scripts/wg_gen_key.sh
 
-2) Тесты падают с ModuleNotFoundError: No module named 'fastapi'
-- Причина: зависимость не установлена в активном venv.
-- Решение: активировать `.venv` и выполнить `python -m pip install -r vpn_api/requirements.txt`.
+# Опции окружения
+DEV_INIT_DB=0
+```
 
-3) CI: pytest not found или некорректный `conftest.py`
-- Используйте `python -m pip install -r vpn_api/requirements-dev.txt` и `python -m pytest`.
+Важные замечания:
+- `PASSWORD_HASH` генерируется и хранится в окружении wg-easy контейнера; если вы используете адаптер по паролю, adapter должен отправлять ту форму строки, которую wg-easy ожидает (мы обнаружили, что wg-easy сравнивает именно raw-значение, без префикса `Bearer `).
+- `WG_APPLY_ENABLED` по умолчанию должен быть `0` в production, чтобы не выполнять `wg set` автоматически без контроля.
 
-4) Alembic миграции применяются не в ту БД
-- Убедитесь, что `DATABASE_URL` или `sqlalchemy.url` в `alembic.ini` указывают на нужную БД. Всегда делайте `pg_dump` перед применением миграций.
+---
 
-5) wg-easy: 401 Unauthorized / DO NOT USE PASSWORD
-- wg-easy требует `PASSWORD_HASH` (bcrypt hash) вместо plaintext `PASSWORD` в контейнере. Сгенерируйте хэш и выставьте его через `PASSWORD_HASH` env var или через ui/installer.
-- Проверяйте логи контейнера и API endpoint (51821).
+## Бэкап БД и миграции (обязательно перед upgrade)
 
+На этапе миграций всегда делайте резервную копию БД. Пример (на CI host / runner):
 
-## Рекомендации по безопасности и продакшн
+```bash
+# Экспорт DATABASE_URL в CI как secret и затем:
+python parse_db.py > dbinfo.env
+set -a; . ./dbinfo.env; set +a  # экспортирует PGHOST/PGUSER/PGPASSWORD/PGDATABASE
+pg_dump --host="$PGHOST" --port="${PGPORT:-5432}" --username="$PGUSER" --dbname="$PGDATABASE" -F c -f backup.dump -v
+```
 
-- Храните секреты в Secret Manager (GitHub/GCP/AWS) или env vars на сервере; не в репозитории.
-- Не храните приватные WG ключи в БД в открытом виде; используйте серверное хранилище ключей или шифруйте поля.
+После успешного бэкапа выполняйте миграции:
+
+```bash
+DATABASE_URL="postgresql://..." alembic -c alembic.ini upgrade head
+```
+
+Если вы используете GitHub Actions — ознакомьтесь с `.github/workflows/run_migrations.yml` (в репозитории). Workflow должен использовать `secrets.DATABASE_URL`.
+
+---
+
+## Разворачивание и перезапуск сервиса (Docker Compose)
+
+1. Остановите старый контейнер (опционально):
+
+```bash
+cd /srv/vpn-api
 - Настройте HTTPS (nginx/letsencrypt) и систему запуска (systemd) для uvicorn/gunicorn.
+```
+
+2. Обновите код (git pull), пересоберите `web`:
+
+```bash
 - Настройте мониторинг и логирование, бэкапы (pg_dump) перед миграцией/деплоем.
 
+```
 
+3. Проверьте логи и OpenAPI:
+
+```bash
+
+# Или внутри хоста:
 ## Полезные команды (сборник)
 
-PowerShell (Windows):
+```
 
+---
+
+## Интеграция с wg-easy — ключевые моменты
+
+1. Authorization header: wg-easy (в studied версиях) сравнивает raw-значение, а не `Bearer <token>`. Если адаптер отправляет `Authorization: Bearer supersecret`, wg-easy может не распознать его и возвращать ошибку. В adapter-е `vpn_api/wg_easy_adapter.py` реализовано поведение, которое отправляет raw-значение при fallback.
+
+2. Проблемы с `PASSWORD_HASH` и `.env`: если в `.env.production` есть символы `$` в значении, не забудьте корректно экранировать/кавычить значение, иначе shell/docker-compose может попытаться интерполировать переменные.
+
+3. Проверка работоспособности wg-easy API (на App host):
+
+```bash
+# Проверка raw header
+curl -sS -H "Authorization: supersecret" http://62.84.98.109:8588/clients
+# Проверка Bearer (если адаптер отправляет Bearer, это может вернуть ошибку)
+curl -sS -H "Authorization: Bearer supersecret" http://62.84.98.109:8588/clients
+```
+
+4. Логика в коде:
+- Adapter сначала пытается использовать обёртку/клиент (если доступен), затем падает на HTTP fallback и отправляет raw header.
+- При создании клиента на wg-easy, `peers._create_wg_easy_client` возвращает `{'id':..., 'publicKey':...}` и `VpnPeer.wg_client_id` сохраняется.
+
+---
+
+## SSH / apply_peer workflow
+
+Если вы хотите, чтобы применение конфигурации WireGuard происходило автоматически:
+
+1. Включите `WG_APPLY_ENABLED=1` (включайте только временно/на staging).
+2. Убедитесь, что `WG_HOST_SSH` настроен как `user@wg-easy-host` и что App host может подключаться по SSH без пароля.
+3. Скрипт `scripts/wg_apply.sh` должен быть доступен на wg-easy host и иметь права на запуск. Проверяйте, что внутри контейнера wg-easy есть интерфейс `wg0` (или заданный `WG_INTERFACE`).
+
+Пример ручного запуска apply (с App host):
+
+```bash
+ssh root@62.84.98.109 'sudo /srv/vpn-api/scripts/wg_apply.sh wg0 <publicKey> 10.8.0.14/32'
+```
+
+Если в контейнере `web` отсутствует бинарь `ssh`, используйте вызов скрипта с хоста (не внутри контейнера), или располагайте SSH в образе web.
+
+---
+
+## Smoke tests и проверка работоспособности после деплоя
+
+1. Проверка API:
+
+```bash
+curl -sS http://127.0.0.1:8000/  # ожидаем {"msg":"VPN API is running"}
+PowerShell (Windows):
+```
+
+2. Регистрация и базовый admin flow (ручной):
+
+```bash
+# register user
+curl -sS -X POST -H "Content-Type: application/json" -d '{"email":"user@example.com","password":"password123"}' http://127.0.0.1:8000/auth/register
+# register admin
+curl -sS -X POST -H "Content-Type: application/json" -d '{"email":"admin@example.com","password":"password123"}' http://127.0.0.1:8000/auth/register
+# promote admin (bootstrap)
+curl -sS -X POST "http://127.0.0.1:8000/auth/admin/promote?user_id=2&secret=bootstrap-secret"
+# create tariff
+# obtain admin token via /auth/login, then POST /tariffs/ with Authorization header
+```
+
+3. Проверка wg-easy integration (smoke):
+
+- Создайте клиента через внутренние утилиты или через вызываемые endpoint'ы проекта; проверьте, что `wg show` на wg-easy хосте содержит publicKey.
+
+```bash
+# example: inside web container or via API
+# then on wg-easy host:
+
+```
+
+---
+
+## Откат и удаление тестовых данных
+
+1. Удалите временный тестовый peer на wg-easy (через API или вызовом скрипта):
+
+```bash
+# если сохранили wg_client_id:
+curl -X DELETE -H "Authorization: supersecret" http://62.84.98.109:8588/clients/<wg_client_id>
+
+# либо вызвать wg_remove.sh
+ssh root@62.84.98.109 'sudo /srv/vpn-api/scripts/wg_remove.sh wg0 <publicKey>'
+```
+
+2. Удалите временную запись из БД (через psql или admin endpoint'ы). Всегда делайте это аккуратно и после бэкапа.
+
+3. Верните `WG_APPLY_ENABLED=0` и удалите временные SSH-ключи из `authorized_keys` на wg-easy host, если они добавлялись только для деплойного теста.
+
+---
+
+## CI / GitHub Actions (миграции)
+
+В репозитории есть workflow `run_migrations.yml`. Основные моменты:
+- Workflow использует `secrets.DATABASE_URL` для подключения и выполняет `pg_dump` перед миграцией, затем `alembic upgrade head`.
+- Убедитесь, что `secrets.DATABASE_URL` доступен в Actions перед запуском миграций и что вы подтверждаете вручную (workflow_dispatch с confirm=true).
+
+Пример секции в workflow, куда подставляется секрет:
+
+```yaml
+env:
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+```
+
+---
+
+## Troubleshooting — частые ошибки и решения (с примерами)
+
+1) Ошибка: "SECRET_KEY must be set in environment variables"
+- Причина: сервис пытается создать/проверить JWT без установленного `SECRET_KEY`.
+- Решение: установить `SECRET_KEY` в `.env.production` или в окружении процесса перед запуском.
+
+2) Ошибка: wg-easy возвращает 500 при Authorization: Bearer <token>
+- Причина: wg-easy в текущей версии ожидает raw header (например, "Authorization: supersecret").
+- Решение: в `vpn_api/wg_easy_adapter.py` гарантируйте отправку raw-значения при HTTP fallback (в репозитории патч уже есть).
+
+3) Ошибка: FileNotFoundError: No such file or directory: 'ssh' внутри контейнера web
+- Причина: образ web не содержит ssh client'а.
+- Решение: либо выполнить host-side ssh вызовы, либо добавить `openssh-client` в Dockerfile образа web.
+
+4) Alembic не применяет миграцию или подключается не к той базе
+- Проверьте `alembic.ini` и `DATABASE_URL`. В CI используйте `parse_db.py` чтобы безопасно распарсить URL и проверить параметры.
+
+---
+
+## Что можно улучшить (рекомендации)
+
+- Добавить опцию сборки образа `web` с `openssh-client` (вариант: мета-параметр BUILD_WITH_SSH=true).
+- Покрыть адаптер wg-easy единичным интеграционным тестом (смоки в staging окружении).
+- Автоматизировать создание `PASSWORD_HASH` при установке wg-easy в докер‑compose с помощью prestart скрипта.
+
+---
+
+Если хотите, могу подготовить PR с:
+- добавлением `requirements-local.txt` и инструкцией для Windows dev,
+- улучшениями в Dockerfile (опционально `openssh-client`),
+- и отдельным `README-deploy.md` для оператора.
+
+Готов продолжать — скажите, какие разделы хотите дополнить (например: конкретный docker-compose пример для wg-easy, шаблоны systemd unit для uvicorn, или подробная команда для генерации bcrypt hash на Windows).
 ```powershell
 # venv
 py -3.12 -m venv .venv

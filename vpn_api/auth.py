@@ -25,8 +25,6 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 SECRET_KEY = os.getenv("SECRET_KEY")
-if not SECRET_KEY:
-    raise RuntimeError("SECRET_KEY must be set in environment variables!")
 ALGORITHM = os.getenv("ALGORITHM", "HS256")
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "60"))
 
@@ -53,6 +51,10 @@ def verify_password(plain, hashed):
 
 
 def create_access_token(data: dict, expires_delta: timedelta | None = None):
+    if not SECRET_KEY:
+        raise RuntimeError(
+            "SECRET_KEY must be set in environment variables to create access tokens"
+        )
     to_encode = data.copy()
     # Use timezone-aware UTC datetime instead of deprecated datetime.utcnow()
     expire = datetime.now(UTC) + (expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
@@ -121,6 +123,8 @@ def get_user_by_email(db: Session, email: str):
 
 
 def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+    if not SECRET_KEY:
+        raise RuntimeError("SECRET_KEY must be set in environment variables to validate tokens")
     credentials_exception = HTTPException(status_code=401, detail="Could not validate credentials")
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
