@@ -30,3 +30,10 @@ ignore = [
 
 [tool.isort]
 profile = "black"
+
+[project]
+name = "vpn-api"
+version = "0.0.0"
+dependencies = [
+	"aiohttp>=3.10.7,<4.0.0",
+]

@@ -2,11 +2,10 @@ name: CI
 
 on:
   push:
-    branches: [ main, master, fix/* ]
+    branches: [ main, master, feature/**, fix/* ]
   pull_request:
     branches: [ main, master ]
 
-# Provide explicit minimal permissions required by steps that modify PRs/comments.
 permissions:
   contents: read
   issues: write
@@ -14,7 +13,7 @@ permissions:
 
 jobs:
   test:
-    name: test (matrix)
+    name: Run unit tests
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -24,91 +23,31 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ matrix['python-version'] }}
-      - name: Debug runner environment
-        run: |
-          python --version
-          pip -V
-          python -m pip list --format=columns
-      - name: Cache pip
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ matrix['python-version'] }}-${{ hashFiles('vpn_api/requirements.txt','vpn_api/requirements-dev.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-
+          python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip setuptools wheel
-          pip install -r vpn_api/requirements.txt
-          pip install -r vpn_api/requirements-dev.txt
-      - name: Prepare reports dir
+          if [ -f vpn_api/requirements.txt ]; then pip install -r vpn_api/requirements.txt; fi
+          if [ -f vpn_api/requirements-dev.txt ]; then pip install -r vpn_api/requirements-dev.txt; fi
+      - name: Run tests
+        env:
+          PYTHONASYNCIODEBUG: '1'
         run: |
           mkdir -p reports
-
-      - name: Run tests
-        run: |
           python -m pytest -q --junitxml=reports/junit.xml --cov=vpn_api --cov-report=xml:reports/coverage.xml --cov-fail-under=80
-
-      - name: Print coverage percent
-        if: always()
-        run: |
-          if [ -f reports/coverage.xml ]; then
-            pct=$(grep -o 'line-rate="[0-9.]*"' reports/coverage.xml | sed -E 's/line-rate="([0-9.]+)"/\1/' | head -n1)
-            pctn=$(python -c "import sys; v=float(sys.argv[1]); print(f'{v*100:.2f}%')" "$pct")
-            echo "Coverage: $pctn"
-          else
-            echo "coverage report not found"
-          fi
       - name: Upload test reports
         uses: actions/upload-artifact@v4
         with:
-          name: test-reports-${{ matrix['python-version'] }}
+          name: test-reports
           path: reports
-      - name: Post coverage to PR
-        if: github.event_name == 'pull_request'
-        uses: actions/github-script@v6
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const fs = require('fs');
-            const path = 'reports/coverage.xml';
-            if (!fs.existsSync(path)) {
-              console.log('coverage report not found');
-              return;
-            }
-            const xml = fs.readFileSync(path, 'utf8');
-            const m = xml.match(/line-rate="([\\d.]+)"/);
-            const pct = m ? (parseFloat(m[1]) * 100).toFixed(1) : 'n/a';
-            const body = `**Coverage**: ${pct}%\n\nArtifacts: see workflow run artifacts.`;
-            const pr = context.payload.pull_request;
-            if (!pr) {
-              console.log('no pull_request payload');
-              return;
-            }
-            const issue_number = pr.number;
-            const marker = '<!-- coverage-comment -->';
-            const full = marker + '\n' + body;
-            const { data: comments } = await github.rest.issues.listComments({ owner: context.repo.owner, repo: context.repo.repo, issue_number });
-            const existing = comments.find(c => c.body && c.body.startsWith(marker));
-            if (existing) {
-              await github.rest.issues.updateComment({ owner: context.repo.owner, repo: context.repo.repo, comment_id: existing.id, body: full });
-            } else {
-              await github.rest.issues.createComment({ owner: context.repo.owner, repo: context.repo.repo, issue_number, body: full });
-            }
-
   integration:
-    name: integration (postgres)
+    name: Integration tests (Postgres)
     needs: test
     runs-on: ubuntu-latest
     services:
       postgres:
         image: postgres:15
-        ports:
-          - 5432:5432
+        ports: ['5432:5432']
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -122,16 +61,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: Wait for Postgres
         run: |
-          # ensure pg_isready is available
           sudo apt-get update && sudo apt-get install -y postgresql-client
-          for i in {1..60}; do
-            pg_isready -h localhost -p 5432 -U postgres && exit 0 || sleep 1;
-          done
+          for i in {1..60}; do pg_isready -h localhost -p 5432 -U postgres && exit 0 || sleep 1; done
           echo "Postgres did not become available" && exit 1
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.12'
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip setuptools wheel
@@ -140,8 +72,7 @@ jobs:
       - name: Apply migrations
         env:
           DATABASE_URL: postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/vpn
-        run: |
-          alembic -c alembic.ini upgrade head
+        run: alembic -c alembic.ini upgrade head
       - name: Run integration tests
         env:
           DATABASE_URL: postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/vpn

@@ -68,16 +68,27 @@ class AssignTariff(BaseModel):
 
 
 class VpnPeerCreate(BaseModel):
-    user_id: int
-    wg_public_key: str
-    wg_ip: str
+    # If not provided, server will use the authenticated user id.
+    user_id: Optional[int] = None
+    # Keys and IPs can be omitted; server will generate them according to
+    # WG_KEY_POLICY (db/host/wg-easy) or return an error if generation is
+    # not available.
+    wg_public_key: Optional[str] = None
+    wg_ip: Optional[str] = None
     allowed_ips: Optional[str] = None
+    # Optional client-visible device name or platform string (not required)
+    device_name: Optional[str] = None
 
 
 class VpnPeerOut(BaseModel):
     id: int
     user_id: int
     wg_public_key: str
+    # Private key is returned on create so the client can configure its
+    # local WireGuard interface. It may be None for remote-managed clients
+    # (e.g. when WG_KEY_POLICY creates the key remotely and it is not
+    # available to the API).
+    wg_private_key: Optional[str]
     wg_ip: str
     allowed_ips: Optional[str]
     active: bool
