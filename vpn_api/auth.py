@@ -21,11 +21,10 @@ from vpn_api.database import get_db
 # email verification flow removed: no external email sending
 
 router = APIRouter()
-# Use bcrypt_sha256 as the preferred hashing scheme to avoid bcrypt's 72-byte
-# input limit while keeping plain bcrypt as a fallback for verifying existing
-# hashes. passlib will use the first scheme for new hashes and still verify
-# older bcrypt hashes when present.
-pwd_context = CryptContext(schemes=["bcrypt_sha256", "bcrypt"], deprecated="auto")
+# Prefer pbkdf2_sha256 to avoid bcrypt's 72-byte input limit and any CI
+# platform-dependent bcrypt backend issues. Keep bcrypt_sha256 and bcrypt
+# as fallbacks so existing hashes remain verifiable.
+pwd_context = CryptContext(schemes=["pbkdf2_sha256", "bcrypt_sha256", "bcrypt"], deprecated="auto")
 
 
 SECRET_KEY = os.getenv("SECRET_KEY")
