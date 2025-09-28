@@ -65,8 +65,34 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 
-@router.post("/register", response_model=schemas.UserOut)
+@router.post(
+    "/register",
+    response_model=schemas.UserOut,
+    summary="Register user (email + optional password)",
+    responses={
+        200: {
+            "description": "User created",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "id": 1,
+                        "email": "alice@example.com",
+                        "status": "active",
+                        "is_admin": False,
+                        "created_at": "2025-09-28T12:00:00Z",
+                    }
+                }
+            },
+        },
+        400: {"description": "Validation error or already exists"},
+    },
+)
 def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    """Register a user.
+
+    Provide `email` and optionally `password`. Newly created users are marked
+    as `active` so they can immediately authenticate.
+    """
     # legacy registration (username+password) remains supported via existing route
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
     if db_user:
@@ -77,11 +103,14 @@ def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
     if user.password:
         hashed_pw = get_password_hash(user.password)
     new_user = models.User(email=user.email, hashed_password=hashed_pw)
+    # Make newly registered users active by default so POST /auth/register
+    # immediately yields an account capable of authenticating and using
+    # protected endpoints. For email-only signups we also mark as verified.
+    new_user.status = "active"
     if not user.password:
-        # Email-only signup: mark verified and active so tests and flows that
+        # Email-only signup: mark verified as well so tests and flows that
         # rely on immediate access can proceed.
         new_user.is_verified = True
-        new_user.status = "active"
     db.add(new_user)
     try:
         db.commit()
@@ -92,7 +121,11 @@ def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
     return new_user
 
 
-@router.post("/register/email")
+@router.post(
+    "/register/email",
+    summary="Start email registration (creates verified active user)",
+    responses={200: {"description": "Returns access token for convenience"}},
+)
 def email_register(
     payload: schemas.RegisterIn, background_tasks: BackgroundTasks, db: Session = Depends(get_db)
 ):
@@ -114,7 +147,18 @@ def email_register(
     return {"access_token": token, "token_type": "bearer"}
 
 
-@router.post("/login")
+@router.post(
+    "/login",
+    summary="Login with email and password",
+    responses={
+        200: {
+            "description": "Returns JWT access token",
+            "content": {
+                "application/json": {"example": {"access_token": "ey...", "token_type": "bearer"}}
+            },
+        }
+    },
+)
 def login(user: schemas.UserLogin, db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
     if not db_user:

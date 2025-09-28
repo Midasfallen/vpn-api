@@ -279,7 +279,37 @@ def get_peer(
     return peer
 
 
-@router.post("/self", response_model=schemas.VpnPeerOut)
+@router.post(
+    "/self",
+    response_model=schemas.VpnPeerOut,
+    summary="Create a VPN peer for the authenticated user",
+    description=(
+        "Create a WireGuard peer for the current authenticated user. If keys or IP are omitted,\n"
+        "the server will allocate them according to WG_KEY_POLICY (db/host/wg-easy).\n"
+        "Returned object includes the private key once so the client can configure its\n"
+        "local interface."
+    ),
+    responses={
+        200: {
+            "description": "Peer created",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "id": 6,
+                        "user_id": 40,
+                        "wg_public_key": "db:abc123...",
+                        "wg_private_key": "priv:xxx",
+                        "wg_ip": "10.10.75.66/32",
+                        "allowed_ips": None,
+                        "active": True,
+                        "created_at": "2025-09-28T12:34:56Z",
+                    }
+                }
+            },
+        },
+        403: {"description": "Not allowed / user not active"},
+    },
+)
 def create_peer_self(
     payload: schemas.VpnPeerCreate,
     db: Session = Depends(get_db),

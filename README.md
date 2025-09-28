@@ -398,6 +398,112 @@ python -m pytest -q
 ### payments.py — платежи и webhook
 - create_payment (POST /payments/create)
   - Регистрирует ожидаемый платёж в БД (status = pending)
+
+## Полное описание API и примеры
+
+Ниже приведён примерный набор запросов и ответов, которые помогут использовать API и понять поведение основных маршрутов. Для интерактивной документации откройте Swagger UI: http://146.103.99.70:8000/docs
+
+1) Регистрация пользователя (email + пароль)
+
+Запрос:
+
+```bash
+curl -sS -X POST "http://146.103.99.70:8000/auth/register" \
+  -H "Content-Type: application/json" \
+  -d '{"email":"alice@example.com","password":"password123"}'
+```
+
+Успешный ответ (200):
+
+```json
+{
+  "id": 12,
+  "email": "alice@example.com",
+  "status": "active",
+  "is_admin": false,
+  "created_at": "2025-09-28T12:00:00Z"
+}
+```
+
+2) Логин и получение JWT
+
+Запрос:
+
+```bash
+curl -sS -X POST "http://146.103.99.70:8000/auth/login" \
+  -H "Content-Type: application/json" \
+  -d '{"email":"alice@example.com","password":"password123"}'
+```
+
+Успешный ответ (200):
+
+```json
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6...",
+  "token_type": "bearer"
+}
+```
+
+3) Создание peer для текущего пользователя
+
+Запрос (требуется Authorization: Bearer):
+
+```bash
+curl -sS -X POST "http://146.103.99.70:8000/vpn_peers/self" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <ACCESS_TOKEN>" \
+  -d '{"device_name":"my-phone"}'
+```
+
+Успешный ответ (200): пример создаваемого объекта возвращает приватный ключ один раз:
+
+```json
+{
+  "id": 6,
+  "user_id": 40,
+  "wg_public_key": "db:abc123...",
+  "wg_private_key": "private-key-for-client",
+  "wg_ip": "10.10.75.66/32",
+  "allowed_ips": null,
+  "active": true,
+  "created_at": "2025-09-28T12:34:56Z"
+}
+```
+
+4) Получение списка peer-ов
+
+Запрос (если не указан user_id, вернутся peer-ы текущего пользователя; админ может указать user_id):
+
+```bash
+curl -sS "http://146.103.99.70:8000/vpn_peers/?skip=0&limit=50" \
+  -H "Authorization: Bearer <ACCESS_TOKEN>"
+```
+
+5) Получение информации о себе
+
+Запрос:
+
+```bash
+curl -sS "http://146.103.99.70:8000/auth/me" -H "Authorization: Bearer <ACCESS_TOKEN>"
+```
+
+Ответ (пример):
+
+```json
+{
+  "id": 40,
+  "email": "autotest+peers2@example.com",
+  "status": "active",
+  "is_admin": false,
+  "created_at": "2025-09-28T12:00:00Z"
+}
+```
+
+Советы по Swagger UI
+- Для каждого защищённого маршрута нажмите "Authorize" в правом верхнем углу Swagger UI и вставьте токен в формате: `Bearer <ACCESS_TOKEN>`.
+- В описаниях эндпоинтов теперь добавлены примеры ответов и краткие описания — это поможет быстро понять входные и выходные структуры.
+
+Если хотите — могу дополнить README схемами запросов/ответов (OpenAPI snippets) для всех маршрутов, или сгенерировать отдельный `API.md` с подробными примерами и Postman-коллекцией.
   - Возвращает инструкцию/интеракцию для Telegram‑бота или провайдера
 
 - payments_webhook (POST /payments/webhook)
