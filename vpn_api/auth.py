@@ -68,7 +68,7 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
 @router.post(
     "/register",
     response_model=schemas.UserOut,
-    summary="Register user (email + optional password)",
+    summary="Register user (email + password required)",
     responses={
         200: {
             "description": "User created",
@@ -90,27 +90,25 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
 def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
     """Register a user.
 
-    Provide `email` and optionally `password`. Newly created users are marked
-    as `active` so they can immediately authenticate.
+    Provide `email` and `password` (password is required). Newly created users
+    are marked as `active` so they can immediately authenticate. For an
+    email-only flow use `/auth/register/email` which is intentionally a
+    separate endpoint.
     """
     # legacy registration (username+password) remains supported via existing route
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
     if db_user:
         raise HTTPException(status_code=400, detail="Email already registered")
-    # Validate password if provided; if no password provided treat as
-    # an email-only/legacy registration and mark user active for tests.
-    hashed_pw = None
-    if user.password:
-        hashed_pw = get_password_hash(user.password)
+    # Require password on this route; email-only flow should use
+    # /auth/register/email.
+    if not user.password:
+        raise HTTPException(status_code=400, detail="Password is required for registration")
+    hashed_pw = get_password_hash(user.password)
     new_user = models.User(email=user.email, hashed_password=hashed_pw)
     # Make newly registered users active by default so POST /auth/register
     # immediately yields an account capable of authenticating and using
-    # protected endpoints. For email-only signups we also mark as verified.
+    # protected endpoints.
     new_user.status = "active"
-    if not user.password:
-        # Email-only signup: mark verified as well so tests and flows that
-        # rely on immediate access can proceed.
-        new_user.is_verified = True
     db.add(new_user)
     try:
         db.commit()

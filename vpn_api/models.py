@@ -101,6 +101,8 @@ class VpnPeer(Base):
     wg_client_id = Column(String, nullable=True, unique=False)
     wg_ip = Column(String, nullable=False, unique=True)
     allowed_ips = Column(String, nullable=True)
+    # Encrypted wg-quick config (wg-quick text encrypted with CONFIG_ENCRYPTION_KEY)
+    wg_config_encrypted = Column(String, nullable=True)
     active = Column(Boolean, default=True, nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
 

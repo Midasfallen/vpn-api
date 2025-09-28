@@ -14,10 +14,12 @@ def test_create_self_db_mode_minimal(monkeypatch):
     # Create a test user and login via test helpers in auth tests is out-of-scope.
     # Instead, use a token by creating a test user via the auth endpoints.
     # For simplicity, assume conftest set SECRET_KEY and DB initialized.
-    resp = client.post("/auth/register", json={"email": "u1@example.com"})
+    resp = client.post(
+        "/auth/register", json={"email": "u1@example.com", "password": "testpass123"}
+    )
     assert resp.status_code in (200, 201)
     # login
-    login = client.post("/auth/login", json={"email": "u1@example.com", "password": ""})
+    login = client.post("/auth/login", json={"email": "u1@example.com", "password": "testpass123"})
     assert login.status_code == 200
     token = login.json()["access_token"]
 
@@ -39,9 +41,11 @@ def test_create_self_host_mode(monkeypatch):
     monkeypatch.setattr("vpn_api.peers.generate_key_on_host", fake_gen)
 
     # Prepare auth
-    resp = client.post("/auth/register", json={"email": "u2@example.com"})
+    resp = client.post(
+        "/auth/register", json={"email": "u2@example.com", "password": "testpass123"}
+    )
     assert resp.status_code in (200, 201)
-    login = client.post("/auth/login", json={"email": "u2@example.com", "password": ""})
+    login = client.post("/auth/login", json={"email": "u2@example.com", "password": "testpass123"})
     token = login.json()["access_token"]
 
     headers = {"Authorization": f"Bearer {token}"}
@@ -75,9 +79,11 @@ def test_create_self_wg_easy_parses_config(monkeypatch):
     monkeypatch.setattr("vpn_api.peers._create_wg_easy_client", fake_create)
     monkeypatch.setattr("vpn_api.peers._get_wg_easy_client_config", fake_get_config)
 
-    resp = client.post("/auth/register", json={"email": "u3@example.com"})
+    resp = client.post(
+        "/auth/register", json={"email": "u3@example.com", "password": "testpass123"}
+    )
     assert resp.status_code in (200, 201)
-    login = client.post("/auth/login", json={"email": "u3@example.com", "password": ""})
+    login = client.post("/auth/login", json={"email": "u3@example.com", "password": "testpass123"})
     token = login.json()["access_token"]
 
     headers = {"Authorization": f"Bearer {token}"}

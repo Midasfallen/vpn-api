@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 
 from vpn_api import models, schemas
 from vpn_api.auth import get_current_user
+from vpn_api.crypto import decrypt_text, encrypt_text
 from vpn_api.database import get_db
 from vpn_api.wg_easy_adapter import WgEasyAdapter
 from vpn_api.wg_host import apply_peer, generate_key_on_host, remove_peer
@@ -97,6 +98,9 @@ def create_peer(  # noqa: C901 - function is intentionally a bit complex; refact
         wg_client_id=locals().get("wg_client_id"),
         wg_ip=payload.wg_ip or extra_metadata.get("address"),
         allowed_ips=payload.allowed_ips or extra_metadata.get("allowed_ips"),
+        # If we generated a wg-quick config from the controller or local keys,
+        # attempt to persist an encrypted copy so clients can fetch it later.
+        wg_config_encrypted=None,
     )
     db.add(peer)
     try:
@@ -129,7 +133,78 @@ def create_peer(  # noqa: C901 - function is intentionally a bit complex; refact
     # don't persist unrelated controller fields to the DB schema here.
     for k, v in extra_metadata.items():
         setattr(peer, k, v)
+    # If key policy produced a config (wg-easy path or local generation), try
+    # to store the wg-quick client config encrypted in the DB (best-effort).
+    try:
+        # If wg-easy created a config, _get_wg_easy_client_config may have
+        # returned metadata including the private key; build a wg-quick text
+        # when possible.
+        cfg_text = None
+        if locals().get("wg_client_id"):
+            # attempt to fetch the config again (best-effort, synchronous)
+            try:
+                cfg_bytes = _get_wg_easy_client_config(
+                    os.getenv("WG_EASY_URL"),
+                    os.getenv("WG_EASY_PASSWORD"),
+                    locals().get("wg_client_id"),
+                )
+                cfg_text = (
+                    cfg_bytes.decode("utf-8")
+                    if isinstance(cfg_bytes, (bytes, bytearray))
+                    else str(cfg_bytes)
+                )
+            except Exception:
+                cfg_text = None
+        else:
+            # For db or host keys generate a minimal wg-quick client config from
+            # the stored values so that the mobile app can import it.
+            if getattr(peer, "wg_private_key", None) and getattr(peer, "wg_public_key", None):
+                # Build a minimal config
+                cfg_text = (
+                    "[Interface]\n"
+                    f"PrivateKey = {peer.wg_private_key}\n"
+                    f"Address = {peer.wg_ip}\n\n"
+                    "[Peer]\n"
+                    f"PublicKey = {peer.wg_public_key}\n"
+                    f"AllowedIPs = {peer.allowed_ips or '0.0.0.0/0'}\n"
+                )
+        if cfg_text:
+            enc = encrypt_text(cfg_text)
+            peer.wg_config_encrypted = enc
+            db.add(peer)
+            db.commit()
+            db.refresh(peer)
+    except Exception:
+        # best-effort; do not fail the API call if persistence of encrypted
+        # config fails.
+        pass
     return peer
+
+
+@router.get("/self/config")
+def get_my_peer_config(
+    db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)
+):
+    """Return the decrypted wg-quick configuration for the authenticated user's peer.
+
+    This endpoint requires authentication and returns the plaintext wg-quick config
+    so the mobile client can programmatically import and start WireGuard.
+    """
+    # Find the active peer for the user (pick most recent active)
+    peer = (
+        db.query(models.VpnPeer)
+        .filter(models.VpnPeer.user_id == current_user.id, models.VpnPeer.active)
+        .order_by(models.VpnPeer.created_at.desc())
+        .first()
+    )
+    if not peer:
+        raise HTTPException(status_code=404, detail="No peer found for user")
+    if not peer.wg_config_encrypted:
+        raise HTTPException(status_code=404, detail="No stored config for peer")
+    cfg = decrypt_text(peer.wg_config_encrypted)
+    if cfg is None:
+        raise HTTPException(status_code=500, detail="failed to decrypt stored config")
+    return {"wg_quick": cfg}
 
 
 def _create_wg_easy_client(url: str, password: str, name: str) -> dict:
