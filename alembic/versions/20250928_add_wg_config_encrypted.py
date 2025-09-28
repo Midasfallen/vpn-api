@@ -1,7 +1,7 @@
 """add wg_config_encrypted to vpn_peers
 
 Revision ID: 20250928_add_wg_config_encrypted
-Revises: 20250918_add_wg_client_id
+Revises: 20250919_merge_heads
 Create Date: 2025-09-28
 """
 
@@ -11,7 +11,7 @@ from alembic import op
 
 # revision identifiers, used by Alembic.
 revision = "20250928_add_wg_config_encrypted"
-down_revision = "20250918_add_wg_client_id"
+down_revision = "20250919_merge_heads"
 branch_labels = None
 depends_on = None
 
