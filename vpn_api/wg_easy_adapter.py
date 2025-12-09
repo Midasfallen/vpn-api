@@ -117,7 +117,7 @@ class WgEasyAdapter:
             import json as _json
             import os
 
-            import aiohttp  # type: ignore
+            import aiohttp
 
             base = self.url.rstrip("/")
             # If a session was passed into the adapter, use it and do not close it.

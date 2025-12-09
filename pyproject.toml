@@ -36,4 +36,5 @@ name = "vpn-api"
 version = "0.1.0"
 dependencies = [
 	"aiohttp>=3.10.7,<4.0.0",
+	"wg-easy-api>=0.1.2",
 ]
