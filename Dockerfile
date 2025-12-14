@@ -13,6 +13,7 @@ RUN apt-get update \
 		libpq-dev \
 		build-essential \
 		curl \
+		openssh-client \
 	&& pip install --no-cache-dir -r /app/requirements.txt \
 	&& apt-get purge -y --auto-remove gcc build-essential \
 	&& apt-get clean \
@@ -22,8 +23,12 @@ RUN apt-get update \
 COPY vpn_api /app/vpn_api
 COPY alembic.ini /app/alembic.ini
 COPY alembic /app/alembic
+COPY scripts /app/scripts
 COPY .env.example /app/.env.example
 COPY README.md /app/README.md
+
+# Make scripts executable
+RUN chmod +x /app/scripts/*.sh
 
 EXPOSE 8000
 

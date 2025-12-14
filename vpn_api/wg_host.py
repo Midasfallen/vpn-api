@@ -10,9 +10,9 @@ logger = logging.getLogger(__name__)
 WG_APPLY_ENABLED = os.getenv("WG_APPLY_ENABLED", "0") == "1"
 WG_HOST_SSH = os.getenv("WG_HOST_SSH")  # e.g. root@62.84.98.109
 WG_INTERFACE = os.getenv("WG_INTERFACE", "wg0")
-WG_APPLY_SCRIPT = os.getenv("WG_APPLY_SCRIPT", "/srv/vpn-api/scripts/wg_apply.sh")
-WG_REMOVE_SCRIPT = os.getenv("WG_REMOVE_SCRIPT", "/srv/vpn-api/scripts/wg_remove.sh")
-WG_GEN_SCRIPT = os.getenv("WG_GEN_SCRIPT", "/srv/vpn-api/scripts/wg_gen_key.sh")
+WG_APPLY_SCRIPT = os.getenv("WG_APPLY_SCRIPT", "/app/scripts/wg_apply.sh")
+WG_REMOVE_SCRIPT = os.getenv("WG_REMOVE_SCRIPT", "/app/scripts/wg_remove.sh")
+WG_GEN_SCRIPT = os.getenv("WG_GEN_SCRIPT", "/app/scripts/wg_gen_key.sh")
 
 
 def _build_ssh_cmd(remote: str, script: str, args: list[str]) -> list[str]:
