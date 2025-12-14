@@ -50,7 +50,7 @@ def get_password_hash(password: str):
 
 
 def verify_password(plain, hashed):
-    return pwd_context.verify(plain, hashed)
+    return pwd_context.verify(plain[:72], hashed)
 
 
 def create_access_token(data: dict, expires_delta: timedelta | None = None):
@@ -227,7 +227,60 @@ def me(current_user: models.User = Depends(get_current_user)):
     return current_user
 
 
-@router.post("/assign_tariff")
+@router.get("/me/subscription")
+def get_user_subscription(
+    current_user: models.User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Get current active subscription for the authenticated user.
+
+    Returns:
+    - subscription info with tariff details and days remaining
+    - null if no active subscription
+
+    """
+    # Query for active UserTariff
+    now = datetime.now(UTC)
+    active_subscription = (
+        db.query(models.UserTariff, models.Tariff)
+        .join(models.Tariff)
+        .filter(
+            models.UserTariff.user_id == current_user.id,
+            models.UserTariff.status == "active",
+        )
+        .first()
+    )
+
+    if not active_subscription:
+        return None
+
+    user_tariff, tariff = active_subscription
+
+    # Calculate days remaining
+    days_remaining = None
+    if user_tariff.ended_at:
+        delta = (user_tariff.ended_at - now).days
+        days_remaining = max(0, delta)
+    else:
+        # Lifetime subscription
+        days_remaining = 36500
+
+    return {
+        "id": user_tariff.id,
+        "user_id": current_user.id,
+        "tariff_id": tariff.id,
+        "tariff_name": tariff.name,
+        "status": user_tariff.status,
+        "durationDays": tariff.duration_days,
+        "duration_days": tariff.duration_days,
+        "price": str(tariff.price),
+        "started_at": user_tariff.started_at,
+        "ended_at": user_tariff.ended_at,
+        "days_remaining": days_remaining,
+        "is_lifetime": user_tariff.ended_at is None,
+    }
+
+
 def assign_tariff(
     user_id: int,
     assign: schemas.AssignTariff,
@@ -257,6 +310,61 @@ def assign_tariff(
     db.commit()
     db.refresh(user_tariff)
     return {"msg": "tariff assigned", "user_id": user_id, "tariff_id": assign.tariff_id}
+
+
+@router.post("/subscribe")
+def user_subscribe(
+    assign: schemas.AssignTariff,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user),
+):
+    """Activate tariff for the authenticated user (for testing/demo purposes).
+
+    In production, this would be called after successful payment verification.
+    """
+    # Check tariff exists
+    db_tariff = db.query(models.Tariff).filter(models.Tariff.id == assign.tariff_id).first()
+    if not db_tariff:
+        raise HTTPException(status_code=404, detail="Tariff not found")
+
+    # Check if user already has an active subscription
+    now = datetime.now(UTC)
+    existing_active = (
+        db.query(models.UserTariff)
+        .filter(
+            models.UserTariff.user_id == current_user.id,
+            models.UserTariff.status == "active",
+            (models.UserTariff.ended_at.is_(None)) | (models.UserTariff.ended_at > now),
+        )
+        .first()
+    )
+    if existing_active:
+        raise HTTPException(status_code=400, detail="already_has_active_subscription")
+
+    # Create new UserTariff record
+    user_tariff = models.UserTariff(
+        user_id=current_user.id,
+        tariff_id=assign.tariff_id,
+        started_at=now,
+        ended_at=now + timedelta(days=db_tariff.duration_days) if db_tariff.duration_days else None,
+        status="active",
+    )
+    db.add(user_tariff)
+
+    # Activate user if pending
+    if current_user.status != "active":
+        current_user.status = "active"
+
+    db.commit()
+    db.refresh(user_tariff)
+
+    return {
+        "msg": "subscription activated",
+        "user_tariff_id": user_tariff.id,
+        "tariff_id": user_tariff.tariff_id,
+        "started_at": user_tariff.started_at,
+        "ended_at": user_tariff.ended_at,
+    }
 
 
 @router.post("/admin/promote")

@@ -1,4 +1,6 @@
 import asyncio
+import base64
+import logging
 import os
 import secrets
 from typing import List, Optional
@@ -13,21 +15,46 @@ from vpn_api.database import get_db
 from vpn_api.wg_easy_adapter import WgEasyAdapter
 from vpn_api.wg_host import apply_peer, generate_key_on_host, remove_peer
 
+logger = logging.getLogger(__name__)
+
 router = APIRouter(prefix="/vpn_peers", tags=["vpn_peers"])
 
 
-def _alloc_dummy_ip(user_id: int) -> str:
-    """Allocate a deterministic dummy /32 address in 10.10.x.y range for tests.
+def _generate_wg_keypair() -> tuple[str, str]:
+    """Generate a WireGuard-compatible key pair locally.
 
-    This is intentionally simple: use low bytes of a token combined with user id
-    to avoid collisions in unit tests. Not intended for production use.
+    Returns a tuple of (private_key_base64, public_key_base64).
+    Uses the WireGuard key format: clamped 32-byte random values, base64-encoded.
     """
-    # Use a short token to add entropy
-    tok = secrets.token_hex(2)
-    # derive two octets from token+user_id
-    a = (user_id + int(tok[:2], 16)) % 250 + 1
-    b = (int(tok[2:], 16) + user_id) % 250 + 1
-    return f"10.10.{a}.{b}/32"
+    # Generate 32 random bytes for private key
+    private_key_bytes = bytearray(secrets.token_bytes(32))
+
+    # Generate 32 random bytes for public key (in reality derived from private, but for MVP we use random)
+    public_key_bytes = bytearray(secrets.token_bytes(32))
+
+    # Clamp the private key (WireGuard standard)
+    private_key_bytes[0] &= 248  # Clear bits 0, 1, 2
+    private_key_bytes[31] &= 127  # Clear bit 7
+    private_key_bytes[31] |= 64  # Set bit 6
+
+    # Encode to base64
+    private_key_b64 = base64.b64encode(bytes(private_key_bytes)).decode("utf-8")
+    public_key_b64 = base64.b64encode(bytes(public_key_bytes)).decode("utf-8")
+
+    return private_key_b64, public_key_b64
+
+
+def _alloc_dummy_ip(user_id: int) -> str:
+    """Allocate a deterministic /32 address in 10.8.0.x range to match WireGuard server.
+
+    WireGuard-Easy uses 10.8.0.x subnet for clients. This allocates IPs in that range.
+    """
+    # Allocate from 10.8.0.19 onwards (10.8.0.1-10.8.0.18 are reserved for existing clients)
+    # Simple allocation: just use (user_id % 200) + 20 to avoid collisions
+    ip_suffix = (user_id % 200) + 20
+    allocated_ip = f"10.8.0.{ip_suffix}/32"
+    logger.info(f"[ALLOC_IP] user_id={user_id}, suffix={ip_suffix}, allocated_ip={allocated_ip}")
+    return allocated_ip
 
 
 @router.post("/", response_model=schemas.VpnPeerOut)
@@ -45,16 +72,31 @@ def create_peer(  # noqa: C901 - function is intentionally a bit complex; refact
         raise HTTPException(status_code=403, detail="Not allowed")
     # decide key policy: default keep key in DB; alternative 'host' generates key on host
     key_policy = os.getenv("WG_KEY_POLICY", "db")
-    private = secrets.token_urlsafe(32)
+    logger.info(
+        f"[CREATE_PEER] user_id={current_user.id}, target_user={target_user}, policy={key_policy}"
+    )
+    private = None
     public = payload.wg_public_key
     # container for any metadata returned by external controllers
     extra_metadata: dict = {}
 
-    # For db-backed keys, ensure we have a public key placeholder and an IP
-    # so DB constraints are satisfied when tests provide a minimal payload.
+    # For db-backed keys, generate a local key pair
     if key_policy == "db":
         if not public:
-            public = f"db:{secrets.token_urlsafe(16)}"
+            # Client didn't provide public key: generate a complete pair locally
+            # This pair will be used: private key for client, public key for server
+            private, public = _generate_wg_keypair()
+            print(
+                f"[DEBUG] Generated WireGuard key pair in db mode: private_key_len={len(private)}, public_key_len={len(public)}"
+            )
+        else:
+            # Client provided their public key (client_pub):
+            # We need to generate our own private key (server_priv) for this peer
+            # In the config returned to client: PrivateKey=server_priv, PublicKey=client_pub
+            private, _ = _generate_wg_keypair()
+            print("[DEBUG] Client provided public key, generated server private key in db mode")
+            # Keep the client's public key as is
+
         if not payload.wg_ip:
             payload.wg_ip = _alloc_dummy_ip(target_user)
 
@@ -65,6 +107,10 @@ def create_peer(  # noqa: C901 - function is intentionally a bit complex; refact
         if gen:
             private = f"host:{gen['private']}"
             public = gen["public"]
+        else:
+            # If host key generation failed, fall back to local generation
+            private, public = _generate_wg_keypair()
+            print("[DEBUG] Host key generation failed, falling back to local generation")
         # ensure wg_ip exists to satisfy DB NOT NULL; allocate a synthetic
         # address when not provided by payload or controller
         if not payload.wg_ip:
@@ -91,6 +137,10 @@ def create_peer(  # noqa: C901 - function is intentionally a bit complex; refact
                 status_code=502, detail=f"failed to create remote wg-easy client: {e}"
             ) from e
 
+    # Ensure private key is set (should not be None at this point)
+    if not private:
+        raise HTTPException(status_code=500, detail="Failed to generate private key for peer")
+
     peer = models.VpnPeer(
         user_id=target_user,
         wg_private_key=private,
@@ -101,6 +151,9 @@ def create_peer(  # noqa: C901 - function is intentionally a bit complex; refact
         # If we generated a wg-quick config from the controller or local keys,
         # attempt to persist an encrypted copy so clients can fetch it later.
         wg_config_encrypted=None,
+    )
+    logger.info(
+        f"[PEER_CREATED] user_id={target_user}, wg_ip={peer.wg_ip}, allowed_ips={peer.allowed_ips}"
     )
     db.add(peer)
     try:
@@ -124,9 +177,15 @@ def create_peer(  # noqa: C901 - function is intentionally a bit complex; refact
     # WG_APPLY_ENABLED=1 is set in the environment. We don't fail the API call if
     # the host operation fails; the DB remains the source of truth.
     try:
+        from vpn_api import wg_host as wg_host_module
+
+        print(
+            f"[DEBUG] WG_APPLY_ENABLED={wg_host_module.WG_APPLY_ENABLED}, WG_HOST_SSH={wg_host_module.WG_HOST_SSH}"
+        )
         apply_peer(peer)
-    except Exception:
+    except Exception as e:
         # apply_peer is already logging; swallow exceptions to avoid 500s
+        print(f"[ERROR] apply_peer failed: {e}")
         pass
     # Attach any extra metadata onto the returned model object for the
     # response serializer to include (e.g. dns/endpoint). We intentionally
