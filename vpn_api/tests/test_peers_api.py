@@ -26,7 +26,12 @@ def test_create_self_db_mode_minimal(monkeypatch):
     headers = {"Authorization": f"Bearer {token}"}
 
     # Create tariff and subscribe (required for peer creation)
-    tariff_resp = client.post("/tariffs/", json={"name": "test", "price": 100}, headers=headers)
+    import time
+
+    tariff_name = f"test-{int(time.time() * 1000000) % 1000000}"
+    tariff_resp = client.post(
+        "/tariffs/", json={"name": tariff_name, "price": 100}, headers=headers
+    )
     if tariff_resp.status_code in (200, 201):
         tariff_id = tariff_resp.json()["id"]
         client.post("/auth/subscribe", json={"tariff_id": tariff_id}, headers=headers)
@@ -58,7 +63,12 @@ def test_create_self_host_mode(monkeypatch):
     headers = {"Authorization": f"Bearer {token}"}
 
     # Create tariff and subscribe (required for peer creation)
-    tariff_resp = client.post("/tariffs/", json={"name": "test", "price": 100}, headers=headers)
+    import time
+
+    tariff_name = f"test-{int(time.time() * 1000000) % 1000000}"
+    tariff_resp = client.post(
+        "/tariffs/", json={"name": tariff_name, "price": 100}, headers=headers
+    )
     if tariff_resp.status_code in (200, 201):
         tariff_id = tariff_resp.json()["id"]
         client.post("/auth/subscribe", json={"tariff_id": tariff_id}, headers=headers)
@@ -103,7 +113,12 @@ def test_create_self_wg_easy_parses_config(monkeypatch):
     headers = {"Authorization": f"Bearer {token}"}
 
     # Create tariff and subscribe (required for peer creation)
-    tariff_resp = client.post("/tariffs/", json={"name": "test", "price": 100}, headers=headers)
+    import time
+
+    tariff_name = f"test-{int(time.time() * 1000000) % 1000000}"
+    tariff_resp = client.post(
+        "/tariffs/", json={"name": tariff_name, "price": 100}, headers=headers
+    )
     if tariff_resp.status_code in (200, 201):
         tariff_id = tariff_resp.json()["id"]
         client.post("/auth/subscribe", json={"tariff_id": tariff_id}, headers=headers)
