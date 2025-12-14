@@ -24,6 +24,13 @@ def test_create_peer_and_get_config(tmp_path):
         "/auth/login", json={"email": "cfgtest@example.com", "password": "passw0rd"}
     ).json()["access_token"]
     headers = {"Authorization": f"Bearer {token}"}
+
+    # Create tariff and subscribe (required for peer creation)
+    tariff_resp = client.post("/tariffs/", json={"name": "test", "price": 100}, headers=headers)
+    if tariff_resp.status_code in (200, 201):
+        tariff_id = tariff_resp.json()["id"]
+        client.post("/auth/subscribe", json={"tariff_id": tariff_id}, headers=headers)
+
     # create peer for self
     r = client.post("/vpn_peers/self", json={"device_name": "phone"}, headers=headers)
     assert r.status_code == 200

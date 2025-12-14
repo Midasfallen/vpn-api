@@ -24,6 +24,13 @@ def test_create_self_db_mode_minimal(monkeypatch):
     token = login.json()["access_token"]
 
     headers = {"Authorization": f"Bearer {token}"}
+
+    # Create tariff and subscribe (required for peer creation)
+    tariff_resp = client.post("/tariffs/", json={"name": "test", "price": 100}, headers=headers)
+    if tariff_resp.status_code in (200, 201):
+        tariff_id = tariff_resp.json()["id"]
+        client.post("/auth/subscribe", json={"tariff_id": tariff_id}, headers=headers)
+
     r = client.post("/vpn_peers/self", json={"device_name": "phone"}, headers=headers)
     assert r.status_code == 200
     data = r.json()
@@ -49,6 +56,13 @@ def test_create_self_host_mode(monkeypatch):
     token = login.json()["access_token"]
 
     headers = {"Authorization": f"Bearer {token}"}
+
+    # Create tariff and subscribe (required for peer creation)
+    tariff_resp = client.post("/tariffs/", json={"name": "test", "price": 100}, headers=headers)
+    if tariff_resp.status_code in (200, 201):
+        tariff_id = tariff_resp.json()["id"]
+        client.post("/auth/subscribe", json={"tariff_id": tariff_id}, headers=headers)
+
     r = client.post("/vpn_peers/self", json={"device_name": "phone"}, headers=headers)
     assert r.status_code == 200
     data = r.json()
@@ -87,6 +101,13 @@ def test_create_self_wg_easy_parses_config(monkeypatch):
     token = login.json()["access_token"]
 
     headers = {"Authorization": f"Bearer {token}"}
+
+    # Create tariff and subscribe (required for peer creation)
+    tariff_resp = client.post("/tariffs/", json={"name": "test", "price": 100}, headers=headers)
+    if tariff_resp.status_code in (200, 201):
+        tariff_id = tariff_resp.json()["id"]
+        client.post("/auth/subscribe", json={"tariff_id": tariff_id}, headers=headers)
+
     r = client.post("/vpn_peers/self", json={"device_name": "phone"}, headers=headers)
     assert r.status_code == 200, r.text
     data = r.json()
