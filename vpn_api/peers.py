@@ -3,6 +3,7 @@ import base64
 import logging
 import os
 import secrets
+from datetime import UTC, datetime
 from typing import List, Optional
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -20,6 +21,50 @@ logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/vpn_peers", tags=["vpn_peers"])
 
 
+def _check_active_subscription(user_id: int, db: Session) -> bool:
+    """Check if user has an active subscription.
+
+    Returns True if user has at least one active subscription that hasn't expired.
+    """
+    now = datetime.now(UTC)
+    active = (
+        db.query(models.UserTariff)
+        .filter(
+            models.UserTariff.user_id == user_id,
+            models.UserTariff.status == "active",
+            (models.UserTariff.ended_at.is_(None)) | (models.UserTariff.ended_at > now),
+        )
+        .first()
+    )
+    return active is not None
+
+
+def _build_wg_quick_config(private_key: str, address: str, allowed_ips: str) -> str:
+    """Build a proper WireGuard client config using SERVER public key.
+
+    IMPORTANT: Client config must use WG_SERVER_PUBLIC_KEY from environment,
+    NOT the peer's public key!
+    """
+    WG_SERVER_PUBLIC_KEY = os.getenv("WG_SERVER_PUBLIC_KEY")
+    WG_ENDPOINT = os.getenv("WG_ENDPOINT", "62.84.98.109:51821")
+    WG_DNS = os.getenv("WG_DNS", "8.8.8.8")
+
+    if not WG_SERVER_PUBLIC_KEY:
+        raise HTTPException(status_code=500, detail="WG_SERVER_PUBLIC_KEY not configured on server")
+
+    return (
+        "[Interface]\n"
+        f"PrivateKey = {private_key}\n"
+        f"Address = {address}\n"
+        f"DNS = {WG_DNS}\n\n"
+        "[Peer]\n"
+        f"PublicKey = {WG_SERVER_PUBLIC_KEY}\n"
+        f"Endpoint = {WG_ENDPOINT}\n"
+        f"AllowedIPs = {allowed_ips}\n"
+        "PersistentKeepalive = 25\n"
+    )
+
+
 def _generate_wg_keypair() -> tuple[str, str]:
     """Generate a WireGuard-compatible key pair locally.
 
@@ -29,7 +74,8 @@ def _generate_wg_keypair() -> tuple[str, str]:
     # Generate 32 random bytes for private key
     private_key_bytes = bytearray(secrets.token_bytes(32))
 
-    # Generate 32 random bytes for public key (in reality derived from private, but for MVP we use random)
+    # Generate 32 random bytes for public key
+    # (in reality derived from private, but for MVP we use random)
     public_key_bytes = bytearray(secrets.token_bytes(32))
 
     # Clamp the private key (WireGuard standard)
@@ -87,7 +133,8 @@ def create_peer(  # noqa: C901 - function is intentionally a bit complex; refact
             # This pair will be used: private key for client, public key for server
             private, public = _generate_wg_keypair()
             print(
-                f"[DEBUG] Generated WireGuard key pair in db mode: private_key_len={len(private)}, public_key_len={len(public)}"
+                f"[DEBUG] Generated WireGuard key pair in db mode: "
+                f"private_key_len={len(private)}, public_key_len={len(public)}"
             )
         else:
             # Client provided their public key (client_pub):
@@ -180,7 +227,8 @@ def create_peer(  # noqa: C901 - function is intentionally a bit complex; refact
         from vpn_api import wg_host as wg_host_module
 
         print(
-            f"[DEBUG] WG_APPLY_ENABLED={wg_host_module.WG_APPLY_ENABLED}, WG_HOST_SSH={wg_host_module.WG_HOST_SSH}"
+            f"[DEBUG] WG_APPLY_ENABLED={wg_host_module.WG_APPLY_ENABLED}, "
+            f"WG_HOST_SSH={wg_host_module.WG_HOST_SSH}"
         )
         apply_peer(peer)
     except Exception as e:
@@ -217,15 +265,10 @@ def create_peer(  # noqa: C901 - function is intentionally a bit complex; refact
         else:
             # For db or host keys generate a minimal wg-quick client config from
             # the stored values so that the mobile app can import it.
-            if getattr(peer, "wg_private_key", None) and getattr(peer, "wg_public_key", None):
-                # Build a minimal config
-                cfg_text = (
-                    "[Interface]\n"
-                    f"PrivateKey = {peer.wg_private_key}\n"
-                    f"Address = {peer.wg_ip}\n\n"
-                    "[Peer]\n"
-                    f"PublicKey = {peer.wg_public_key}\n"
-                    f"AllowedIPs = {peer.allowed_ips or '0.0.0.0/0'}\n"
+            if getattr(peer, "wg_private_key", None):
+                # Build a proper config using SERVER public key
+                cfg_text = _build_wg_quick_config(
+                    peer.wg_private_key, peer.wg_ip, peer.allowed_ips or "0.0.0.0/0"
                 )
         if cfg_text:
             enc = encrypt_text(cfg_text)
@@ -249,6 +292,10 @@ def get_my_peer_config(
     This endpoint requires authentication and returns the plaintext wg-quick config
     so the mobile client can programmatically import and start WireGuard.
     """
+    # Check if user has an active subscription before returning config
+    if not _check_active_subscription(current_user.id, db):
+        raise HTTPException(status_code=403, detail="no_active_subscription")
+
     # Find the active peer for the user (pick most recent active)
     peer = (
         db.query(models.VpnPeer)
@@ -449,6 +496,10 @@ def create_peer_self(
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user),
 ):
+    # Check if user has an active subscription before creating peer
+    if not _check_active_subscription(current_user.id, db):
+        raise HTTPException(status_code=403, detail="no_active_subscription")
+
     # Force the payload user to the current user and reuse create_peer logic.
     payload.user_id = current_user.id
     peer = create_peer(payload, db=db, current_user=current_user)
