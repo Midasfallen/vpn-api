@@ -46,21 +46,29 @@ def _build_wg_quick_config(private_key: str, address: str, allowed_ips: str) -> 
     NOT the peer's public key!
     """
     WG_SERVER_PUBLIC_KEY = os.getenv(
-        "WG_SERVER_PUBLIC_KEY", "TEST_SERVER_PUBLIC_KEY_FOR_TESTING_ONLY"
+        "WG_SERVER_PUBLIC_KEY", "1SUivFxEBdU5SjpL2cLBykv/4HcotWpIrdSUGFDGIA8="
     )
     WG_ENDPOINT = os.getenv("WG_ENDPOINT", "62.84.98.109:51821")
-    WG_DNS = os.getenv("WG_DNS", "8.8.8.8")
+    WG_DNS = os.getenv("WG_DNS", "1.1.1.1")
+    WG_MTU = os.getenv("WG_MTU", "1420")
+
+    # Ensure Address has /24 mask instead of /32
+    if address and "/" not in address:
+        address = f"{address}/24"
+    elif address and address.endswith("/32"):
+        address = address.replace("/32", "/24")
 
     return (
         "[Interface]\n"
         f"PrivateKey = {private_key}\n"
         f"Address = {address}\n"
-        f"DNS = {WG_DNS}\n\n"
+        f"DNS = {WG_DNS}\n"
+        f"MTU = {WG_MTU}\n\n"
         "[Peer]\n"
         f"PublicKey = {WG_SERVER_PUBLIC_KEY}\n"
+        f"AllowedIPs = {allowed_ips}, ::/0\n"
+        f"PersistentKeepalive = 25\n"
         f"Endpoint = {WG_ENDPOINT}\n"
-        f"AllowedIPs = {allowed_ips}\n"
-        "PersistentKeepalive = 25\n"
     )
 
 
